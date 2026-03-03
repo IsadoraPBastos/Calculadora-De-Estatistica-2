@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  
+
+    <title>Calculadora de estatistica</title>
+  </head>
+  <body>
+    <!-- Fundo de Triângulos -->
+    <div class="triangles-background" id="trianglesBackground"></div>
+
+    <h1 style="color:white; font-size: 35px;">Calculadora de Estatística</h1>
+    <button onclick="paramEsta()" id="btn-par-estatisticos">Parâmetros Estatísticos</button>
+    <button onclick="probabilidade()" id="btn-probabilidade">Probabilidade</button>
+    <button onclick="regreLinear()" id="btn-reg-linear">Regressão Linear</button>
+    <div class="container-cards">
+      <!-- Parte dos cards-->
+      <div class="container-card-discreto" >
+        <div onclick="abrirModalDiscreto()" class="card-discreto">
+          <div class="front-discreto"><b>Agrupamento Discreto 🔢</b></div>
+          <div class="back-discreto"><h3 style="margin-top: 35px">Agrupamento Discreto</h3><h4 style="margin: 10px; margin-top: 30px;">Dados Desordenados</h4><p style="margin: 3px;"><u>Exemplo</u></p><p style="margin: 0px 30px">1 - 2 - 3 - 2 - 5 - 5 - 2 - 5 - 3 - 6 - 5 - 3 - 2 - 4 - 3</p>
+            <h4 style="margin: 10px; margin-top: 30px;"><b>Dados em tabela</b></h4>
+            <p style="margin: 3px;"><u>Exemplo</u></p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Amostra</th>
+                  <th>Freq. Ind.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>1,8</td>
+                  <td>1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="container-card-classes">
+        <div onclick="abrirModalClasses()" class="card-classes">
+          <div class="front-classes"><b>Agrupamento em Classes 🗂️</b></div>
+          <div class="back-classes"><h3 style="margin-top: 35px">Agrupamento em Classes</h3><p><u>Exemplo</u> </p>
+            <p style="margin: 0px 30px">
+              <table>
+              <thead>
+                <tr>
+                  <th>Li</th>
+                  <th>Ls</th>
+                  <th>FI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>4</td>
+                  <td>7</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>10</td>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>13</td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td>13</td>
+                  <td>16</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td>16</td>
+                  <td>19</td>
+                  <td>7</td>
+                </tr>
+              </tbody>
+            </table>
+          </p></div>
+        </div>
+      </div>
+      <div class="container-card-vac">
+        <div onclick="abrirModalVAC()" class="card-vac">
+          <div class="front-vac"><b>Variáveis Aleatórias Contínuas 🎲</b><br><b>(VAC)</b></div>
+          <div class="back-vac"><h3 style="margin-top: 35px">VAC</h3>
+            <h4 style="margin: 10px; margin-top: 30px;">Distribuição Uniforme</h4><p style="margin: 3px;">
+              <u>Exemplo</u></p>
+              <p style="margin: 0px 30px"><b></b>Limite Inferior: -2.75 <br> Limite Superior: 10.17 <br> Valor 1: 7.77 </p>
+            <h4 style="margin: 10px; margin-top: 30px;"><b>Distribuição Exponencial</b></h4>
+            <p style="margin: 3px;"><u>Exemplo</u></p>
+            <p style="margin: 0px 30px"><b></b>Desvio Padrão: 5.47 <br> Valor A: 2 <br> Valor B: 5 </p>
+            <h4 style="margin: 10px; margin-top: 30px;">...</h4><p style="margin: 3px;"></p>
+          </div>
+        </div>
+      </div>
+      <div class="container-card-vad">
+        <div onclick="abrirModalVAD()" class="card-vad">
+          <div class="front-vad"><b>Variáveis Aleatórias Discretas ♾️</b> <br> <b>(VAD)</b> </div>
+          <div class="back-vad"><h3 style="margin-top: 35px">VAD</h3>
+             <h4 style="margin: 10px; margin-top: 30px;">Distribuição Binomial</h4><p style="margin: 3px;">
+              <u>Exemplo</u></p>
+              <p style="margin: 0px 30px"><b></b>Total: 7 <br> Prob Sucesso: 0.5714 <br> Valor A: 5 </p>
+            <h4 style="margin: 10px; margin-top: 30px;"><b>Distribuição Poisson</b></h4>
+            <p style="margin: 3px;"><u>Exemplo</u></p>
+            <p style="margin: 0px 30px"><b></b>Valor Média: 1.25 <br> Valor A: 2 <br> Valor B: 5 </p>
+          </div>
+        </div>
+      </div>
+      <div class="container-card-eq1">
+        <div onclick="abrirModalEq1()" class="card-eq1">
+          <div class="front-eq1"><b>Equação de 1º Grau 📈</b></div>
+          <div class="back-eq1"><h3 style="margin-top: 35px">Equação de 1º Grau</h3>
+              <u>Exemplo</u></p>
+              <p style="margin: 0px 30px">
+              <table>
+              <thead>
+                <tr>
+                  <th>X</th>
+                  <th>Y</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>23</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>27</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>40</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>44</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>58</td>
+                </tr>
+              </tbody>
+            </table>
+          </p>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+
+    <!-- Parte de inserção de dados - Agrupamento Discreto -->
+    <div class="container-modal" id="container_modal_discreto">
+      <div class="modal">
+        <div class="botao-fechar-modal" onclick="fecharModalDiscreto()">
+          <i class="fa-solid fa-circle-xmark fa-2xl"></i>
+        </div>
+        
+          <h1>Agrupamento Discreto {% if reqDistNormal %} - Pela Distribuição Normal {% endif %} </h1>
+          <button onclick="mostrarDadosDesordenados()" id="btn-escolha-desordenado" class="btn-mostrar-tipo-discreto">Dados Desordenados</button>
+          <button onclick="mostrarDadosEmTabela()" id="btn-escolha-tabela" class="btn-mostrar-tipo-discreto">Dados em Tabela</button>
+
+          <!-- Parte de inserção de dados - Desordenados -->
+          <div class="divisao-modal-desor-class-eq1" id="secaoDadosDesordenados">
+            <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
+        <form action="{{url_for('dados_desordenados')}}" method="POST" id="formDadosDesordenados">
+          <div style="margin: 10px;">
+            <label for="dado"
+              >Amostra:
+              <input type="number" id="inputAdicionarDesordenados" name="dado" step="any" placeholder="Amostra" required
+            /></label>
+            </div>
+          
+          <div><button>Adicionar</button></div>
+        </form>
+      </div>
+        <div style="width: 50%;">
+        <div><h2>Dados inseridos</h2></div>
+        <div style="width: 70%; margin: auto; border: 1px solid; padding: 20px; white-space: normal;">
+          {%for dado in dadosDesordenados%} {{dado}} &nbsp - &nbsp {% endfor %}
+        </div>
+        <form action="{{url_for('dados_desordenados')}}" method="POST">
+          <button name="limpar" value="limpar" class="btn_limpar">Limpar</button>
+        </form>
+        </div>
+        {% if erroDadosDesordenadosUmNum %}
+          <div class="msg-erro" id="msg-erro-zero-division">
+            <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite mais de um dado!
+          </div>
+          {% endif %}
+          </div>
+
+          <!-- Parte de inserção de dados - Tabela -->
+          <div class="divisao-modal-desor-class-eq1" id="secaoDadosEmTabela">
+        <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
+        <form action="{{url_for('dados_em_tabela')}}" method="POST">
+          <div style="margin: 10px;">
+            <label for="amostra"
+              >Amostra:
+              <input type="number" name="amostra" step="any" placeholder="Amostra" required
+            /></label>
+          </div>
+          <div style="margin: 10px;">
+            <label for="frequencia"
+              >FI:
+              <input type="number" name="frequencia" step="any" placeholder="Frequência" required
+            /></label>
+          </div>
+          <div><button>Adicionar</button></div></div>
+        </form>
+        <div style="width: 50%;">
+        <div><h2>Dados inseridos</h2></div>
+        <table style="width: 60%;">
+          <thead>
+            <tr>
+              <th>Amostra</th>
+              <th>Frequência Individual Absoluta (FI)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for amostra, FequenciaIndividualAbsolutaRecebida in
+            FequenciaIndividualAbsolutaRecebida.items() %}
+            <tr>
+              <td>{{ amostra }}</td>
+              <td>{{ FequenciaIndividualAbsolutaRecebida }}</td>
+              <td>
+                <form action="{{url_for('dados_em_tabela')}}" method="post">
+                  <button name="limpar" value="{{ amostra }}" style="background: none; border: none; padding: 0; cursor: pointer;">
+                    <i class="fa-solid fa-xmark fa-2xl" style="color: black;"></i>
+                  </button>                
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+          </div>
+          {% if erroFIMenorZero %}
+          <div class="msg-erro" id="msg-erro-zero-division">
+            <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite uma Frequência Individual maior que 0!
+          </div>
+          {% endif %}
+          {% if reqDistNormal %}
+          <form action="{{url_for('calculo_dos_dados')}}" method="POST" style="display: contents;">
+          <button class="btnCalcularDiscDistNormal">Calcular Dados</button>
+          <p class="details">*Esses dados serão processados e enviados para a utilização na Distribuição Normal.</p>
+          </form> 
+          {% endif %}
+    </div>
+    </div>
+
+    <!-- Parte de inserção de dados - Agrupamento por Classes -->
+    <div class="container-modal" id="container_modal_classes">
+      <div class="modal">
+        <div class="botao-fechar-modal" onclick="fecharModalClasses()">
+          <i class="fa-solid fa-circle-xmark fa-2xl"></i>
+        </div>
+        <h1>Agrupamento em Classes {% if reqDistNormal %} - Pela Distribuição Normal {% endif %}</h1>
+        <div class="divisao-modal-desor-class-eq1">
+          <form action="{{url_for('agrupamento_classes')}}" method="POST" style="display: contents;">
+          <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
+              <div style="margin: 10px;">
+                <label for="li" 
+                  >Li:
+                  <input type="number" name="li" step="any" placeholder="Limite Inferior" required
+                /></label>
+              </div>
+              <div style="margin: 10px;">
+                <label for="amplitude"
+                  >h:
+                  <input type="number" name="amplitude" step="any" placeholder="Amplitude de classe" required
+                /></label>
+              </div>
+              <div style="margin: 10px;">
+                <label for="qtd" 
+                  >Classes:
+                  <input type="number" name="qtd" step="any" placeholder="Quantidade de classes" required
+                /></label>
+              </div>
+              <div><button>Adicionar</button></div>
+          </div>
+          </form>
+          <form action="{{url_for('alteração_fi')}}" method="POST" style="display: contents;">
+          <div style="width: 50%;">
+            <div><h2>Classes inseridas</h2></div>
+            <table style="width: 90%;">
+              <thead>
+                <tr>
+                  <th>Li</th>
+                  <th>Ls</th>
+                  <th>FI</th>
+                  <th>PMI (Ponto Médio)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for classe in dadosClasses %}
+                <tr>
+                  <td>{{ classe.li }}</td>
+                  <td>{{ classe.ls }}</td>
+                  <td><input type="number" name="fi_{{ loop.index0 }}" id="fi" style="width: 50px;" value="{{ classe.fi }}"></td>
+                  <td>{{ "%.2f"|format(classe.xi) }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <button>Alterar FI</button>
+            <button name="limpar" value="limpar" class="btn_limpar">Limpar</button>
+          </div>
+          </form>
+        </div>
+        {% if erroMenorZero %}
+          <div class="msg-erro" id="msg-erro-zero-division">
+            <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite uma Frequência Individual maior que 0!
+          </div>
+          {% endif %}
+          {% if reqDistNormal %}
+          <form action="{{url_for('calculo_dos_dados')}}" method="POST" style="display: contents;">
+          <button class="btnCalcularDiscDistNormal" name="btnCalcularDiscDistNormal">Calcular Dados</button>
+          <p class="details">*Esses dados serão processados e enviados para a utilização na Distribuição Normal.</p>
+          </form> 
+          {% endif %}
+      </div>
+    </div>
+
+    <!-- Parte de inserção de dados - VAC -->
+    <div class="container-modal" id="container_modal_vac">
+      <div class="modal">
+        <div class="botao-fechar-modal" onclick="fecharModalVAC()">
+          <i class="fa-solid fa-circle-xmark fa-2xl"></i>
+        </div>
+        
+          <h1>Variáveis Aleatórias Contínuas - VAC</h1>
+          <button onclick="mostrarDUnifor()" id="btn-escolha-uniforme" class="btn-mostrar-tipo-discreto">Distribuição Uniforme</button>
+          <button onclick="mostrarDExpo()" id="btn-escolha-exponecial" class="btn-mostrar-tipo-discreto">Distribuição Exponencial</button>
+          <button onclick="mostrarDNormal()" id="btn-escolha-normal" class="btn-mostrar-tipo-discreto">Distribuição Normal</button>
+
+          <!-- Parte de inserção de dados - Distribuição Uniforme -->
+          <div class="divisao-modal" id="secaoDUnifor" >
+              <form action="{{url_for('dist_uniforme')}}" method="POST" >
+                <div class="insercao-infos">
+                  <input type="text" name="limiteInferior" placeholder="Limite Inferior" value="{% if limiteInferior %} {{ limiteInferior }}  {% endif %}">
+                  <input type="text" name="limiteSuperior" placeholder="Limite Superior" value="{% if limiteSuperior %} {{ limiteSuperior }}  {% endif %}">
+                  </div>
+                  <div class="insercao-infos">
+                  <input type="text" name="valorCUnif" placeholder="Valor 1" value="{% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %}">
+                  <input type="text" name="valorDUnif" id="inputDuasVariaveisUni" class="hidden" placeholder="Valor 2" value="{% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}">
+                  </div>
+                  
+                  <div class="container-opcoes-tipo-intervalo">
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorQueUni"
+                        value="maiorQueUni"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorQueUni" class="opcao-tipo-intervalo">></label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorIgualUni"
+                        value="maiorIgualUni"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorIgualUni" class="opcao-tipo-intervalo">≥</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueUni"
+                        value="menorQueUni"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueUni" class="opcao-tipo-intervalo"><</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualUni"
+                        value="menorIgualUni"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualUni"  class="opcao-tipo-intervalo">≤</label>
+                        <br>
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorQueUni"
+                        value="menorQueMenorQueUni"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorQueUni"class="opcao-tipo-intervalo">< <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorQueUni"
+                        value="menorIgualMenorQueUni"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorQueUni" class="opcao-tipo-intervalo">≤ <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorIgualUni"
+                        value="menorQueMenorIgualUni"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorIgualUni" class="opcao-tipo-intervalo">< ≤</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorIgualUni"
+                        value="menorIgualMenorIgualUni"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorIgualUni" class="opcao-tipo-intervalo">≤ ≤</label>
+                      <br>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="intervaloIgualUni"
+                        value="intervaloIgualUni"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="intervaloIgualUni" class="opcao-tipo-intervalo">=</label>
+                    </div>
+
+                  <button>Calcular</button>
+              </form>
+              {% if erroInserirTodosDados %}
+                    <div class="msg-erro" id="msg-erro-zero-division">
+                      <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Preencha todos os campos!
+                    </div>
+                    {% endif %}
+              {% if 'Uni' in intervalo %}
+              <div class="mostrar-conta">
+                   {% if intervalo == "maiorQueUni" or intervalo == "maiorIgualUni" or intervalo == "menorQueUni" or intervalo == "menorIgualUni" or intervalo == "intervaloIgualUni" %}
+                  <p>X {% if intervalo == "maiorQueUni" %} > {% elif intervalo == "maiorIgualUni" %} ≥ {% elif intervalo == "menorQueUni" %} < {% elif intervalo == "menorIgualUni" %} ≤ {% elif intervalo == "intervaloIgualUni" %} = {% endif %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %}</p>
+                  {% elif intervalo == "menorQueMenorQueUni" or intervalo == "menorIgualMenorQueUni" or intervalo == "menorQueMenorIgualUni" or intervalo == "menorIgualMenorIgualUni" %}
+                  <p> {% if intervalo == "menorQueMenorQueUni" %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %} < X <  {% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorQueUni" %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %} ≤ X <  {% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorQueMenorIgualUni" %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %} < X ≤  {% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorIgualUni" %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %} ≤ X ≤  {% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}
+                    {% endif %} </p>
+                  {% endif %}
+                  {% endif %}
+            </div>
+          </div>
+
+          <!-- Parte de inserção de dados - Distribuição Exponencial -->
+          <div class="divisao-modal" id="secaoDExpo" >
+         <form action="{{url_for('dist_exponencial')}}" method="POST" >
+          <div class="insercao-infos">
+                  <input type="text" name="desvioPadrao" placeholder="Desvio Padrão" value="{% if desvioPadrao %} {{ desvioPadrao }}  {% endif %}">
+                  </div>
+                  <div class="insercao-infos">
+                  <input type="text" name="valorA" placeholder="Valor do A" value="{% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}">
+                  <input type="text" name="valorB" id="inputDuasVariaveisExpo" class="hidden" placeholder="Valor do B" value="{% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}">
+                  </div>
+                  <div class="container-opcoes-tipo-intervalo">
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorQueExpo"
+                        value="maiorQueExpo"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorQueExpo" class="opcao-tipo-intervalo">></label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorIgualExpo"
+                        value="maiorIgualExpo"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorIgualExpo" class="opcao-tipo-intervalo">≥</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueExpo"
+                        value="menorQueExpo"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueExpo" class="opcao-tipo-intervalo"><</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualExpo"
+                        value="menorIgualExpo"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualExpo"  class="opcao-tipo-intervalo">≤</label>
+                        <br>
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorQueExpo"
+                        value="menorQueMenorQueExpo"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorQueExpo"class="opcao-tipo-intervalo">< <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorQueExpo"
+                        value="menorIgualMenorQueExpo"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorQueExpo" class="opcao-tipo-intervalo">≤ <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorIgualExpo"
+                        value="menorQueMenorIgualExpo"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorIgualExpo" class="opcao-tipo-intervalo">< ≤</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorIgualExpo"
+                        value="menorIgualMenorIgualExpo"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorIgualExpo" class="opcao-tipo-intervalo">≤ ≤</label>
+                      <br>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="intervaloIgualExpo"
+                        value="intervaloIgualExpo"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="intervaloIgualExpo" class="opcao-tipo-intervalo">=</label>
+                    </div>
+                  <button>Calcular</button>
+              </form>
+              {% if erroInserirTodosDados %}
+                    <div class="msg-erro" id="msg-erro-zero-division">
+                      <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Preencha todos os campos!
+                    </div>
+                    {% endif %}
+              {% if 'Expo' in intervalo %}
+              <div class="mostrar-conta">
+                  {% if intervalo == "maiorQueExpo" or intervalo == "maiorIgualExpo" or intervalo == "menorQueExpo" or intervalo == "menorIgualExpo" or intervalo == "intervaloIgualExpo" %}
+                  <p>X {% if intervalo == "maiorQueExpo" %} > {% elif intervalo == "maiorIgualExpo" %} ≥ {% elif intervalo == "menorQueExpo" %} < {% elif intervalo == "menorIgualExpo" %} ≤ {% elif intervalo == "intervaloIgualExpo" %} = {% endif %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}</p>
+                  {% elif intervalo == "menorQueMenorQueExpo" or intervalo == "menorIgualMenorQueExpo" or intervalo == "menorQueMenorIgualExpo" or intervalo == "menorIgualMenorIgualExpo" %}
+                  <p> {% if intervalo == "menorQueMenorQueExpo" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorQueExpo" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorQueMenorIgualExpo" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorIgualExpo" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% endif %} </p>
+                  {% endif %}
+                  {% endif %}
+          </div>
+
+          <!-- Parte de inserção de dados - Distribuição Normal -->
+          <div class="divisao-modal" id="secaoDNormal">
+            <div class="secao-normal">
+            <div class="normal-botoes">
+            <form action="{{url_for('dados_desordenados')}}" method="POST" id="formDadosDesordenados">
+              <button onclick="abrirModalDiscreto()" type="submit" value="1" id="btn-escolha-normal" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento Discreto</button>
+            </form>
+            <form action="{{url_for('agrupamento_classes')}}" method="POST" id="formDadosDesordenados">
+              <button onclick="abrirModalClasses()" type="submit" value="1" id="btn-escolha-normal" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento em Classes</button>
+            </form>
+            <button onclick="mostrarDNormal_Amostral()" id="btn-escolha-normal" class="btn-mostrar-tipo-discreto">Amostral</button>
+            {% if reqDistNormal %}
+            <button onclick="mostrarDNormal_Final()" id="btn-escolha-normal" class="btn-mostrar-tipo-discreto">Final</button>
+            {% endif %}
+            </div>
+            <form action="{{url_for('dist_normal_pad')}}" method="POST" >
+              <div id="secaoDNormal_Amostral" style="gap: 1rem;" >
+                  <div class="insercao-infos">
+                    <input type="text" name="valorANorm" placeholder="Valor do A" value="{% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %}">
+                    <input type="text" name="valorBNorm" id="inputDuasVariaveisNorm" class="hidden" placeholder="Valor do B" value="{% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}">
+                  </div>       
+                  <div class="insercao-infos">
+                    <input type="text" name="mediaNorm" placeholder="Média Populacional" value="{% if mediaNorm %} {{ mediaNorm }}  {% endif %}">
+                    <input type="text" name="desvioPadraoNorm" placeholder="Desvio Padrão Populacional" value="{% if desvioPadraoNorm %} {{ desvioPadraoNorm }}  {% endif %}">
+                    <input type="text" name="tamanhoAmostraNorm" placeholder="Tamanho da Amostra" value="{% if tamanhoAmostraNorm %} {{ tamanhoAmostraNorm }}  {% endif %}">
+                  </div>
+                  <div class="container-opcoes-tipo-intervalo">
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorQueNorm1"
+                        value="maiorQueNorm1"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorQueNorm1" class="opcao-tipo-intervalo">></label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorIgualNorm1"
+                        value="maiorIgualNorm1"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorIgualNorm1" class="opcao-tipo-intervalo">≥</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueNorm1"
+                        value="menorQueNorm1"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueNorm1" class="opcao-tipo-intervalo"><</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualNorm1"
+                        value="menorIgualNorm1"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualNorm1"  class="opcao-tipo-intervalo">≤</label>
+                        <br>
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorQueNorm1"
+                        value="menorQueMenorQueNorm1"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorQueNorm1"class="opcao-tipo-intervalo">< <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorQueNorm1"
+                        value="menorIgualMenorQueNorm1"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorQueNorm1" class="opcao-tipo-intervalo">≤ <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorIgualNorm1"
+                        value="menorQueMenorIgualNorm1"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorIgualNorm1" class="opcao-tipo-intervalo">< ≤</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorIgualNorm1"
+                        value="menorIgualMenorIgualNorm1"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorIgualNorm1" class="opcao-tipo-intervalo">≤ ≤</label>
+                      <br>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="intervaloIgualNorm1"
+                        value="intervaloIgualNorm1"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="intervaloIgualNorm1" class="opcao-tipo-intervalo">=</label>
+                    </div>
+                  <button>Calcular</button>
+                </div>
+              </form>
+              {% if 'Norm1' in intervalo %}
+             <div class="mostrar-conta">
+                  {% if intervalo == "maiorQueNorm1" or intervalo == "maiorIgualNorm1" or intervalo == "menorQueNorm1" or intervalo == "menorIgualNorm1" or intervalo == "intervaloIgualNorm1" %}
+                  <p>X {% if intervalo == "maiorQueNorm1" %} > {% elif intervalo == "maiorIgualNorm1" %} ≥ {% elif intervalo == "menorQueNorm1" %} < {% elif intervalo == "menorIgualNorm1" %} ≤ {% elif intervalo == "intervaloIgualNorm1" %} = {% endif %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %}</p>
+                  {% elif intervalo == "menorQueMenorQueNorm1" or intervalo == "menorIgualMenorQueNorm1" or intervalo == "menorQueMenorIgualNorm1" or intervalo == "menorIgualMenorIgualNorm1" %}
+                  <p> {% if intervalo == "menorQueMenorQueNorm1" %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %} < X <  {% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorQueNorm1" %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %} ≤ X <  {% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorQueMenorIgualNorm1" %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %} < X ≤  {% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorIgualNorm1" %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %} ≤ X ≤  {% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}
+                    {% endif %} </p>
+                  {% endif %}
+                  {% endif %}
+              </div>
+              <div id="secaoDNormal_Final" style="gap: 1rem;">
+                  {% if reqDistNormal %}
+                  <div style="background: #f0f0f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; ">
+                      <h3>📊 Dados Calculados</h3>
+                      <div style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 10px;">
+                          <div><strong>Média:</strong> {{ mediaNorm }}</div>
+                          <div><strong>Moda {% if modaBruta %} Bruta {% endif %} :</strong> {{ moda }}</div>
+                          {% if modaCzuber %}<div><strong>Moda Czuber:</strong> {{ modaCzuber }}</div>{% endif %}
+                          <div><strong>Mediana:</strong> {{ mediana }}</div>
+                          <div><strong>Desvio Padrão:</strong> {{ desvioPadraoNorm }}</div>
+                      </div>
+                  </div>
+                  <form action="{{url_for('dist_normal_pad')}}" method="POST" style="align-items: start;">
+                        <div class="insercao-infos">
+                          <input type="text" name="valorANorm" id="valorAMuda" placeholder="Valor do A" value="{% if valorANorm %} {{ valorANorm }}  {% endif %}">
+                          <input type="text" name="valorBNorm" id="inputDuasVariaveisNormF" class="hidden" placeholder="Valor do B" value="{% if valorBNorm %} {{ valorBNorm }}  {% endif %}">
+                        </div>
+                        
+                        <div class="container-opcoes-tipo-intervalo">
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorQueNormF"
+                        value="maiorQueNormF"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorQueNormF" class="opcao-tipo-intervalo">></label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorIgualNormF"
+                        value="maiorIgualNormF"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorIgualNormF" class="opcao-tipo-intervalo">≥</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueNormF"
+                        value="menorQueNormF"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueNormF" class="opcao-tipo-intervalo"><</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualNormF"
+                        value="menorIgualNormF"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualNormF"  class="opcao-tipo-intervalo">≤</label>
+                        <br>
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorQueNormF"
+                        value="menorQueMenorQueNormF"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorQueNormF"class="opcao-tipo-intervalo">< <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorQueNormF"
+                        value="menorIgualMenorQueNormF"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorQueNormF" class="opcao-tipo-intervalo">≤ <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorIgualNormF"
+                        value="menorQueMenorIgualNormF"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorIgualNormF" class="opcao-tipo-intervalo">< ≤</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorIgualNormF"
+                        value="menorIgualMenorIgualNormF"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorIgualNormF" class="opcao-tipo-intervalo">≤ ≤</label>
+                      <br>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="intervaloIgualNormF"
+                        value="intervaloIgualNormF"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="intervaloIgualNormF" class="opcao-tipo-intervalo">=</label>
+                  </div>
+                        <button class="botao-calcular-normal">Calcular</button>
+                    </form>
+                    
+                  
+                </div>
+                {% if 'NormF' in intervalo %}
+                <div class="mostrar-conta">
+                  {% if intervalo == "maiorQueNormF" or intervalo == "maiorIgualNormF" or intervalo == "menorQueNormF" or intervalo == "menorIgualNormF" or intervalo == "intervaloIgualNormF" %}
+                  <p>X {% if intervalo == "maiorQueNormF" %} > {% elif intervalo == "maiorIgualNormF" %} ≥ {% elif intervalo == "menorQueNormF" %} < {% elif intervalo == "menorIgualNormF" %} ≤ {% elif intervalo == "intervaloIgualNormF" %} = {% endif %} {% if valorANorm %} {{ valorANorm }}  {% endif %}</p>
+                  {% elif intervalo == "menorQueMenorQueNormF" or intervalo == "menorIgualMenorQueNormF" or intervalo == "menorQueMenorIgualNormF" or intervalo == "menorIgualMenorIgualNormF" %}
+                  <p> {% if intervalo == "menorQueMenorQueNormF" %} {% if valorANorm %} {{ valorANorm }}  {% endif %} < X <  {% if valorBNorm %} {{ valorBNorm }}  {% endif %}
+                    {% elif intervalo == "menorIgualMenorQueNormF" %} {% if valorANorm %} {{ valorANorm }}  {% endif %} ≤ X <  {% if valorBNorm %} {{ valorBNorm }}  {% endif %}
+                    {% elif intervalo == "menorQueMenorIgualNormF" %} {% if valorANorm %} {{ valorANorm }}  {% endif %} < X ≤  {% if valorBNorm %} {{ valorBNorm }}  {% endif %}
+                    {% elif intervalo == "menorIgualMenorIgualNormF" %} {% if valorANorm %} {{ valorANorm }}  {% endif %} ≤ X ≤  {% if valorBNorm %} {{ valorBNorm }}  {% endif %}
+                    {% endif %} </p>
+                  {% endif %}
+                  {% endif %}
+              </div>
+              {% endif %}
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      
+    <!-- Parte de inserção de dados - VAD -->
+    <div class="container-modal" id="container_modal_vad"> 
+      <div class="modal">
+        <div class="botao-fechar-modal" onclick="fecharModalVAD()">
+          <i class="fa-solid fa-circle-xmark fa-2xl"></i>
+        </div>
+        
+          <h1>Variáveis Aleatórias Discretas - VAD</h1>
+          <button onclick="mostrarDBino()" id="btn-escolha-binomial" class="btn-mostrar-tipo-discreto">Distribuição Binomial</button>
+          <button onclick="mostrarDPois()" id="btn-escolha-poisson" class="btn-mostrar-tipo-discreto">Distribuição Poisson</button>
+
+          <!-- Parte de inserção de dados - Distribuição Binomial -->
+          <div class="divisao-modal" id="secaoDBino">
+            <form action="{{url_for('dist_binomial')}}" method="POST">
+                    <div class="insercao-infos">
+                      <input type="text" name="vTotal" placeholder="Total" value="{% if vTotal %} {{ vTotal }}  {% endif %}">
+                      <input type="text" name="probabSucesso" placeholder="Prob de Sucesso" value="{% if probabSucesso %} {{ probabSucesso }}  {% endif %}">
+                      <p>Ou</p>
+                      <input type="text" name="probabInsucesso" placeholder="Prob de Insucesso" value="{% if probabInsucesso %} {{ probabInsucesso }}  {% endif %}">
+                    </div>
+                    <div class="insercao-infos">
+                      <input type="text" name="valorA" placeholder="Valor do A" value="{% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}">
+                      <input type="text" id="inputDuasVariaveisBin" class="hidden" name="valorB" placeholder="Valor do B" value="{% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}">
+                    </div>
+                    <div class="container-opcoes-tipo-intervalo">
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorQueBin"
+                        value="maiorQueBin"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorQueBin" class="opcao-tipo-intervalo">></label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorIgualBin"
+                        value="maiorIgualBin"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorIgualBin" class="opcao-tipo-intervalo">≥</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueBin"
+                        value="menorQueBin"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueBin" class="opcao-tipo-intervalo"><</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualBin"
+                        value="menorIgualBin"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualBin"  class="opcao-tipo-intervalo">≤</label>
+                        <br>
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorQueBin"
+                        value="menorQueMenorQueBin"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorQueBin"class="opcao-tipo-intervalo">< <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorQueBin"
+                        value="menorIgualMenorQueBin"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorQueBin" class="opcao-tipo-intervalo">≤ <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorIgualBin"
+                        value="menorQueMenorIgualBin"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorIgualBin" class="opcao-tipo-intervalo">< ≤</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorIgualBin"
+                        value="menorIgualMenorIgualBin"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorIgualBin" class="opcao-tipo-intervalo">≤ ≤</label>
+                      <br>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="intervaloIgualBin"
+                        value="intervaloIgualBin"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="intervaloIgualBin" class="opcao-tipo-intervalo">=</label>
+                    </div>
+                      <button>Calcular</button>
+                  </form>
+                  {% if erroInserirTodosDados %}
+                    <div class="msg-erro" id="msg-erro-zero-division">
+                      <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Preencha todos os campos!
+                    </div>
+                    {% endif %}
+                  {% if 'Bin' in intervalo %}
+                  <div class="mostrar-conta">
+                  {% if intervalo == "maiorQueBin" or intervalo == "maiorIgualBin" or intervalo == "menorQueBin" or intervalo == "menorIgualBin" or intervalo == "intervaloIgualBin" %}
+                  <p>X {% if intervalo == "maiorQueBin" %} > {% elif intervalo == "maiorIgualBin" %} ≥ {% elif intervalo == "menorQueBin" %} < {% elif intervalo == "menorIgualBin" %} ≤ {% elif intervalo == "intervaloIgualBin" %} = {% endif %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}</p>
+                  {% elif intervalo == "menorQueMenorQueBin" or intervalo == "menorIgualMenorQueBin" or intervalo == "menorQueMenorIgualBin" or intervalo == "menorIgualMenorIgualBin" %}
+                  <p> {% if intervalo == "menorQueMenorQueBin" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorQueBin" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorQueMenorIgualBin" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorIgualBin" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% endif %} </p>
+                  {% endif %}
+                  {% endif %}
+                  </div>
+          </div>
+
+          <!-- Parte de inserção de dados - Distribuição Poisson -->
+          <div class="divisao-modal" id="secaoDPois">
+            <form action="{{url_for('dist_poisson')}}" method="POST">
+                    <div class="insercao-infos">
+                      <input type="text" name="vMedia" placeholder="Valor da Média / Lambda" value="{% if vMedia %} {{ vMedia }}  {% endif %}">
+                    </div>
+                    <div class="insercao-infos">
+                      <input type="text" name="valorA" placeholder="Valor do A" value="{% if valorA %} {{ valorA }} {% elif valorA == 0 %}0{% endif %}">
+                      <input type="text" id="inputDuasVariaveisPois" class="hidden" name="valorB" placeholder="Valor do B" value="{% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}">
+                    </div>
+                      <div class="container-opcoes-tipo-intervalo">
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorQuePoi"
+                        value="maiorQuePoi"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorQuePoi" class="opcao-tipo-intervalo">></label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="maiorIgualPoi"
+                        value="maiorIgualPoi"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="maiorIgualPoi" class="opcao-tipo-intervalo">≥</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQuePoi"
+                        value="menorQuePoi"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQuePoi" class="opcao-tipo-intervalo"><</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualPoi"
+                        value="menorIgualPoi"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualPoi"  class="opcao-tipo-intervalo">≤</label>
+                        <br>
+                     <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorQuePoi"
+                        value="menorQueMenorQuePoi"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorQuePoi"class="opcao-tipo-intervalo">< <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorQuePoi"
+                        value="menorIgualMenorQuePoi"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorQuePoi" class="opcao-tipo-intervalo">≤ <</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorQueMenorIgualPoi"
+                        value="menorQueMenorIgualPoi"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorQueMenorIgualPoi" class="opcao-tipo-intervalo">< ≤</label>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="menorIgualMenorIgualPoi"
+                        value="menorIgualMenorIgualPoi"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="menorIgualMenorIgualPoi" class="opcao-tipo-intervalo">≤ ≤</label>
+                      <br>
+                      <input
+                        type="radio"
+                        name="intervalo"
+                        id="intervaloIgualPoi"
+                        value="intervaloIgualPoi"
+                        class="escolha-tipo-dado"
+                      />
+                      <label for="intervaloIgualPoi" class="opcao-tipo-intervalo">=</label>
+                    </div>
+                      <button>Calcular</button>
+                  </form>
+                  {% if erroInserirTodosDados %}
+                    <div class="msg-erro" id="msg-erro-zero-division">
+                      <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Preencha todos os campos!
+                    </div>
+                    {% endif %}
+                   {% if 'Poi' in intervalo %}
+                  <div class="mostrar-conta">
+                  {% if intervalo == "maiorQuePoi" or intervalo == "maiorIgualPoi" or intervalo == "menorQuePoi" or intervalo == "menorIgualPoi" or intervalo == "intervaloIgualPoi" %}
+                  <p>X {% if intervalo == "maiorQuePoi" %} > {% elif intervalo == "maiorIgualPoi" %} ≥ {% elif intervalo == "menorQuePoi" %} < {% elif intervalo == "menorIgualPoi" %} ≤ {% elif intervalo == "intervaloIgualPoi" %} = {% endif %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}</p>
+                  {% elif intervalo == "menorQueMenorQuePoi" or intervalo == "menorIgualMenorQuePoi" or intervalo == "menorQueMenorIgualPoi" or intervalo == "menorIgualMenorIgualPoi" %}
+                  <p> {% if intervalo == "menorQueMenorQuePoi" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorQuePoi" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorQueMenorIgualPoi" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% elif intervalo == "menorIgualMenorIgualPoi" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
+                    {% endif %} </p>
+                  {% endif %}
+                  {% endif %}
+                  </div>
+          </div>
+        </div>
+      </div>
+
+          <!-- Parte de inserção de dados - Equação 1º Grau -->
+    <div class="container-modal" id="container_modal_equ_1">
+      <div class="modal">
+        <div class="botao-fechar-modal" onclick="fecharModalEq1()">
+          <i class="fa-solid fa-circle-xmark fa-2xl"></i>
+        </div>
+        
+          <h1>Equação 1º Grau </h1>
+
+          <!-- Parte de inserção de dados - Tabela -->
+          <div class="divisao-modal-desor-class-eq1">
+        <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
+        <form action="{{url_for('regr_linear_eq_1')}}" method="POST">
+          <div style="margin: 10px;">
+            <label for="valorX"
+              >X:
+              <input type="number" name="valorX" step="any" placeholder="Valor X" required
+            /></label>
+          </div>
+          <div style="margin: 10px;">
+            <label for="valorY"
+              >Y:
+              <input type="number" name="valorY" step="any" placeholder="Valor Y" required
+            /></label>
+          </div>
+          <div><button>Adicionar</button></div></div>
+        </form>
+        <div style="width: 50%;">
+        <div><h2>Dados inseridos</h2></div>
+        <table style="width: 60%;">
+          <thead>
+            <tr>
+              <th>X</th>
+              <th>Y</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for valorX, valorY in TabelaDeDados.items() %}
+            <tr>
+              <td>{{ valorX }}</td>
+              <td>{{ valorY }}</td>
+              <td>
+                <form action="{{url_for('regr_linear_eq_1')}}" method="post">
+                  <button name="limpar" value="{{ valorX }}" style="background: none; border: none; padding: 0; cursor: pointer;">
+                    <i class="fa-solid fa-xmark fa-2xl" style="color: black;"></i>
+                  </button>                
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+          </div>
+          {% if erroFIMenorZero %}
+          <div class="msg-erro" id="msg-erro-zero-division">
+            <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite uma Frequência Individual maior que 0!
+          </div>
+          {% endif %}
+    </div>
+    </div>
+
+    <!-- Calcular os dados recebidos -->
+    <form
+      action="{{url_for('calculo_dos_dados')}}"
+      id="form-calculo-dos-dados"
+      method="POST"
+    >
+
+    
+      <!-- Tipo do dado -->
+      <div class="container-opcoes-tipo-dado">
+        <h1 class="titulo-medida-amostras" style="color: white;">Qual a <u>medida</u> das amostras</h1> 
+        <input
+          type="radio"
+          name="tipo"
+          id="semMedida"
+          value="semMedida"
+          class="escolha-tipo-dado"
+        />
+        <label for="semMedida" style="width: auto;" class="opcao-tipo-dado">Sem medida</label>
+        
+        <input
+          type="radio"
+          name="tipo"
+          id="km"
+          value="km"
+          class="escolha-tipo-dado"
+        />
+        <label for="km" class="opcao-tipo-dado">KM</label>
+
+        <input
+          type="radio"
+          name="tipo"
+          id="m"
+          value="m"
+          class="escolha-tipo-dado"
+        />
+        <label for="m" class="opcao-tipo-dado">M</label>
+
+        <input
+          type="radio"
+          name="tipo"
+          id="R$"
+          value="R$"
+          class="escolha-tipo-dado"
+        />
+        <label for="R$" class="opcao-tipo-dado">R$</label>
+
+        <input
+          type="radio"
+          name="tipo"
+          id="°C"
+          value="°C"
+          class="escolha-tipo-dado"
+        />
+        <label for="°C" class="opcao-tipo-dado">°C</label>
+
+        <input
+          type="radio"
+          name="tipo"
+          id="°F"
+          value="°F"
+          class="escolha-tipo-dado"
+        />
+        <label for="°F" class="opcao-tipo-dado">°F</label>
+
+        <input
+          type="radio"
+          name="tipo"
+          id="K"
+          value="K"
+          class="escolha-tipo-dado"
+        />
+        <label for="K" class="opcao-tipo-dado">K</label>
+
+        <input
+          type="radio"
+          name="tipo"
+          id="outro"
+          value="outro"
+          class="escolha-tipo-dado"
+        />
+        <label for="outro" class="opcao-tipo-dado" style="width: auto; padding: 15px;">
+          <input
+            type="text"
+            id="tipo_custom"
+            name="tipo_custom"
+            placeholder="Digite a medida"
+            style="width: -webkit-fill-available; padding: 5px;"
+        /></label>
+
+        <div id="msg-erro">
+          <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Escolha
+          o tipo das variáveis inseridas!
+        </div>
+
+        {% if erroOutroVazio %}
+        <div id="msg-erro-outro-vazio">
+          <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite alguma medida!
+        </div>
+        {% endif %}
+      </div>
+
+      <h1 style="color:white;">Quais <u>cálculos</u> deseja realizar </h1>
+      <!-- Botões opção dos cálculos -->
+      <div class="container-escolha-calculo">
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="todos"
+          value="todos"
+          class="escolha-checkbox"
+        />
+        <label for="todos" class="escolha-calculo">Todos</label>
+
+        {% if mostrar_modal != "equacao1" %}
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="media"
+          value="media"
+          class="escolha-checkbox"
+        />
+        <label for="media" class="escolha-calculo">Média</label>
+        {% endif %}
+
+        {% if mostrar_modal == "padrao" or mostrar_modal == "discreto" or mostrar_modal == "classes"%}
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="moda"
+          value="moda"
+          class="escolha-checkbox"
+        />
+        <label for="moda" class="escolha-calculo">{% if modaBruta %}Moda Bruta{% else %}Moda{% endif %}</label>
+
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="modaCzuber"
+          value="modaCzuber"
+          class="escolha-checkbox"
+        />
+        <label for="modaCzuber" class="escolha-calculo" id="modaCzuberLabel">Moda de Czuber</label>
+
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="mediana"
+          value="mediana"
+          class="escolha-checkbox"
+        />
+        <label for="mediana" class="escolha-calculo">Mediana</label>
+        {% endif %}
+
+        {% if mostrar_modal != "equacao1" %}
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="variancia"
+          value="variancia"
+          class="escolha-checkbox"
+        />
+        <label for="variancia" class="escolha-calculo">Variância</label>
+
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="desvioPadrao"
+          value="desvioPadrao"
+          class="escolha-checkbox"
+        />
+        <label for="desvioPadrao" class="escolha-calculo">Desvio Padrão</label>
+
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="coeficienteVariacao"
+          value="coeficienteVariacao"
+          class="escolha-checkbox"
+        />
+        <label for="coeficienteVariacao" class="escolha-calculo">Coeficiente de Variação</label>
+        {% endif %}
+
+        {% if dados_vac == True or reqDistNormal == True %}
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="probabilidade"
+          value="probabilidade"
+          class="escolha-checkbox"
+        />
+        <label for="probabilidade" class="escolha-calculo">Probabilidade</label>
+        {% endif %}
+
+        {% if mostrar_modal == "equacao1" %}
+         <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="equacaoReta"
+          value="equacaoReta"
+          class="escolha-checkbox"
+        />
+        <label for="equacaoReta" class="escolha-calculo">Equação da Reta</label>
+
+         <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="dominio"
+          value="dominio"
+          class="escolha-checkbox"
+        />
+        <label for="dominio" class="escolha-calculo">Domínio</label>
+
+        <input
+          type="checkbox"
+          name="escolha-calculo"
+          id="coefiDeterminacao"
+          value="coefiDeterminacao"
+          class="escolha-checkbox"
+        />
+        <label for="coefiDeterminacao" class="escolha-calculo">Coeficiente Determinação</label>
+        {% endif %}
+
+        <div id="msg-erro-calculos">
+          <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Escolha
+          ao menos um cálculo!
+        </div>
+      </div>
+
+      <!-- Botões de calcular e limpar -->
+      <div class="botoes-calcular-limpar">
+        <input type="hidden" name="modal_aberto" value="{{ mostrar_modal }}" />
+        <button class="btn_calcular"><b>Calcular</b></button>
+      
+    </form>
+    <div>
+    <form action="{{url_for('limpar_dados')}}" method="POST">
+      <button class="btn_limpar">Limpar</button>
+    </form></div></div>
+
+    <!-- Resultado dos cálculos -->
+     <div class="container-estatisticas-dos-dados">
+      <hr>
+
+
+      {% if dados_agrup_disc == True or dados_classes == True %}
+    <div>
+      <h1 style="color:white;"><u>Estatísticas desses Dados</u></h1>
+    </div>
+                                                                                                              
+    <h2 style="color:white;">{% if dados_classes %} Tabela de Classes {% elif dados_agrup_disc %} Tabela das Frequências {% else %} Resultados {% endif %}</h2>
+    <table style="color: black; background-color: white;">
+      <thead>
+        <tr>
+          {% if dados_classes %}
+          <th>Classes</th>
+          {% else %}
+          <th>Amostra</th>
+          {% endif %}
+          <th>Frequência Individual Absoluta (FI)</th>
+          <th>Frequência Acumulada Absoluta (FAC)</th>
+          <th>Posições</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for amostra, fi in FequenciaIndividualAbsoluta.items() %}
+        <tr>
+          <td>{{ amostra }}</td>
+          <td>{{ fi }}</td>
+          <td>{{ FrequenciaAcumulada[amostra] }}</td>
+          <td>{{ Posicoes[amostra] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p style="color:white;margin-top: 3px; margin-bottom: 40px;">Tamanho da amostra: {{ tamanhoDaAmostra }} dados<p>
+    {% endif %}
+      <h2 style="color:white;">Cálculos escolhidos</h2>
+      <div style="width: 100%; justify-content: center; display: flex;">
+    <div class="container-calculos-resultados">
+    {% for escolha in escolhaCalculo %} 
+    {% if tipo == "R$" %}
+      {% if escolha == "media" %}
+        <div class="calculos-resultados">
+        <h3>Média</h3>
+        <p>{{ tipo }} {{ media }} </p>
+        </div>
+      
+      {% elif escolha == "moda" %}
+        <div class="calculos-resultados">
+        <h3>{% if dados_classes %}Moda Bruta{% else %}Moda{% endif %}</h3>
+        <p>{{ tipo }} {{ moda }} </p>
+        <p>{{ tipo_moda }}</p>
+        </div>
+      
+      {% elif escolha == "modaCzuber" %}
+        <div class="calculos-resultados">
+        <h3>Moda de Czuber</h3>
+        <p>{{ tipo }} {{ modaCzuber }} </p>
+        </div>
+      
+      {% elif escolha == "mediana" %}
+        <div class="calculos-resultados">
+        <h3>Mediana</h3>
+        <p>{{ tipo }} {{ mediana }} </p>
+        </div>
+
+      {% elif escolha == "variancia" %}
+        <div class="calculos-resultados">
+        <h3>Variância</h3>
+        <p> {{ tipo }}² {{ variancia }} </p>
+        </div>
+
+      {% elif escolha == "desvioPadrao" %}
+        <div class="calculos-resultados">
+        <h3>Desvio Padrão</h3>
+        <p>{{ tipo }} {{ desvioPadrao }} </p>
+        </div>
+
+      {% elif escolha == "coeficienteVariacao" %}
+        <div class="calculos-resultados">
+        <h3>Coeficiente de Variação</h3>
+        <p>{{ coeficienteVariacao }}% </p>
+        </div>
+
+      {% elif escolha == "probabilidade" %}
+        <div class="calculos-resultados">
+        <h3>Probabilidade</h3>
+        <p>{{ probabilidade }}% </p>
+        </div>
+      
+      {% elif escolha == "equacaoReta" %}
+        <div class="calculos-resultados">
+        <h3>Equação da Reta</h3>
+        <p>{{ equacaoReta }} </p>
+        </div>
+      
+      {% elif escolha == "coefiDeterminacao" %}
+        <div class="calculos-resultados">
+        <h3>Coeficiente Determinação <h3>
+        <p>{{ coefiDeterminacao }}% </p>
+        </div>
+      
+      {% elif escolha == "dominio" %}
+        <div class="calculos-resultados">
+        <h3>Domínio<h3>
+        <p>{{ dominio }} </p>
+        </div>
+      {% endif %}
+    {% elif tipo == "semMedida" %}
+        {% if escolha == "media" %}
+        <div class="calculos-resultados">
+        <h3>Média</h3>
+        <p> {{ media }} </p>
+        </div>
+      
+      {% elif escolha == "moda" %}
+        <div class="calculos-resultados">
+        <h3>{% if dados_classes %}Moda Bruta{% else %}Moda{% endif %}</h3>
+        <p>{{ moda }} </p>
+        <p>{{ tipo_moda }}</p>
+        </div>
+      
+      {% elif escolha == "modaCzuber" %}
+        <div class="calculos-resultados">
+        <h3>Moda de Czuber</h3>
+        <p> {{ modaCzuber }} </p>
+        </div>
+      
+      {% elif escolha == "mediana" %}
+        <div class="calculos-resultados">
+        <h3>Mediana</h3>
+        <p>{{ mediana }} </p>
+        </div>
+
+      {% elif escolha == "variancia" %}
+        <div class="calculos-resultados">
+        <h3>Variância</h3>
+        <p>{{ variancia }} </p>
+        </div>
+
+      {% elif escolha == "desvioPadrao" %}
+        <div class="calculos-resultados">
+        <h3>Desvio Padrão</h3>
+        <p>{{ desvioPadrao }} </p>
+        </div>
+
+      {% elif escolha == "coeficienteVariacao" %}
+        <div class="calculos-resultados">
+        <h3>Coeficiente de Variação</h3>
+        <p>{{ coeficienteVariacao }}% </p>
+        </div>
+
+      {% elif escolha == "probabilidade" %}
+        <div class="calculos-resultados">
+        <h3>Probabilidade</h3>
+        <p>{{ probabilidade }}% </p>
+        </div>
+
+      {% elif escolha == "equacaoReta" %}
+        <div class="calculos-resultados">
+        <h3>Equação da Reta</h3>
+        <p>{{ equacaoReta }} </p>
+        </div>
+      
+      {% elif escolha == "coefiDeterminacao" %}
+        <div class="calculos-resultados">
+        <h3>Coeficiente Determinação <h3>
+        <p>{{ coefiDeterminacao }}% </p>
+        </div>
+      
+      {% elif escolha == "dominio" %}
+        <div class="calculos-resultados">
+        <h3>Domínio<h3>
+        <p>{{ dominio }} </p>
+        </div>
+      {% endif %}
+
+    {% else %}
+      {% if escolha == "media" %}
+        <div class="calculos-resultados">
+          <h3>Média</h3>
+        <p>{{ media }} {{ tipo }}</p>
+        </div>
+      
+      {% elif escolha == "moda" %}
+        <div class="calculos-resultados">
+        <h3>Moda</h3>
+        <p>{{ moda }} </p>
+        <p>{{ tipo_moda }}</p>
+        </div>
+      
+      {% elif escolha == "modaCzuber" %}
+        <div class="calculos-resultados">
+        <h3>Moda de Czuber</h3>
+        <p>{{ modaCzuber }} {{ tipo }} </p>
+        </div>
+      
+      {% elif escolha == "mediana" %}
+        <div class="calculos-resultados">
+        <h3>Mediana</h3>
+        <p>{{ mediana }} {{ tipo }}</p>
+        </div>
+      
+      {% elif escolha == "variancia" %}
+        <div class="calculos-resultados">
+        <h3>Variância</h3>
+        <p>{{ variancia }} {{ tipo }}² </p>
+        </div>
+
+      {% elif escolha == "desvioPadrao" %}
+        <div class="calculos-resultados">
+        <h3>Desvio Padrão</h3>
+        <p>{{ desvioPadrao }} {{ tipo }} </p>
+        </div>
+
+      {% elif escolha == "coeficienteVariacao" %}
+        <div class="calculos-resultados">
+        <h3>Coeficiente de Variação</h3>
+        <p>{{ coeficienteVariacao }}% </p>
+        </div>
+      
+      {% elif escolha == "probabilidade" %}
+        <div class="calculos-resultados">
+        <h3>Probabilidade</h3>
+        <p>{{ probabilidade }}% </p>
+        </div>
+      
+      {% elif escolha == "equacaoReta" %}
+        <div class="calculos-resultados">
+        <h3>Equação da Reta</h3>
+        <p>{{ equacaoReta }} </p>
+        </div>
+      
+      {% elif escolha == "coefiDeterminacao" %}
+        <div class="calculos-resultados">
+        <h3>Coeficiente Determinação <h3>
+        <p>{{ coefiDeterminacao }}% </p>
+        </div>
+      
+      {% elif escolha == "dominio" %}
+        <div class="calculos-resultados">
+        <h3>Domínio<h3>
+        <p>{{ dominio }} </p>
+        </div>
+      {% endif %}
+    {% endif %} 
+    {% endfor %}
+    </div></div></div>
+    <div style="padding: 50px;"></div>
+  </body>
+  
+  <script src="/static/script.js"></script>
+  <script>
+      // SISTEMA DE FOCO AUTOMÁTICO PARA TODOS OS INPUTS
+
+      // Função principal para gerenciar foco automático
+      function focarInputAutomatico() {
+        // Inputs dos dados desordenados
+        const inputDesordenados = document.getElementById('inputAdicionarDesordenados');
+        const secaoDesordenados = document.getElementById('secaoDadosDesordenados');
+        
+        // Inputs da tabela
+        const inputAmostra = document.querySelector('input[name="amostra"]');
+        const inputFrequencia = document.querySelector('input[name="frequencia"]');
+        const secaoTabela = document.getElementById('secaoDadosEmTabela');
+        
+        // Inputs das classes
+        const inputLi = document.querySelector('input[name="li"]');
+        const inputAmplitude = document.querySelector('input[name="amplitude"]');
+        const inputQtd = document.querySelector('input[name="qtd"]');
+        const modalClasses = document.getElementById('container_modal_classes');
+        
+        const modalDiscreto = document.getElementById('container_modal_discreto');
+        
+        // Verificar qual modal está aberto e focar no input apropriado
+        if (modalDiscreto && modalDiscreto.classList.contains('show')) {
+          if (secaoDesordenados && secaoDesordenados.style.display === 'flex' && inputDesordenados) {
+            inputDesordenados.focus();
+          } else if (secaoTabela && secaoTabela.style.display === 'flex' && inputAmostra) {
+            inputAmostra.focus();
+          }
+        } else if (modalClasses && modalClasses.classList.contains('show') && inputLi) {
+          inputLi.focus();
+        }
+      }
+
+      // Função para focar no próximo input da sequência (tabela)
+      function focarProximoInputTabela(inputAtual) {
+        const inputAmostra = document.querySelector('input[name="amostra"]');
+        const inputFrequencia = document.querySelector('input[name="frequencia"]');
+        
+        if (inputAtual === inputAmostra && inputFrequencia) {
+          inputFrequencia.focus();
+        } else if (inputAtual === inputFrequencia) {
+          // Se ambos os campos estão preenchidos, enviar o formulário
+          if (inputAmostra.value.trim() !== '' && inputFrequencia.value.trim() !== '') {
+            const form = inputFrequencia.closest('form');
+            if (form) {
+              form.submit();
+            }
+          } else {
+            inputAmostra.focus();
+            inputAmostra.select();
+          }
+        }
+      }
+
+      // Função para focar no próximo input das classes
+      function focarProximoInputClasses(inputAtual) {
+        const inputLi = document.querySelector('input[name="li"]');
+        const inputAmplitude = document.querySelector('input[name="amplitude"]');
+        const inputQtd = document.querySelector('input[name="qtd"]');
+        
+        if (inputAtual === inputLi && inputAmplitude) {
+          inputAmplitude.focus();
+        } else if (inputAtual === inputAmplitude && inputQtd) {
+          inputQtd.focus();
+        } else if (inputAtual === inputQtd) {
+          // Se todos os campos estão preenchidos, enviar o formulário
+          if (inputLi.value.trim() !== '' && inputAmplitude.value.trim() !== '' && inputQtd.value.trim() !== '') {
+            const form = inputQtd.closest('form');
+            if (form) {
+              form.submit();
+            }
+          } else {
+            inputLi.focus();
+            inputLi.select();
+          }
+        }
+      }
+
+      // Funções do fundo de triângulos
+      function createTriangles() {
+        const container = document.getElementById('trianglesBackground');
+        container.innerHTML = ''; // Limpar triângulos existentes
+        
+        for (let i = 0; i < 15; i++) {
+          const triangle = document.createElement('div');
+          triangle.className = 'triangle';
+          triangle.style.left = Math.random() * 100 + '%';
+          triangle.style.animationDelay = Math.random() * 15 + 's';
+          triangle.style.animationDuration = (10 + Math.random() * 10) + 's';
+          container.appendChild(triangle);
+        }
+      }
+
+      function pushTriangles(clickX, clickY) {
+        const elements = document.querySelectorAll('.triangle');
+        const pushRadius = 200; // Raio de influência do clique
+        const pushForce = 150; // Força do empurrão
+
+        elements.forEach(element => {
+          const rect = element.getBoundingClientRect();
+          const elementX = rect.left + rect.width / 2;
+          const elementY = rect.top + rect.height / 2;
+          
+          const distanceX = elementX - clickX;
+          const distanceY = elementY - clickY;
+          const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+          
+          if (distance < pushRadius && distance > 0) {
+            const force = Math.max(0.1, (pushRadius - distance) / pushRadius);
+            const pushX = (distanceX / distance) * pushForce * force;
+            const pushY = (distanceY / distance) * pushForce * force;
+            
+            // Pausar animação original temporariamente
+            element.style.animationPlayState = 'paused';
+            
+            // Aplicar transformação de empurrão
+            const currentTransform = getComputedStyle(element).transform;
+            element.style.transform = `${currentTransform} translate(${pushX}px, ${pushY}px) scale(${0.4 + force * 0.6})`;
+            element.style.opacity = `${0.05 + force * 0.2}`;
+            element.style.filter = 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.3))';
+            
+            // Remover o efeito após um tempo
+            setTimeout(() => {
+              element.style.animationPlayState = 'running';
+              element.style.transform = '';
+              element.style.opacity = '';
+              element.style.filter = '';
+            }, 2000);
+          }
+        });
+      }
+
+      // Event listener para clique no fundo
+      document.addEventListener('click', function(e) {
+        // Verificar se o clique foi em uma área vazia (fundo)
+        if (e.target === document.body || 
+            e.target === document.documentElement ||
+            e.target.classList.contains('triangles-background') ||
+            (e.target.tagName === 'DIV' && 
+             !e.target.closest('.modal') && 
+             !e.target.closest('.container-cards') &&
+             !e.target.closest('.container-opcoes-tipo-dado') &&
+             !e.target.closest('.container-escolha-calculo') &&
+             !e.target.closest('.botoes-calcular-limpar') &&
+             !e.target.closest('.container-estatisticas-dos-dados'))) {
+          
+          const clickX = e.clientX;
+          const clickY = e.clientY;
+          
+          // Efeito de empurrar triângulos
+          pushTriangles(clickX, clickY);
+          
+          // Efeito de ondulação no clique
+          const ripple = document.createElement('div');
+          ripple.style.position = 'fixed';
+          ripple.style.width = '15px';
+          ripple.style.height = '15px';
+          ripple.style.borderRadius = '50%';
+          ripple.style.background = 'rgba(255, 255, 255, 0.2)';
+          ripple.style.left = clickX - 7.5 + 'px';
+          ripple.style.top = clickY - 7.5 + 'px';
+          ripple.style.animation = 'ripple 0.8s ease-out forwards';
+          ripple.style.pointerEvents = 'none';
+          ripple.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.1)';
+          ripple.style.zIndex = '-998';
+          
+          document.body.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 800);
+        }
+      });
+
+      // Inicializar triângulos quando a página carregar
+      document.addEventListener('DOMContentLoaded', function() {
+        createTriangles();
+      });
+
+      
+      
+      document.addEventListener("DOMContentLoaded", () => {
+
+      const modalDiscreto = document.getElementById(
+        "container_modal_discreto"
+      );
+      const modalClasses = document.getElementById("container_modal_classes");
+      const modalVac = document.getElementById("container_modal_vac")
+      const modalVad = document.getElementById("container_modal_vad")
+      const equacao1Grau = document.getElementById("container_modal_equ_1")
+      const tipoModal = "{{ mostrar_modal }}";
+      const desordenadoOuTabela = "{{ mostrar_desor_ou_tab }}";
+      const botoes = document.querySelector(".botoes-calcular-limpar");
+      const modaCzuberBotao = document.getElementById("modaCzuber"); 
+      const modaCzuberDesign = document.querySelector('label[for="modaCzuber"]'); 
+      const tipo_dado = document.querySelector(".container-opcoes-tipo-dado");
+      const tipoDadoMarcado = "{{ tipo }}";
+      const tiposRadio = document.querySelectorAll("input.escolha-tipo-dado");
+      const escolhaMarcada = "{{ escolhaCalculoJson }}";
+      const checkboxes = document.querySelectorAll(
+        "input.escolha-checkbox:not(#todos)"
+      );
+      const checkboxesSemCzuber = document.querySelectorAll("input.escolha-checkbox:not(#todos):not(#modaCzuber)");
+
+      if (tipoModal === "discreto") {
+        if(desordenadoOuTabela === "desordenado"){
+          secaoDadosDesordenado.style.display = 'flex';
+          document.getElementById('btn-escolha-desordenado').classList.add("ativo");
+          document.getElementById('btn-escolha-tabela').classList.remove("ativo");
+        } else if (desordenadoOuTabela === "tabela"){
+          secaoDadosEmTabela.style.display = 'flex';
+          document.getElementById('btn-escolha-desordenado').classList.remove("ativo");
+          document.getElementById('btn-escolha-tabela').classList.add("ativo");
+        }
+        modalDiscreto.classList.add("show");
+        botoes.classList.add("descer");
+        tipo_dado.classList.add("descer");
+        modaCzuberBotao.disabled = true;
+        modaCzuberDesign.classList.add("disabled");
+        tiposRadio.forEach(
+          (radio) => (radio.checked = radio.value === tipoDadoMarcado)
+        );
+        checkboxesSemCzuber.forEach(
+          (checkbox) =>
+            (checkbox.checked = escolhaMarcada.includes(checkbox.value))
+        );
+      } else if (tipoModal === "classes") {
+        modalClasses.classList.add("show");
+        botoes.classList.add("descer");
+        tipo_dado.classList.add("descer");
+        // Para classes, habilitar moda de Czuber
+        modaCzuberBotao.disabled = false;
+        modaCzuberDesign.classList.remove("disabled");
+        tiposRadio.forEach(
+          (radio) => (radio.checked = radio.value === tipoDadoMarcado)
+        );
+        checkboxes.forEach(
+          (checkbox) =>
+            (checkbox.checked = escolhaMarcada.includes(checkbox.value))
+        );
+      } else if (tipoModal == "uniforme"){
+        modalVac.classList.add("show")
+        mostrarDUnifor()
+      }  else if (tipoModal == "exponencial"){
+        modalVac.classList.add("show")
+        mostrarDExpo()
+      }  else if (tipoModal == "normal"){
+        modalVac.classList.add("show");
+        mostrarDNormal();
+
+        const tipoDadoMarcado = "{{ secaoDNormalFinal }}";
+        if(tipoDadoMarcado){
+          document.getElementById("secaoDNormal_Final").style.display = "flex";
+        }
+      } else if(tipoModal == "binomial"){
+        modalVad.classList.add("show")
+        mostrarDBino()
+      } else if(tipoModal == "poisson"){
+        modalVad.classList.add("show")
+        mostrarDPois()
+      } else if(tipoModal == "equacao1"){
+        equacao1Grau.classList.add("show")
+      }
+      
+      const formDadosDesordenados = document.getElementById("formDadosDesordenados");
+
+      const mostrarResultados = "{{ mostrarResultados }}";
+      const containerResultados = document.querySelector(".container-estatisticas-dos-dados");
+      if(mostrarResultados == "True"){
+        containerResultados.style.display = "block";
+        containerResultados.scrollIntoView({behavior:"smooth"});
+      } else {
+        containerResultados.style.display = "none";
+      }
+
+      const outroRadio = document.getElementById("outro");
+      const outroInput = document.getElementById("tipo_custom");
+
+      if(outroInput) {
+        outroInput.addEventListener("focus", () => {
+          outroRadio.checked = true;
+        });
+      }
+
+      // CORREÇÃO DO BOTÃO "TODOS" - Nova lógica
+      const todos = document.getElementById("todos");
+
+      function verificarTodosCheckboxes() {
+        const checkboxesHabilitados = Array.from(checkboxes).filter(cb => !cb.disabled);
+        const todosMarcados = checkboxesHabilitados.length > 0 && checkboxesHabilitados.every((cb) => cb.checked);
+        todos.checked = todosMarcados;
+      }
+
+      if (todos) {
+        todos.addEventListener("click", () => {
+          const checkboxesHabilitados = Array.from(checkboxes).filter(cb => !cb.disabled);
+          const todosMarcados = checkboxesHabilitados.every((cb) => cb.checked);
+          
+          checkboxesHabilitados.forEach((cb) => {
+            cb.checked = !todosMarcados;
+          });
+        });
+      }
+
+      checkboxes.forEach((cb) => {
+        cb.addEventListener("click", () => {
+          verificarTodosCheckboxes();
+        });
+      });
+      
+
+      const formCalculoDosDados = document.getElementById(
+        "form-calculo-dos-dados"
+      );
+
+      const msgErro = document.getElementById("msg-erro");
+      const msgErroCalculos = document.getElementById("msg-erro-calculos");
+      const btnCalcular = document.querySelector(".btn_calcular");
+
+      formCalculoDosDados.addEventListener("submit", function (event) {
+        const tipoSelecionado = document.querySelector(
+          'input[name="tipo"]:checked'
+        );
+
+        const tipoSelecionadoCalculo = document.querySelector(
+          'input[name="escolha-calculo"]:checked'
+        );
+
+        if (!tipoSelecionado) {
+          event.preventDefault();
+          msgErro.style.display = "block";
+          btnCalcular.classList.add("chacoalhar");
+        } else {
+          msgErro.style.display = "none";
+        }
+
+        if (!tipoSelecionadoCalculo) {
+          event.preventDefault();
+          msgErroCalculos.style.display = "block";
+          btnCalcular.classList.add("chacoalhar");
+        } else {
+          msgErroCalculos.style.display = "none";
+        }
+      });
+
+      // Event listeners para navegação com TAB/ENTER nos inputs
+      const inputAmostra = document.querySelector('input[name="amostra"]');
+      const inputFrequencia = document.querySelector('input[name="frequencia"]');
+      
+      if (inputAmostra) {
+        inputAmostra.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab' || e.key === 'Enter') {
+            e.preventDefault();
+            focarProximoInputTabela(this);
+          }
+        });
+      }
+      
+      if (inputFrequencia) {
+        inputFrequencia.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab' || e.key === 'Enter') {
+            e.preventDefault();
+            focarProximoInputTabela(this);
+          }
+        });
+      }
+      
+      // Event listeners para inputs das classes
+      const inputLi = document.querySelector('input[name="li"]');
+      const inputAmplitude = document.querySelector('input[name="amplitude"]');
+      const inputQtd = document.querySelector('input[name="qtd"]');
+      
+      if (inputLi) {
+        inputLi.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab' || e.key === 'Enter') {
+            e.preventDefault();
+            focarProximoInputClasses(this);
+          }
+        });
+      }
+      
+      if (inputAmplitude) {
+        inputAmplitude.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab' || e.key === 'Enter') {
+            e.preventDefault();
+            focarProximoInputClasses(this);
+          }
+        });
+      }
+      
+      if (inputQtd) {
+        inputQtd.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab' || e.key === 'Enter') {
+            e.preventDefault();
+            focarProximoInputClasses(this);
+          }
+        });
+      }
+
+      // Verificação inicial e foco automático
+      setTimeout(() => {
+        verificarTodosCheckboxes();
+        focarInputAutomatico();
+      }, 200);
+
+    });
+
+    function abrirModalClasses() {
+      document.getElementById("container_modal_classes").classList.add("show");
+      document.querySelector(".botoes-calcular-limpar").classList.add("descer");
+      document.querySelector(".container-opcoes-tipo-dado").classList.add("descer");
+      
+      // Habilitar moda de Czuber para dados em classes
+      const modaCzuber = document.getElementById("modaCzuber");
+      const modaCzuberLabel = document.querySelector('label[for="modaCzuber"]');
+      modaCzuber.disabled = false;
+      modaCzuberLabel.classList.remove("disabled");
+
+      setTimeout(() => {
+        const input = document.querySelector('input[name="li"]');
+        if (input) {
+          input.focus();
+        }
+      }, 100);
+    }
+
+    function fecharModalClasses() {
+      document.getElementById("container_modal_classes").classList.remove("show");
+      document.querySelector(".botoes-calcular-limpar").classList.remove("descer");
+      document.querySelector(".container-opcoes-tipo-dado").classList.remove("descer");
+    }
+</script>
+</html>
