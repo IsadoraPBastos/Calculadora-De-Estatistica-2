@@ -84,7 +84,8 @@ hr {
   }
 }
 
-.btn_limpar {
+.btn_limpar,
+.btn_limpar_tudo {
   border: solid 1px black;
   background-color: black;
   font-style: italic;
@@ -395,7 +396,6 @@ label[for="modaCzuber"].disabled {
 #btn-escolha-tabela.ativo,
 #btn-escolha-uniforme.ativo,
 #btn-escolha-exponecial.ativo,
-#btn-escolha-normal.ativo,
 #btn-escolha-poisson.ativo,
 #btn-escolha-binomial.ativo {
   background-color: black;

@@ -1,3 +1,119 @@
+import { distNormalAtiva } from './main.js'
+
+// Botões de opções de calculos
+const calculosPorModal = {
+  discreto: [
+    "media",
+    "moda",btn-par-estatisticos
+    "mediana",
+    "variancia",
+    "desvioPadrao",
+    "coeficienteVariacao",
+  ],
+  classes: [
+    "media",
+    "modaBruta",
+    "modaCzuber",
+    "mediana",
+    "variancia",
+    "desvioPadrao",
+    "coeficienteVariacao",
+  ],
+  probabilidade: [
+    "media",
+    "variancia",
+    "desvioPadrao",
+    "coeficienteVariacao",
+    "probabilidade",
+  ],
+  equacao1: ["equacaoReta", "dominio", "coefiDeterminacao"],
+};
+
+const nomesCalculos = {
+  media: "Média",
+  mediana: "Mediana",
+  moda: "Moda",
+  modaBruta: "Moda Bruta",
+  modaCzuber: "Moda de Czuber",
+  variancia: "Variância",
+  desvioPadrao: "Desvio Padrão",
+  coeficienteVariacao: "Coeficiente de Variação",
+  probabilidade: "Probabilidade",
+  equacaoReta: "Equação da Reta",
+  dominio: "Domínio",
+  coefiDeterminacao: "Coeficiente Determinação",
+};
+
+function configurarCheckboxTodos() {
+  const todos = document.getElementById("todos");
+  const checkboxes = document.querySelectorAll(
+    'input[name="escolha-calculo"]:not(#todos)',
+  );
+
+  function verificarTodosCheckboxes() {
+    const todosMarcados =
+      checkboxes.length > 0 && [...checkboxes].every((cb) => cb.checked);
+
+    todos.checked = todosMarcados;
+  }
+
+  todos.addEventListener("click", () => {
+    const todosMarcados = [...checkboxes].every((cb) => cb.checked);
+
+    checkboxes.forEach((cb) => {
+      cb.checked = !todosMarcados;
+    });
+  });
+
+  checkboxes.forEach((cb) => {
+    cb.addEventListener("click", verificarTodosCheckboxes);
+  });
+}
+
+function gerarBotoesCalculo(tipoModal) {
+  const container = document.querySelector(".container-escolha-calculo");
+
+  container.innerHTML = "";
+
+  const inputTodos = document.createElement("input");
+  inputTodos.type = "checkbox";
+  inputTodos.name = "escolha-calculo";
+  inputTodos.id = "todos";
+  inputTodos.value = "todos";
+  inputTodos.className = "escolha-checkbox";
+
+  const labelTodos = document.createElement("label");
+  labelTodos.htmlFor = "todos";
+  labelTodos.className = "escolha-calculo";
+  labelTodos.textContent = "Todos";
+
+  container.appendChild(inputTodos);
+  container.appendChild(labelTodos);
+
+  const calculos = calculosPorModal[tipoModal];
+
+  for (const calc of calculos) {
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "escolha-calculo";
+    input.value = calc;
+    input.id = calc;
+    input.className = "escolha-checkbox";
+
+    const label = document.createElement("label");
+    label.htmlFor = calc;
+    label.className = "escolha-calculo";
+    label.textContent = nomesCalculos[calc];
+
+    container.appendChild(input);
+    container.appendChild(label);
+  }
+
+  configurarCheckboxTodos();
+}
+
+gerarBotoesCalculo("discreto");
+
 // Funções para abrir e fechar modais
 function abrirModalDiscreto() {
   document.getElementById("container_modal_discreto").classList.add("show");
@@ -5,12 +121,14 @@ function abrirModalDiscreto() {
   document.querySelector(".container-opcoes-tipo-dado").classList.add("descer");
   document.getElementById("container_modal_vac").classList.remove("show");
 
-  // Desabilitar moda de Czuber para dados desordenados
-  const modaCzuber = document.getElementById("modaCzuber");
-  const modaCzuberLabel = document.querySelector('label[for="modaCzuber"]');
-  modaCzuber.disabled = true;
-  modaCzuber.checked = false;
-  modaCzuberLabel.classList.add("disabled");
+  gerarBotoesCalculo("discreto");
+
+  if(distNormalAtiva == true){
+    const formDesordenadoPNormal = document.getElementById(
+        "formDesordenadoPNormal",
+      );
+      formDesordenadoPNormal.style.display = "contents";
+  }
 }
 
 function fecharModalDiscreto() {
@@ -27,10 +145,12 @@ function abrirModalClasses() {
   document.querySelector(".container-opcoes-tipo-dado").classList.add("descer");
 
   // Habilitar moda de Czuber para dados em classes
-  const modaCzuber = document.getElementById("modaCzuber");
-  const modaCzuberLabel = document.querySelector('label[for="modaCzuber"]');
-  modaCzuber.disabled = false;
-  modaCzuberLabel.classList.remove("disabled");
+  // const modaCzuber = document.getElementById("modaCzuber");
+  // const modaCzuberLabel = document.querySelector('label[for="modaCzuber"]');
+  // modaCzuber.disabled = false;
+  // modaCzuberLabel.classList.remove("disabled");
+
+  gerarBotoesCalculo("classes");
 }
 
 function fecharModalClasses() {
@@ -45,6 +165,8 @@ function abrirModalVAC() {
   document.getElementById("container_modal_vac").classList.add("show");
   document.querySelector(".botoes-calcular-limpar").classList.add("descer");
   document.querySelector(".container-opcoes-tipo-dado").classList.add("descer");
+
+  gerarBotoesCalculo("probabilidade");
 }
 
 function fecharModalVAC() {
@@ -59,6 +181,8 @@ function abrirModalVAD() {
   document.getElementById("container_modal_vad").classList.add("show");
   document.querySelector(".botoes-calcular-limpar").classList.add("descer");
   document.querySelector(".container-opcoes-tipo-dado").classList.add("descer");
+
+  gerarBotoesCalculo("probabilidade");
 }
 
 function fecharModalVAD() {
@@ -73,6 +197,8 @@ function abrirModalEq1() {
   document.getElementById("container_modal_equ_1").classList.add("show");
   document.querySelector(".botoes-calcular-limpar").classList.add("descer");
   document.querySelector(".container-opcoes-tipo-dado").classList.add("descer");
+
+  gerarBotoesCalculo("equacao1");
 }
 
 function fecharModalEq1() {
@@ -298,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!container || !inputB) return;
 
     const radios = container.querySelectorAll(
-      'input[type="radio"][name="intervalo"]'
+      'input[type="radio"][name="intervalo"]',
     );
 
     radios.forEach((radio) => {

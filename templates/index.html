@@ -170,18 +170,18 @@
           <i class="fa-solid fa-circle-xmark fa-2xl"></i>
         </div>
         
-          <h1>Agrupamento Discreto {% if reqDistNormal %} - Pela Distribuição Normal {% endif %} </h1>
+          <h1>Agrupamento Discreto </h1>
           <button onclick="mostrarDadosDesordenados()" id="btn-escolha-desordenado" class="btn-mostrar-tipo-discreto">Dados Desordenados</button>
           <button onclick="mostrarDadosEmTabela()" id="btn-escolha-tabela" class="btn-mostrar-tipo-discreto">Dados em Tabela</button>
 
           <!-- Parte de inserção de dados - Desordenados -->
           <div class="divisao-modal-desor-class-eq1" id="secaoDadosDesordenados">
             <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
-        <form action="{{url_for('dados_desordenados')}}" method="POST" id="formDadosDesordenados">
+        <form method="POST" id="formDadosDesordenados">
           <div style="margin: 10px;">
             <label for="dado"
               >Amostra:
-              <input type="number" id="inputAdicionarDesordenados" name="dado" step="any" placeholder="Amostra" required
+              <input type="number" id="inputAdicionarDesordenados" step="any" placeholder="Amostra" required
             /></label>
             </div>
           
@@ -190,34 +190,31 @@
       </div>
         <div style="width: 50%;">
         <div><h2>Dados inseridos</h2></div>
-        <div style="width: 70%; margin: auto; border: 1px solid; padding: 20px; white-space: normal;">
-          {%for dado in dadosDesordenados%} {{dado}} &nbsp - &nbsp {% endfor %}
+        <div style="width: 70%; margin: auto; border: 1px solid; padding: 20px; white-space: normal;" id="mostrarDadosInseridosDesor">
         </div>
-        <form action="{{url_for('dados_desordenados')}}" method="POST">
-          <button name="limpar" value="limpar" class="btn_limpar">Limpar</button>
-        </form>
+          <button id="limpar_desor" value="limpar" class="btn_limpar">Limpar</button>
         </div>
-        {% if erroDadosDesordenadosUmNum %}
+        <!-- {% if erroDadosDesordenadosUmNum %}
           <div class="msg-erro" id="msg-erro-zero-division">
             <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite mais de um dado!
           </div>
-          {% endif %}
+          {% endif %} -->
           </div>
 
           <!-- Parte de inserção de dados - Tabela -->
           <div class="divisao-modal-desor-class-eq1" id="secaoDadosEmTabela">
         <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
-        <form action="{{url_for('dados_em_tabela')}}" method="POST">
+        <form method="POST" id="formDadosEmTabela">
           <div style="margin: 10px;">
             <label for="amostra"
               >Amostra:
-              <input type="number" name="amostra" step="any" placeholder="Amostra" required
+              <input type="number" id="inputAmostraTabela" step="any" placeholder="Amostra" required
             /></label>
           </div>
           <div style="margin: 10px;">
             <label for="frequencia"
               >FI:
-              <input type="number" name="frequencia" step="any" placeholder="Frequência" required
+              <input type="number" id="inputFreqTabela" step="any" placeholder="Frequência" required
             /></label>
           </div>
           <div><button>Adicionar</button></div></div>
@@ -231,36 +228,31 @@
               <th>Frequência Individual Absoluta (FI)</th>
             </tr>
           </thead>
-          <tbody>
-            {% for amostra, FequenciaIndividualAbsolutaRecebida in
-            FequenciaIndividualAbsolutaRecebida.items() %}
-            <tr>
-              <td>{{ amostra }}</td>
-              <td>{{ FequenciaIndividualAbsolutaRecebida }}</td>
+          <tbody id="tbodyTabela">
+            <!-- <tr>
+              <td></td>
+              <td></td>
               <td>
-                <form action="{{url_for('dados_em_tabela')}}" method="post">
-                  <button name="limpar" value="{{ amostra }}" style="background: none; border: none; padding: 0; cursor: pointer;">
+                  <button name="limpar" value="" style="background: none; border: none; padding: 0; cursor: pointer;">
                     <i class="fa-solid fa-xmark fa-2xl" style="color: black;"></i>
                   </button>                
-                </form>
               </td>
-            </tr>
-            {% endfor %}
+            </tr> -->
           </tbody>
         </table>
         </div>
           </div>
-          {% if erroFIMenorZero %}
+          <!-- {% if erroFIMenorZero %}
           <div class="msg-erro" id="msg-erro-zero-division">
             <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite uma Frequência Individual maior que 0!
           </div>
-          {% endif %}
-          {% if reqDistNormal %}
-          <form action="{{url_for('calculo_dos_dados')}}" method="POST" style="display: contents;">
+          {% endif %} -->
+
+          <form style="display: none;" id="formDesordenadoPNormal">
           <button class="btnCalcularDiscDistNormal">Calcular Dados</button>
           <p class="details">*Esses dados serão processados e enviados para a utilização na Distribuição Normal.</p>
           </form> 
-          {% endif %}
+         
     </div>
     </div>
 
@@ -270,32 +262,32 @@
         <div class="botao-fechar-modal" onclick="fecharModalClasses()">
           <i class="fa-solid fa-circle-xmark fa-2xl"></i>
         </div>
-        <h1>Agrupamento em Classes {% if reqDistNormal %} - Pela Distribuição Normal {% endif %}</h1>
+        <h1>Agrupamento em Classes</h1>
         <div class="divisao-modal-desor-class-eq1">
-          <form action="{{url_for('agrupamento_classes')}}" method="POST" style="display: contents;">
+          <form style="display: contents;" id="formDadosClasses">
           <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
               <div style="margin: 10px;">
                 <label for="li" 
                   >Li:
-                  <input type="number" name="li" step="any" placeholder="Limite Inferior" required
+                  <input type="number" id="inputLiClasses" name="li" step="any" placeholder="Limite Inferior" required
                 /></label>
               </div>
               <div style="margin: 10px;">
                 <label for="amplitude"
                   >h:
-                  <input type="number" name="amplitude" step="any" placeholder="Amplitude de classe" required
+                  <input type="number" id="inputAmplitudeClasses" name="amplitude" step="any" placeholder="Amplitude de classe" required
                 /></label>
               </div>
               <div style="margin: 10px;">
                 <label for="qtd" 
                   >Classes:
-                  <input type="number" name="qtd" step="any" placeholder="Quantidade de classes" required
+                  <input type="number" id="inputQtdClasses" name="qtd" step="any" placeholder="Quantidade de classes" required
                 /></label>
               </div>
               <div><button>Adicionar</button></div>
           </div>
           </form>
-          <form action="{{url_for('alteração_fi')}}" method="POST" style="display: contents;">
+          <form style="display: contents;">
           <div style="width: 50%;">
             <div><h2>Classes inseridas</h2></div>
             <table style="width: 90%;">
@@ -307,23 +299,22 @@
                   <th>PMI (Ponto Médio)</th>
                 </tr>
               </thead>
-              <tbody>
-                {% for classe in dadosClasses %}
+              <tbody id="tbodyClasses">
                 <tr>
-                  <td>{{ classe.li }}</td>
-                  <td>{{ classe.ls }}</td>
-                  <td><input type="number" name="fi_{{ loop.index0 }}" id="fi" style="width: 50px;" value="{{ classe.fi }}"></td>
-                  <td>{{ "%.2f"|format(classe.xi) }}</td>
+                  <td></td>
+                  <td></td>
+                  <td><input type="number" id="fi" style="width: 50px;"></td>
+                  <td></td>
                 </tr>
-                {% endfor %}
+                
               </tbody>
             </table>
-            <button>Alterar FI</button>
+            <button id="alterarFIClasses">Alterar FI</button>
             <button name="limpar" value="limpar" class="btn_limpar">Limpar</button>
           </div>
           </form>
         </div>
-        {% if erroMenorZero %}
+        <!-- {% if erroMenorZero %}
           <div class="msg-erro" id="msg-erro-zero-division">
             <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite uma Frequência Individual maior que 0!
           </div>
@@ -333,7 +324,7 @@
           <button class="btnCalcularDiscDistNormal" name="btnCalcularDiscDistNormal">Calcular Dados</button>
           <p class="details">*Esses dados serão processados e enviados para a utilização na Distribuição Normal.</p>
           </form> 
-          {% endif %}
+          {% endif %} -->
       </div>
     </div>
 
@@ -351,14 +342,14 @@
 
           <!-- Parte de inserção de dados - Distribuição Uniforme -->
           <div class="divisao-modal" id="secaoDUnifor" >
-              <form action="{{url_for('dist_uniforme')}}" method="POST" >
+              <form id="formDistUniforme">
                 <div class="insercao-infos">
-                  <input type="text" name="limiteInferior" placeholder="Limite Inferior" value="{% if limiteInferior %} {{ limiteInferior }}  {% endif %}">
-                  <input type="text" name="limiteSuperior" placeholder="Limite Superior" value="{% if limiteSuperior %} {{ limiteSuperior }}  {% endif %}">
+                  <input type="text" id="inputLimiteInferior" name="limiteInferior" placeholder="Limite Inferior">
+                  <input type="text" id="inputLimiteSuperior" name="limiteSuperior" placeholder="Limite Superior">
                   </div>
                   <div class="insercao-infos">
-                  <input type="text" name="valorCUnif" placeholder="Valor 1" value="{% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %}">
-                  <input type="text" name="valorDUnif" id="inputDuasVariaveisUni" class="hidden" placeholder="Valor 2" value="{% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}">
+                  <input type="text" id="inputValorCUnif" name="valorCUnif" placeholder="Valor 1">
+                  <input type="text" name="valorDUnif" id="inputDuasVariaveisUni" class="hidden" placeholder="Valor 2">
                   </div>
                   
                   <div class="container-opcoes-tipo-intervalo">
@@ -440,35 +431,24 @@
 
                   <button>Calcular</button>
               </form>
-              {% if erroInserirTodosDados %}
+              <!-- {% if erroInserirTodosDados %}
                     <div class="msg-erro" id="msg-erro-zero-division">
                       <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Preencha todos os campos!
                     </div>
-                    {% endif %}
-              {% if 'Uni' in intervalo %}
-              <div class="mostrar-conta">
-                   {% if intervalo == "maiorQueUni" or intervalo == "maiorIgualUni" or intervalo == "menorQueUni" or intervalo == "menorIgualUni" or intervalo == "intervaloIgualUni" %}
-                  <p>X {% if intervalo == "maiorQueUni" %} > {% elif intervalo == "maiorIgualUni" %} ≥ {% elif intervalo == "menorQueUni" %} < {% elif intervalo == "menorIgualUni" %} ≤ {% elif intervalo == "intervaloIgualUni" %} = {% endif %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %}</p>
-                  {% elif intervalo == "menorQueMenorQueUni" or intervalo == "menorIgualMenorQueUni" or intervalo == "menorQueMenorIgualUni" or intervalo == "menorIgualMenorIgualUni" %}
-                  <p> {% if intervalo == "menorQueMenorQueUni" %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %} < X <  {% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorQueUni" %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %} ≤ X <  {% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorQueMenorIgualUni" %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %} < X ≤  {% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorIgualUni" %} {% if valorCUnif %} {{ valorCUnif }} {% elif valorCUnif == 0 %} 0 {% endif %} ≤ X ≤  {% if valorDUnif %} {{ valorDUnif }} {% elif valorDUnif == 0 %} 0 {% endif %}
-                    {% endif %} </p>
-                  {% endif %}
-                  {% endif %}
+                    {% endif %} -->
+              <div class="mostrar-conta" id="mostrarContaUni">
             </div>
           </div>
 
           <!-- Parte de inserção de dados - Distribuição Exponencial -->
           <div class="divisao-modal" id="secaoDExpo" >
-         <form action="{{url_for('dist_exponencial')}}" method="POST" >
+         <form id="formDistExponencial">
           <div class="insercao-infos">
-                  <input type="text" name="desvioPadrao" placeholder="Desvio Padrão" value="{% if desvioPadrao %} {{ desvioPadrao }}  {% endif %}">
+                  <input type="text" name="desvioPadrao" id="inputDesvioPadraoExpo" placeholder="Desvio Padrão">
                   </div>
                   <div class="insercao-infos">
-                  <input type="text" name="valorA" placeholder="Valor do A" value="{% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}">
-                  <input type="text" name="valorB" id="inputDuasVariaveisExpo" class="hidden" placeholder="Valor do B" value="{% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}">
+                  <input type="text" name="valorA" id="inputValorAExpo" placeholder="Valor do A">
+                  <input type="text" name="valorB" id="inputDuasVariaveisExpo" class="hidden" placeholder="Valor do B" >
                   </div>
                   <div class="container-opcoes-tipo-intervalo">
                      <input
@@ -548,50 +528,35 @@
                     </div>
                   <button>Calcular</button>
               </form>
-              {% if erroInserirTodosDados %}
+              <!-- {% if erroInserirTodosDados %}
                     <div class="msg-erro" id="msg-erro-zero-division">
                       <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Preencha todos os campos!
                     </div>
-                    {% endif %}
-              {% if 'Expo' in intervalo %}
-              <div class="mostrar-conta">
-                  {% if intervalo == "maiorQueExpo" or intervalo == "maiorIgualExpo" or intervalo == "menorQueExpo" or intervalo == "menorIgualExpo" or intervalo == "intervaloIgualExpo" %}
-                  <p>X {% if intervalo == "maiorQueExpo" %} > {% elif intervalo == "maiorIgualExpo" %} ≥ {% elif intervalo == "menorQueExpo" %} < {% elif intervalo == "menorIgualExpo" %} ≤ {% elif intervalo == "intervaloIgualExpo" %} = {% endif %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}</p>
-                  {% elif intervalo == "menorQueMenorQueExpo" or intervalo == "menorIgualMenorQueExpo" or intervalo == "menorQueMenorIgualExpo" or intervalo == "menorIgualMenorIgualExpo" %}
-                  <p> {% if intervalo == "menorQueMenorQueExpo" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorQueExpo" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorQueMenorIgualExpo" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorIgualExpo" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% endif %} </p>
-                  {% endif %}
-                  {% endif %}
+                    {% endif %} -->
+              <div class="mostrar-conta" id="mostrarContaExpo">
           </div>
+        </div>
 
-          <!-- Parte de inserção de dados - Distribuição Normal -->
+        <!-- Parte de inserção de dados - Distribuição Normal -->
           <div class="divisao-modal" id="secaoDNormal">
             <div class="secao-normal">
             <div class="normal-botoes">
-            <form action="{{url_for('dados_desordenados')}}" method="POST" id="formDadosDesordenados">
-              <button onclick="abrirModalDiscreto()" type="submit" value="1" id="btn-escolha-normal" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento Discreto</button>
-            </form>
-            <form action="{{url_for('agrupamento_classes')}}" method="POST" id="formDadosDesordenados">
-              <button onclick="abrirModalClasses()" type="submit" value="1" id="btn-escolha-normal" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento em Classes</button>
-            </form>
-            <button onclick="mostrarDNormal_Amostral()" id="btn-escolha-normal" class="btn-mostrar-tipo-discreto">Amostral</button>
-            {% if reqDistNormal %}
-            <button onclick="mostrarDNormal_Final()" id="btn-escolha-normal" class="btn-mostrar-tipo-discreto">Final</button>
-            {% endif %}
+            <button onclick="abrirModalDiscreto()" value="1" id="btnNormalDiscreto" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento Discreto</button>
+            <button onclick="abrirModalClasses()"value="1" id="btnNormalClasses" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento em Classes</button>
+            <button onclick="mostrarDNormal_Amostral()" id="btnNormalAmostral" class="btn-mostrar-tipo-discreto">Amostral</button>
+            <button onclick="mostrarDNormal_Final()" id="btnNormalFinal" class="btn-mostrar-tipo-discreto">Final</button>
+
             </div>
-            <form action="{{url_for('dist_normal_pad')}}" method="POST" >
+            <form >
               <div id="secaoDNormal_Amostral" style="gap: 1rem;" >
                   <div class="insercao-infos">
-                    <input type="text" name="valorANorm" placeholder="Valor do A" value="{% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %}">
-                    <input type="text" name="valorBNorm" id="inputDuasVariaveisNorm" class="hidden" placeholder="Valor do B" value="{% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}">
+                    <input type="text" name="valorANorm" placeholder="Valor do A" >
+                    <input type="text" name="valorBNorm" id="inputDuasVariaveisNorm" class="hidden" placeholder="Valor do B" >
                   </div>       
                   <div class="insercao-infos">
-                    <input type="text" name="mediaNorm" placeholder="Média Populacional" value="{% if mediaNorm %} {{ mediaNorm }}  {% endif %}">
-                    <input type="text" name="desvioPadraoNorm" placeholder="Desvio Padrão Populacional" value="{% if desvioPadraoNorm %} {{ desvioPadraoNorm }}  {% endif %}">
-                    <input type="text" name="tamanhoAmostraNorm" placeholder="Tamanho da Amostra" value="{% if tamanhoAmostraNorm %} {{ tamanhoAmostraNorm }}  {% endif %}">
+                    <input type="text" name="mediaNorm" placeholder="Média Populacional" >
+                    <input type="text" name="desvioPadraoNorm" placeholder="Desvio Padrão Populacional" >
+                    <input type="text" name="tamanhoAmostraNorm" placeholder="Tamanho da Amostra" >
                   </div>
                   <div class="container-opcoes-tipo-intervalo">
                      <input
@@ -672,32 +637,23 @@
                   <button>Calcular</button>
                 </div>
               </form>
-              {% if 'Norm1' in intervalo %}
+             
              <div class="mostrar-conta">
-                  {% if intervalo == "maiorQueNorm1" or intervalo == "maiorIgualNorm1" or intervalo == "menorQueNorm1" or intervalo == "menorIgualNorm1" or intervalo == "intervaloIgualNorm1" %}
-                  <p>X {% if intervalo == "maiorQueNorm1" %} > {% elif intervalo == "maiorIgualNorm1" %} ≥ {% elif intervalo == "menorQueNorm1" %} < {% elif intervalo == "menorIgualNorm1" %} ≤ {% elif intervalo == "intervaloIgualNorm1" %} = {% endif %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %}</p>
-                  {% elif intervalo == "menorQueMenorQueNorm1" or intervalo == "menorIgualMenorQueNorm1" or intervalo == "menorQueMenorIgualNorm1" or intervalo == "menorIgualMenorIgualNorm1" %}
-                  <p> {% if intervalo == "menorQueMenorQueNorm1" %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %} < X <  {% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorQueNorm1" %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %} ≤ X <  {% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorQueMenorIgualNorm1" %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %} < X ≤  {% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorIgualNorm1" %} {% if valorANorm %} {{ valorANorm }} {% elif valorANorm == 0 %} 0 {% endif %} ≤ X ≤  {% if valorBNorm %} {{ valorBNorm }} {% elif valorBNorm == 0 %} 0 {% endif %}
-                    {% endif %} </p>
-                  {% endif %}
-                  {% endif %}
+                 
               </div>
               <div id="secaoDNormal_Final" style="gap: 1rem;">
-                  {% if reqDistNormal %}
+                 
                   <div style="background: #f0f0f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; ">
                       <h3>📊 Dados Calculados</h3>
                       <div style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 10px;">
-                          <div><strong>Média:</strong> {{ mediaNorm }}</div>
-                          <div><strong>Moda {% if modaBruta %} Bruta {% endif %} :</strong> {{ moda }}</div>
-                          {% if modaCzuber %}<div><strong>Moda Czuber:</strong> {{ modaCzuber }}</div>{% endif %}
-                          <div><strong>Mediana:</strong> {{ mediana }}</div>
-                          <div><strong>Desvio Padrão:</strong> {{ desvioPadraoNorm }}</div>
+                          <div><strong>Média:</strong> </div>
+                          <div><strong>Moda</strong> </div>
+                         <div><strong>Moda Czuber:</strong> </div>
+                          <div><strong>Mediana:</strong></div>
+                          <div><strong>Desvio Padrão:</strong> </div>
                       </div>
                   </div>
-                  <form action="{{url_for('dist_normal_pad')}}" method="POST" style="align-items: start;">
+                  <form style="align-items: start;">
                         <div class="insercao-infos">
                           <input type="text" name="valorANorm" id="valorAMuda" placeholder="Valor do A" value="{% if valorANorm %} {{ valorANorm }}  {% endif %}">
                           <input type="text" name="valorBNorm" id="inputDuasVariaveisNormF" class="hidden" placeholder="Valor do B" value="{% if valorBNorm %} {{ valorBNorm }}  {% endif %}">
@@ -784,22 +740,12 @@
                     
                   
                 </div>
-                {% if 'NormF' in intervalo %}
+
                 <div class="mostrar-conta">
-                  {% if intervalo == "maiorQueNormF" or intervalo == "maiorIgualNormF" or intervalo == "menorQueNormF" or intervalo == "menorIgualNormF" or intervalo == "intervaloIgualNormF" %}
-                  <p>X {% if intervalo == "maiorQueNormF" %} > {% elif intervalo == "maiorIgualNormF" %} ≥ {% elif intervalo == "menorQueNormF" %} < {% elif intervalo == "menorIgualNormF" %} ≤ {% elif intervalo == "intervaloIgualNormF" %} = {% endif %} {% if valorANorm %} {{ valorANorm }}  {% endif %}</p>
-                  {% elif intervalo == "menorQueMenorQueNormF" or intervalo == "menorIgualMenorQueNormF" or intervalo == "menorQueMenorIgualNormF" or intervalo == "menorIgualMenorIgualNormF" %}
-                  <p> {% if intervalo == "menorQueMenorQueNormF" %} {% if valorANorm %} {{ valorANorm }}  {% endif %} < X <  {% if valorBNorm %} {{ valorBNorm }}  {% endif %}
-                    {% elif intervalo == "menorIgualMenorQueNormF" %} {% if valorANorm %} {{ valorANorm }}  {% endif %} ≤ X <  {% if valorBNorm %} {{ valorBNorm }}  {% endif %}
-                    {% elif intervalo == "menorQueMenorIgualNormF" %} {% if valorANorm %} {{ valorANorm }}  {% endif %} < X ≤  {% if valorBNorm %} {{ valorBNorm }}  {% endif %}
-                    {% elif intervalo == "menorIgualMenorIgualNormF" %} {% if valorANorm %} {{ valorANorm }}  {% endif %} ≤ X ≤  {% if valorBNorm %} {{ valorBNorm }}  {% endif %}
-                    {% endif %} </p>
-                  {% endif %}
-                  {% endif %}
+                  
               </div>
-              {% endif %}
+
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -817,16 +763,16 @@
 
           <!-- Parte de inserção de dados - Distribuição Binomial -->
           <div class="divisao-modal" id="secaoDBino">
-            <form action="{{url_for('dist_binomial')}}" method="POST">
+            <form id="formDistBinomial">
                     <div class="insercao-infos">
-                      <input type="text" name="vTotal" placeholder="Total" value="{% if vTotal %} {{ vTotal }}  {% endif %}">
-                      <input type="text" name="probabSucesso" placeholder="Prob de Sucesso" value="{% if probabSucesso %} {{ probabSucesso }}  {% endif %}">
+                      <input type="text" id="inputVTotal" name="vTotal" placeholder="Total" >
+                      <input type="text" id="inputProbabSucesso" name="probabSucesso" placeholder="Prob de Sucesso">
                       <p>Ou</p>
-                      <input type="text" name="probabInsucesso" placeholder="Prob de Insucesso" value="{% if probabInsucesso %} {{ probabInsucesso }}  {% endif %}">
+                      <input type="text" id="inputProbabInsucesso" name="probabInsucesso" placeholder="Prob de Insucesso" >
                     </div>
                     <div class="insercao-infos">
-                      <input type="text" name="valorA" placeholder="Valor do A" value="{% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}">
-                      <input type="text" id="inputDuasVariaveisBin" class="hidden" name="valorB" placeholder="Valor do B" value="{% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}">
+                      <input type="text" id="inputValorABino" name="valorA" placeholder="Valor do A">
+                      <input type="text" id="inputDuasVariaveisBin" class="hidden" name="valorB" placeholder="Valor do B">
                     </div>
                     <div class="container-opcoes-tipo-intervalo">
                      <input
@@ -906,35 +852,26 @@
                     </div>
                       <button>Calcular</button>
                   </form>
-                  {% if erroInserirTodosDados %}
+                  <!-- {% if erroInserirTodosDados %}
                     <div class="msg-erro" id="msg-erro-zero-division">
                       <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Preencha todos os campos!
                     </div>
-                    {% endif %}
-                  {% if 'Bin' in intervalo %}
-                  <div class="mostrar-conta">
-                  {% if intervalo == "maiorQueBin" or intervalo == "maiorIgualBin" or intervalo == "menorQueBin" or intervalo == "menorIgualBin" or intervalo == "intervaloIgualBin" %}
-                  <p>X {% if intervalo == "maiorQueBin" %} > {% elif intervalo == "maiorIgualBin" %} ≥ {% elif intervalo == "menorQueBin" %} < {% elif intervalo == "menorIgualBin" %} ≤ {% elif intervalo == "intervaloIgualBin" %} = {% endif %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}</p>
-                  {% elif intervalo == "menorQueMenorQueBin" or intervalo == "menorIgualMenorQueBin" or intervalo == "menorQueMenorIgualBin" or intervalo == "menorIgualMenorIgualBin" %}
-                  <p> {% if intervalo == "menorQueMenorQueBin" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorQueBin" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorQueMenorIgualBin" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorIgualBin" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% endif %} </p>
-                  {% endif %}
-                  {% endif %}
+                    {% endif %} -->
+                  
+                  <div class="mostrar-conta" id="mostrarContaBino">
+                 
                   </div>
           </div>
 
           <!-- Parte de inserção de dados - Distribuição Poisson -->
           <div class="divisao-modal" id="secaoDPois">
-            <form action="{{url_for('dist_poisson')}}" method="POST">
+            <form id="formDistPoisson">
                     <div class="insercao-infos">
-                      <input type="text" name="vMedia" placeholder="Valor da Média / Lambda" value="{% if vMedia %} {{ vMedia }}  {% endif %}">
+                      <input type="text" id="inputVMedia" name="vMedia" placeholder="Valor da Média / Lambda" >
                     </div>
                     <div class="insercao-infos">
-                      <input type="text" name="valorA" placeholder="Valor do A" value="{% if valorA %} {{ valorA }} {% elif valorA == 0 %}0{% endif %}">
-                      <input type="text" id="inputDuasVariaveisPois" class="hidden" name="valorB" placeholder="Valor do B" value="{% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}">
+                      <input type="text" id="inputValorAPoi" name="valorA" placeholder="Valor do A" >
+                      <input type="text" id="inputDuasVariaveisPois" class="hidden" name="valorB" placeholder="Valor do B" >
                     </div>
                       <div class="container-opcoes-tipo-intervalo">
                      <input
@@ -1014,23 +951,13 @@
                     </div>
                       <button>Calcular</button>
                   </form>
-                  {% if erroInserirTodosDados %}
+                  <!-- {% if erroInserirTodosDados %}
                     <div class="msg-erro" id="msg-erro-zero-division">
                       <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Preencha todos os campos!
                     </div>
-                    {% endif %}
-                   {% if 'Poi' in intervalo %}
-                  <div class="mostrar-conta">
-                  {% if intervalo == "maiorQuePoi" or intervalo == "maiorIgualPoi" or intervalo == "menorQuePoi" or intervalo == "menorIgualPoi" or intervalo == "intervaloIgualPoi" %}
-                  <p>X {% if intervalo == "maiorQuePoi" %} > {% elif intervalo == "maiorIgualPoi" %} ≥ {% elif intervalo == "menorQuePoi" %} < {% elif intervalo == "menorIgualPoi" %} ≤ {% elif intervalo == "intervaloIgualPoi" %} = {% endif %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %}</p>
-                  {% elif intervalo == "menorQueMenorQuePoi" or intervalo == "menorIgualMenorQuePoi" or intervalo == "menorQueMenorIgualPoi" or intervalo == "menorIgualMenorIgualPoi" %}
-                  <p> {% if intervalo == "menorQueMenorQuePoi" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorQuePoi" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X <  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorQueMenorIgualPoi" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} < X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% elif intervalo == "menorIgualMenorIgualPoi" %} {% if valorA %} {{ valorA }} {% elif valorA == 0 %} 0 {% endif %} ≤ X ≤  {% if valorB %} {{ valorB }} {% elif valorB == 0 %} 0 {% endif %}
-                    {% endif %} </p>
-                  {% endif %}
-                  {% endif %}
+                    {% endif %} -->
+                  <div class="mostrar-conta" id="mostrarContaPois">
+                  
                   </div>
           </div>
         </div>
@@ -1048,17 +975,17 @@
           <!-- Parte de inserção de dados - Tabela -->
           <div class="divisao-modal-desor-class-eq1">
         <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
-        <form action="{{url_for('regr_linear_eq_1')}}" method="POST">
+        <form id="formEqu1Grau">
           <div style="margin: 10px;">
             <label for="valorX"
               >X:
-              <input type="number" name="valorX" step="any" placeholder="Valor X" required
+              <input type="number" id="inputValorX" step="any" placeholder="Valor X" required
             /></label>
           </div>
           <div style="margin: 10px;">
             <label for="valorY"
               >Y:
-              <input type="number" name="valorY" step="any" placeholder="Valor Y" required
+              <input type="number" id="inputValorY" step="any" placeholder="Valor Y" required
             /></label>
           </div>
           <div><button>Adicionar</button></div></div>
@@ -1072,40 +999,34 @@
               <th>Y</th>
             </tr>
           </thead>
-          <tbody>
-            {% for valorX, valorY in TabelaDeDados.items() %}
-            <tr>
-              <td>{{ valorX }}</td>
-              <td>{{ valorY }}</td>
+          <tbody id="tbodyEqu1Grau">
+            
+            <!-- <tr>
+              <td></td>
+              <td></td>
               <td>
-                <form action="{{url_for('regr_linear_eq_1')}}" method="post">
-                  <button name="limpar" value="{{ valorX }}" style="background: none; border: none; padding: 0; cursor: pointer;">
+                  <button name="limpar" style="background: none; border: none; padding: 0; cursor: pointer;">
                     <i class="fa-solid fa-xmark fa-2xl" style="color: black;"></i>
                   </button>                
-                </form>
               </td>
-            </tr>
-            {% endfor %}
+            </tr> -->
           </tbody>
         </table>
         </div>
           </div>
-          {% if erroFIMenorZero %}
+          <!-- {% if erroFIMenorZero %}
           <div class="msg-erro" id="msg-erro-zero-division">
             <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite uma Frequência Individual maior que 0!
           </div>
-          {% endif %}
+          {% endif %} -->
     </div>
     </div>
 
     <!-- Calcular os dados recebidos -->
     <form
-      action="{{url_for('calculo_dos_dados')}}"
       id="form-calculo-dos-dados"
       method="POST"
     >
-
-    
       <!-- Tipo do dado -->
       <div class="container-opcoes-tipo-dado">
         <h1 class="titulo-medida-amostras" style="color: white;">Qual a <u>medida</u> das amostras</h1> 
@@ -1188,175 +1109,50 @@
             style="width: -webkit-fill-available; padding: 5px;"
         /></label>
 
-        <div id="msg-erro">
+        <!-- <div id="msg-erro">
           <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Escolha
           o tipo das variáveis inseridas!
-        </div>
+        </div> -->
 
-        {% if erroOutroVazio %}
+        <!-- {% if erroOutroVazio %}
         <div id="msg-erro-outro-vazio">
           <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite alguma medida!
         </div>
-        {% endif %}
+        {% endif %} -->
       </div>
 
       <h1 style="color:white;">Quais <u>cálculos</u> deseja realizar </h1>
       <!-- Botões opção dos cálculos -->
       <div class="container-escolha-calculo">
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="todos"
-          value="todos"
-          class="escolha-checkbox"
-        />
-        <label for="todos" class="escolha-calculo">Todos</label>
-
-        {% if mostrar_modal != "equacao1" %}
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="media"
-          value="media"
-          class="escolha-checkbox"
-        />
-        <label for="media" class="escolha-calculo">Média</label>
-        {% endif %}
-
-        {% if mostrar_modal == "padrao" or mostrar_modal == "discreto" or mostrar_modal == "classes"%}
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="moda"
-          value="moda"
-          class="escolha-checkbox"
-        />
-        <label for="moda" class="escolha-calculo">{% if modaBruta %}Moda Bruta{% else %}Moda{% endif %}</label>
-
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="modaCzuber"
-          value="modaCzuber"
-          class="escolha-checkbox"
-        />
-        <label for="modaCzuber" class="escolha-calculo" id="modaCzuberLabel">Moda de Czuber</label>
-
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="mediana"
-          value="mediana"
-          class="escolha-checkbox"
-        />
-        <label for="mediana" class="escolha-calculo">Mediana</label>
-        {% endif %}
-
-        {% if mostrar_modal != "equacao1" %}
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="variancia"
-          value="variancia"
-          class="escolha-checkbox"
-        />
-        <label for="variancia" class="escolha-calculo">Variância</label>
-
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="desvioPadrao"
-          value="desvioPadrao"
-          class="escolha-checkbox"
-        />
-        <label for="desvioPadrao" class="escolha-calculo">Desvio Padrão</label>
-
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="coeficienteVariacao"
-          value="coeficienteVariacao"
-          class="escolha-checkbox"
-        />
-        <label for="coeficienteVariacao" class="escolha-calculo">Coeficiente de Variação</label>
-        {% endif %}
-
-        {% if dados_vac == True or reqDistNormal == True %}
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="probabilidade"
-          value="probabilidade"
-          class="escolha-checkbox"
-        />
-        <label for="probabilidade" class="escolha-calculo">Probabilidade</label>
-        {% endif %}
-
-        {% if mostrar_modal == "equacao1" %}
-         <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="equacaoReta"
-          value="equacaoReta"
-          class="escolha-checkbox"
-        />
-        <label for="equacaoReta" class="escolha-calculo">Equação da Reta</label>
-
-         <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="dominio"
-          value="dominio"
-          class="escolha-checkbox"
-        />
-        <label for="dominio" class="escolha-calculo">Domínio</label>
-
-        <input
-          type="checkbox"
-          name="escolha-calculo"
-          id="coefiDeterminacao"
-          value="coefiDeterminacao"
-          class="escolha-checkbox"
-        />
-        <label for="coefiDeterminacao" class="escolha-calculo">Coeficiente Determinação</label>
-        {% endif %}
-
-        <div id="msg-erro-calculos">
+        <!-- <div id="msg-erro-calculos">
           <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Escolha
           ao menos um cálculo!
-        </div>
+        </div> -->
       </div>
 
       <!-- Botões de calcular e limpar -->
       <div class="botoes-calcular-limpar">
-        <input type="hidden" name="modal_aberto" value="{{ mostrar_modal }}" />
-        <button class="btn_calcular"><b>Calcular</b></button>
+        <input type="hidden" name="modal_aberto" value="" />
+        <button class="btn_calcular" id="btnCalcular"><b>Calcular</b></button>
       
     </form>
     <div>
-    <form action="{{url_for('limpar_dados')}}" method="POST">
-      <button class="btn_limpar">Limpar</button>
-    </form></div></div>
+      <button class="btn_limpar_tudo">Limpar</button>
+    </div>
+  </div>
 
     <!-- Resultado dos cálculos -->
      <div class="container-estatisticas-dos-dados">
       <hr>
-
-
-      {% if dados_agrup_disc == True or dados_classes == True %}
     <div>
       <h1 style="color:white;"><u>Estatísticas desses Dados</u></h1>
     </div>
                                                                                                               
-    <h2 style="color:white;">{% if dados_classes %} Tabela de Classes {% elif dados_agrup_disc %} Tabela das Frequências {% else %} Resultados {% endif %}</h2>
+    <!-- <h2 style="color:white;" id="titleStatisticsTable"></h2> ou Tabela de Classes 
     <table style="color: black; background-color: white;">
       <thead>
         <tr>
-          {% if dados_classes %}
-          <th>Classes</th>
-          {% else %}
-          <th>Amostra</th>
-          {% endif %}
+          <th id="titleClassesOuAmostra"></th>  Classes
           <th>Frequência Individual Absoluta (FI)</th>
           <th>Frequência Acumulada Absoluta (FAC)</th>
           <th>Posições</th>
@@ -1372,226 +1168,19 @@
         </tr>
         {% endfor %}
       </tbody>
-    </table>
+    </table> -->
 
-    <p style="color:white;margin-top: 3px; margin-bottom: 40px;">Tamanho da amostra: {{ tamanhoDaAmostra }} dados<p>
-    {% endif %}
+    <!-- <p style="color:white;margin-top: 3px; margin-bottom: 40px;">Tamanho da amostra: {{ tamanhoDaAmostra }} dados<p> -->
       <h2 style="color:white;">Cálculos escolhidos</h2>
       <div style="width: 100%; justify-content: center; display: flex;">
     <div class="container-calculos-resultados">
-    {% for escolha in escolhaCalculo %} 
-    {% if tipo == "R$" %}
-      {% if escolha == "media" %}
-        <div class="calculos-resultados">
-        <h3>Média</h3>
-        <p>{{ tipo }} {{ media }} </p>
-        </div>
-      
-      {% elif escolha == "moda" %}
-        <div class="calculos-resultados">
-        <h3>{% if dados_classes %}Moda Bruta{% else %}Moda{% endif %}</h3>
-        <p>{{ tipo }} {{ moda }} </p>
-        <p>{{ tipo_moda }}</p>
-        </div>
-      
-      {% elif escolha == "modaCzuber" %}
-        <div class="calculos-resultados">
-        <h3>Moda de Czuber</h3>
-        <p>{{ tipo }} {{ modaCzuber }} </p>
-        </div>
-      
-      {% elif escolha == "mediana" %}
-        <div class="calculos-resultados">
-        <h3>Mediana</h3>
-        <p>{{ tipo }} {{ mediana }} </p>
-        </div>
-
-      {% elif escolha == "variancia" %}
-        <div class="calculos-resultados">
-        <h3>Variância</h3>
-        <p> {{ tipo }}² {{ variancia }} </p>
-        </div>
-
-      {% elif escolha == "desvioPadrao" %}
-        <div class="calculos-resultados">
-        <h3>Desvio Padrão</h3>
-        <p>{{ tipo }} {{ desvioPadrao }} </p>
-        </div>
-
-      {% elif escolha == "coeficienteVariacao" %}
-        <div class="calculos-resultados">
-        <h3>Coeficiente de Variação</h3>
-        <p>{{ coeficienteVariacao }}% </p>
-        </div>
-
-      {% elif escolha == "probabilidade" %}
-        <div class="calculos-resultados">
-        <h3>Probabilidade</h3>
-        <p>{{ probabilidade }}% </p>
-        </div>
-      
-      {% elif escolha == "equacaoReta" %}
-        <div class="calculos-resultados">
-        <h3>Equação da Reta</h3>
-        <p>{{ equacaoReta }} </p>
-        </div>
-      
-      {% elif escolha == "coefiDeterminacao" %}
-        <div class="calculos-resultados">
-        <h3>Coeficiente Determinação <h3>
-        <p>{{ coefiDeterminacao }}% </p>
-        </div>
-      
-      {% elif escolha == "dominio" %}
-        <div class="calculos-resultados">
-        <h3>Domínio<h3>
-        <p>{{ dominio }} </p>
-        </div>
-      {% endif %}
-    {% elif tipo == "semMedida" %}
-        {% if escolha == "media" %}
-        <div class="calculos-resultados">
-        <h3>Média</h3>
-        <p> {{ media }} </p>
-        </div>
-      
-      {% elif escolha == "moda" %}
-        <div class="calculos-resultados">
-        <h3>{% if dados_classes %}Moda Bruta{% else %}Moda{% endif %}</h3>
-        <p>{{ moda }} </p>
-        <p>{{ tipo_moda }}</p>
-        </div>
-      
-      {% elif escolha == "modaCzuber" %}
-        <div class="calculos-resultados">
-        <h3>Moda de Czuber</h3>
-        <p> {{ modaCzuber }} </p>
-        </div>
-      
-      {% elif escolha == "mediana" %}
-        <div class="calculos-resultados">
-        <h3>Mediana</h3>
-        <p>{{ mediana }} </p>
-        </div>
-
-      {% elif escolha == "variancia" %}
-        <div class="calculos-resultados">
-        <h3>Variância</h3>
-        <p>{{ variancia }} </p>
-        </div>
-
-      {% elif escolha == "desvioPadrao" %}
-        <div class="calculos-resultados">
-        <h3>Desvio Padrão</h3>
-        <p>{{ desvioPadrao }} </p>
-        </div>
-
-      {% elif escolha == "coeficienteVariacao" %}
-        <div class="calculos-resultados">
-        <h3>Coeficiente de Variação</h3>
-        <p>{{ coeficienteVariacao }}% </p>
-        </div>
-
-      {% elif escolha == "probabilidade" %}
-        <div class="calculos-resultados">
-        <h3>Probabilidade</h3>
-        <p>{{ probabilidade }}% </p>
-        </div>
-
-      {% elif escolha == "equacaoReta" %}
-        <div class="calculos-resultados">
-        <h3>Equação da Reta</h3>
-        <p>{{ equacaoReta }} </p>
-        </div>
-      
-      {% elif escolha == "coefiDeterminacao" %}
-        <div class="calculos-resultados">
-        <h3>Coeficiente Determinação <h3>
-        <p>{{ coefiDeterminacao }}% </p>
-        </div>
-      
-      {% elif escolha == "dominio" %}
-        <div class="calculos-resultados">
-        <h3>Domínio<h3>
-        <p>{{ dominio }} </p>
-        </div>
-      {% endif %}
-
-    {% else %}
-      {% if escolha == "media" %}
-        <div class="calculos-resultados">
-          <h3>Média</h3>
-        <p>{{ media }} {{ tipo }}</p>
-        </div>
-      
-      {% elif escolha == "moda" %}
-        <div class="calculos-resultados">
-        <h3>Moda</h3>
-        <p>{{ moda }} </p>
-        <p>{{ tipo_moda }}</p>
-        </div>
-      
-      {% elif escolha == "modaCzuber" %}
-        <div class="calculos-resultados">
-        <h3>Moda de Czuber</h3>
-        <p>{{ modaCzuber }} {{ tipo }} </p>
-        </div>
-      
-      {% elif escolha == "mediana" %}
-        <div class="calculos-resultados">
-        <h3>Mediana</h3>
-        <p>{{ mediana }} {{ tipo }}</p>
-        </div>
-      
-      {% elif escolha == "variancia" %}
-        <div class="calculos-resultados">
-        <h3>Variância</h3>
-        <p>{{ variancia }} {{ tipo }}² </p>
-        </div>
-
-      {% elif escolha == "desvioPadrao" %}
-        <div class="calculos-resultados">
-        <h3>Desvio Padrão</h3>
-        <p>{{ desvioPadrao }} {{ tipo }} </p>
-        </div>
-
-      {% elif escolha == "coeficienteVariacao" %}
-        <div class="calculos-resultados">
-        <h3>Coeficiente de Variação</h3>
-        <p>{{ coeficienteVariacao }}% </p>
-        </div>
-      
-      {% elif escolha == "probabilidade" %}
-        <div class="calculos-resultados">
-        <h3>Probabilidade</h3>
-        <p>{{ probabilidade }}% </p>
-        </div>
-      
-      {% elif escolha == "equacaoReta" %}
-        <div class="calculos-resultados">
-        <h3>Equação da Reta</h3>
-        <p>{{ equacaoReta }} </p>
-        </div>
-      
-      {% elif escolha == "coefiDeterminacao" %}
-        <div class="calculos-resultados">
-        <h3>Coeficiente Determinação <h3>
-        <p>{{ coefiDeterminacao }}% </p>
-        </div>
-      
-      {% elif escolha == "dominio" %}
-        <div class="calculos-resultados">
-        <h3>Domínio<h3>
-        <p>{{ dominio }} </p>
-        </div>
-      {% endif %}
-    {% endif %} 
-    {% endfor %}
     </div></div></div>
     <div style="padding: 50px;"></div>
   </body>
   
-  <script src="/static/script.js"></script>
+  <script type="module" src="/static/script.js"></script>
+  <script type="module" src="/static/main.js"></script>
+  <script type="module" src="/static/limparTodosDados.js"></script>
   <script>
       // SISTEMA DE FOCO AUTOMÁTICO PARA TODOS OS INPUTS
 
@@ -1859,15 +1448,6 @@
       
       const formDadosDesordenados = document.getElementById("formDadosDesordenados");
 
-      const mostrarResultados = "{{ mostrarResultados }}";
-      const containerResultados = document.querySelector(".container-estatisticas-dos-dados");
-      if(mostrarResultados == "True"){
-        containerResultados.style.display = "block";
-        containerResultados.scrollIntoView({behavior:"smooth"});
-      } else {
-        containerResultados.style.display = "none";
-      }
-
       const outroRadio = document.getElementById("outro");
       const outroInput = document.getElementById("tipo_custom");
 
@@ -1913,6 +1493,7 @@
       const btnCalcular = document.querySelector(".btn_calcular");
 
       formCalculoDosDados.addEventListener("submit", function (event) {
+        event.preventDefault()
         const tipoSelecionado = document.querySelector(
           'input[name="tipo"]:checked'
         );
@@ -1921,21 +1502,21 @@
           'input[name="escolha-calculo"]:checked'
         );
 
-        if (!tipoSelecionado) {
-          event.preventDefault();
-          msgErro.style.display = "block";
-          btnCalcular.classList.add("chacoalhar");
-        } else {
-          msgErro.style.display = "none";
-        }
+        // if (!tipoSelecionado) {
+        //   event.preventDefault();
+        //   // msgErro.style.display = "block";
+        //   btnCalcular.classList.add("chacoalhar");
+        // } else {
+        //   msgErro.style.display = "none";
+        // }
 
-        if (!tipoSelecionadoCalculo) {
-          event.preventDefault();
-          msgErroCalculos.style.display = "block";
-          btnCalcular.classList.add("chacoalhar");
-        } else {
-          msgErroCalculos.style.display = "none";
-        }
+        // if (!tipoSelecionadoCalculo) {
+        //   event.preventDefault();
+        //   msgErroCalculos.style.display = "block";
+        //   btnCalcular.classList.add("chacoalhar");
+        // } else {
+        //   // msgErroCalculos.style.display = "none";
+        // }
       });
 
       // Event listeners para navegação com TAB/ENTER nos inputs
@@ -1999,30 +1580,5 @@
       }, 200);
 
     });
-
-    function abrirModalClasses() {
-      document.getElementById("container_modal_classes").classList.add("show");
-      document.querySelector(".botoes-calcular-limpar").classList.add("descer");
-      document.querySelector(".container-opcoes-tipo-dado").classList.add("descer");
-      
-      // Habilitar moda de Czuber para dados em classes
-      const modaCzuber = document.getElementById("modaCzuber");
-      const modaCzuberLabel = document.querySelector('label[for="modaCzuber"]');
-      modaCzuber.disabled = false;
-      modaCzuberLabel.classList.remove("disabled");
-
-      setTimeout(() => {
-        const input = document.querySelector('input[name="li"]');
-        if (input) {
-          input.focus();
-        }
-      }, 100);
-    }
-
-    function fecharModalClasses() {
-      document.getElementById("container_modal_classes").classList.remove("show");
-      document.querySelector(".botoes-calcular-limpar").classList.remove("descer");
-      document.querySelector(".container-opcoes-tipo-dado").classList.remove("descer");
-    }
 </script>
 </html>

@@ -28,3 +28,5 @@ Opcional:
 - Fazer ele lembrar do intervalo que a pessoa escolheu depois de calcular tudo
 
 Chart js
+
+- Aviso de erro caso não escolha uma medida, um calculo ou só insira uma amostra no dado desordenado
