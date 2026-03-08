@@ -140,8 +140,8 @@ function renderizarResultados(lambda, tipoIntervalo, valorA, valorB){
   if(labelIntervalo){
     criarCard(
     "Probabilidade",
-    `${labelIntervalo} = ${fmt(probIntervalo, 8)}`,
-    `≈ ${fmt(probIntervalo * 100, 4)}%`
+    `${labelIntervalo} = ${fmt(probIntervalo, 4)}`,
+    `≈ ${fmt(probIntervalo * 100, 2)}%`
     );
   }
 
