@@ -244,15 +244,34 @@ function calcular() {
       }
       if (escolha === "mediana") {
         h3.innerHTML = "Mediana";
+        if (escolhaTipoDado == "R$") {
+          mediana = "R$ " + mediana;
+        } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
+          mediana = mediana + " " + escolhaTipoDado;
+        } 
         p.innerHTML = mediana;
       }
       if (escolha === "variancia") {
         h3.innerHTML = "Variância";
-        p.innerHTML = variancia.toFixed(2);
+        if (escolhaTipoDado == "R$") {
+          variancia = "R$ " + variancia.toFixed(2);
+        } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
+          variancia = variancia.toFixed(2) + " " + escolhaTipoDado + "²";
+        } else if (escolhaTipoDado == "semMedida") {
+          variancia = variancia.toFixed(2);
+        }
+        p.innerHTML = variancia;
       }
       if (escolha === "desvioPadrao") {
         h3.innerHTML = "Desvio Padrão";
-        p.innerHTML = desvioPadrao.toFixed(2);
+        if (escolhaTipoDado == "R$") {
+          desvioPadrao = "R$ " + desvioPadrao.toFixed(2);
+        } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
+          desvioPadrao = desvioPadrao.toFixed(2) + " " + escolhaTipoDado;
+        } else if (escolhaTipoDado == "semMedida") {
+          desvioPadrao = desvioPadrao.toFixed(2);
+        }
+        p.innerHTML = desvioPadrao;
       }
       if (escolha === "coeficienteVariacao") {
         h3.innerHTML = "Coeficiente de Variação";
