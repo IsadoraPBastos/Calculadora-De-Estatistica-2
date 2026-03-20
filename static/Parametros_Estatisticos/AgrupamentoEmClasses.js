@@ -6,7 +6,7 @@ import {
 } from "../state.js";
 
 // ─── Elementos do DOM ───────────────────────────────────────────────────────
-const formDadosClasses = document.getElementById("formDadosClasses");
+const btnAdicionarClasses = document.getElementById("btnAdicionarClasses");
 const inputLiClasses = document.getElementById("inputLiClasses");
 const inputAmplitudeClasses = document.getElementById("inputAmplitudeClasses");
 const inputQtdClasses = document.getElementById("inputQtdClasses");
@@ -41,10 +41,22 @@ function aplicarUnidade(valor, tipo, potencia) {
   return v + " " + suf;
 }
 
-// ─── Geração das linhas de classes ───────────────────────────────────────────
-formDadosClasses.addEventListener("submit", (e) => {
-  e.preventDefault();
+const inputsForm = [inputLiClasses, inputAmplitudeClasses, inputQtdClasses];
+inputsForm.forEach((input, i) => {
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const proximo = inputsForm[i + 1];
+      if (proximo) {
+        proximo.focus();
+      } else {
+        handleDadosClasse();
+      }
+    }
+  });
+});
 
+function handleDadosClasse() {
   const li = parseFloat(inputLiClasses.value);
   const h = parseFloat(inputAmplitudeClasses.value);
   const qtd = parseInt(inputQtdClasses.value, 10);
@@ -120,9 +132,16 @@ formDadosClasses.addEventListener("submit", (e) => {
     tbodyClasses.appendChild(tr);
   }
 
+  console.log("FOiBBBBBBBBBBBBB");
   // Foco no primeiro input de FI
   const primeiro = tbodyClasses.querySelector("input[type='number']");
   if (primeiro) setTimeout(() => primeiro.focus(), 60);
+}
+
+// ─── Geração das linhas de classes ───────────────────────────────────────────
+btnAdicionarClasses.addEventListener("click", (e) => {
+  e.preventDefault();
+  handleDadosClasse();
 });
 
 // ─── Botão "Alterar FI" ──────────────────────────────────────────────────────
@@ -135,13 +154,18 @@ btnAlterarFI.addEventListener("click", (e) => {
   // Pulso verde nos inputs para confirmar
   const inputs = tbodyClasses.querySelectorAll("input[type='number']");
   inputs.forEach((inp) => {
-    inp.style.borderColor = "#1a8a2e";
-    inp.style.backgroundColor = "#eaffea";
-    inp.style.transition = "all 0.3s";
-    setTimeout(() => {
-      inp.style.borderColor = "#223fa3";
-      inp.style.backgroundColor = "";
-    }, 1200);
+    if (inp.value < 1) {
+      inp.style.borderColor = "#8a1a1a";
+      inp.style.backgroundColor = "#ffeaea";
+    } else {
+      inp.style.borderColor = "#1a8a2e";
+      inp.style.backgroundColor = "#eaffea";
+      inp.style.transition = "all 0.3s";
+      setTimeout(() => {
+        inp.style.borderColor = "#223fa3";
+        inp.style.backgroundColor = "";
+      }, 1200);
+    }
   });
 });
 
@@ -161,6 +185,19 @@ if (btnLimparClasses) {
   });
 }
 
+function validar() {
+  let vazio = "";
+  const inputs = tbodyClasses.querySelectorAll("input[type='number']");
+  inputs.forEach((inp) => {
+    if (inp.value < 1) {
+      vazio += "vazio";
+    } else {
+      vazio += "";
+    }
+  });
+  return vazio;
+}
+
 // ─── Botão principal "Calcular" ───────────────────────────────────────────────
 btnCalcular.addEventListener("click", () => {
   const modalClasses = document.getElementById("container_modal_classes");
@@ -176,7 +213,15 @@ btnCalcular.addEventListener("click", () => {
     return;
   }
 
-  calcularClasses();
+  let verficar = validar();
+  console.log(verficar);
+  if (verficar == "") {
+    calcularClasses();
+  } else {
+    setMostrarResultados(false);
+    const container = document.getElementById("containerTabelaDistribuicao");
+    container.innerHTML = "";
+  }
 });
 
 // ─── Helpers internos ─────────────────────────────────────────────────────────
@@ -449,8 +494,10 @@ function gerarTabelaDistribuicao(
   container.innerHTML = "";
 
   // ── Cabeçalho
+  const table = document.createElement("table");
   const thead = document.createElement("thead");
   const trHead = document.createElement("tr");
+  const wrapper = document.createElement("div");
   trHead.style.cssText =
     "background:linear-gradient(135deg,#0c1d8f,#223fa3);color:white;";
   const colunas = [

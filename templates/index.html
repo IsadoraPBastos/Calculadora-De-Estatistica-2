@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<!-- isadora boboca -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="../static/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -264,28 +263,19 @@
         </div>
         <h1>Agrupamento em Classes</h1>
         <div class="divisao-modal-desor-class-eq1">
-          <form style="display: contents;" id="formDadosClasses">
-          <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
-              <div style="margin: 10px;">
-                <label for="li" 
-                  >Li:
-                  <input type="number" id="inputLiClasses" name="li" step="any" placeholder="Limite Inferior" required
-                /></label>
-              </div>
-              <div style="margin: 10px;">
-                <label for="amplitude"
-                  >h:
-                  <input type="number" id="inputAmplitudeClasses" name="amplitude" step="any" placeholder="Amplitude de classe" required
-                /></label>
-              </div>
-              <div style="margin: 10px;">
-                <label for="qtd" 
-                  >Classes:
-                  <input type="number" id="inputQtdClasses" name="qtd" step="any" placeholder="Quantidade de classes" required
-                /></label>
-              </div>
-              <div><button>Adicionar</button></div>
-          </div>
+           <form id="formDadosClasses">
+                <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%; ">
+                  <div style="margin: 10px;">
+                    <label>Li: <input type="number" id="inputLiClasses" step="any" placeholder="Limite Inferior" required /></label>
+                  </div>
+                  <div style="margin: 10px;">
+                    <label>h: <input type="number" id="inputAmplitudeClasses" step="any" placeholder="Amplitude de classe" required /></label>
+                  </div>
+                  <div style="margin: 10px;">
+                    <label>Classes: <input type="number" id="inputQtdClasses" step="any" placeholder="Quantidade de classes" required /></label>
+                  </div>
+                  <div><button type="button" id="btnAdicionarClasses">Adicionar</button></div>
+                </div>
           </form>
           <form style="display: contents;">
           <div style="width: 50%;">
@@ -299,14 +289,7 @@
                   <th>PMI (Ponto Médio)</th>
                 </tr>
               </thead>
-              <tbody id="tbodyClasses">
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td><input type="number" id="fi" style="width: 50px;"></td>
-                  <td></td>
-                </tr>
-                
+              <tbody id="tbodyClasses">        
               </tbody>
             </table>
             <button id="alterarFIClasses">Alterar FI</button>
@@ -314,17 +297,6 @@
           </div>
           </form>
         </div>
-        <!-- {% if erroMenorZero %}
-          <div class="msg-erro" id="msg-erro-zero-division">
-            <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite uma Frequência Individual maior que 0!
-          </div>
-          {% endif %}
-          {% if reqDistNormal %}
-          <form action="{{url_for('calculo_dos_dados')}}" method="POST" style="display: contents;">
-          <button class="btnCalcularDiscDistNormal" name="btnCalcularDiscDistNormal">Calcular Dados</button>
-          <p class="details">*Esses dados serão processados e enviados para a utilização na Distribuição Normal.</p>
-          </form> 
-          {% endif %} -->
       </div>
     </div>
 
@@ -1173,10 +1145,10 @@
     <div style="padding: 50px;"></div>
   </body>
   
-  <script src="/static/script.js"></script>
-  <script type="module" src="/static/main.js"></script>
-  <script type="module" src="/static/modoCalculo.js"></script>
-  <script type="module" src="/static/limparTodosDados.js"></script>
+  <script src="../static/script.js"></script>
+  <script type="module" src="../static/main.js"></script>
+  <script type="module" src="../static/modoCalculo.js"></script>
+  <script type="module" src="../static/limparTodosDados.js"></script>
   <script>
       // SISTEMA DE FOCO AUTOMÁTICO PARA TODOS OS INPUTS
 

@@ -49,6 +49,10 @@ hr {
   margin: 40px auto;
 }
 
+#formDadosClasses{
+  display: contents;
+}
+
 .btn_calcular {
   padding: 10px;
   font-size: 15px;
