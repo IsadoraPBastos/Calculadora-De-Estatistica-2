@@ -21,20 +21,20 @@ let classesData = []; // [{ li, ls, fi, pmi }]
 let amplitudeGlobal = 0;
 
 // ─── Utilitários ─────────────────────────────────────────────────────────────
-function fmt(num, casas = 4) {
+function fmt(num, casas = 2) {
   const v = parseFloat(num);
   if (!isFinite(v)) return "—";
   return parseFloat(v.toFixed(casas)).toString();
 }
 
-function fmtD(num, casas = 4) {
+function fmtD(num, casas = 2) {
   const v = parseFloat(num);
   if (!isFinite(v)) return "—";
   return v.toFixed(casas);
 }
 
 function aplicarUnidade(valor, tipo, potencia) {
-  const v = parseFloat(valor).toFixed(4);
+  const v = parseFloat(valor).toFixed(2);
   if (tipo === "R$") return "R$ " + v;
   if (tipo === "semMedida") return v;
   const suf = potencia === 2 ? tipo + "²" : tipo;
@@ -144,12 +144,16 @@ btnAdicionarClasses.addEventListener("click", (e) => {
   handleDadosClasse();
 });
 
+let errorMsg = false;
+const errorMsgClasses = document.getElementById("errorMsgClasses");
 // ─── Botão "Alterar FI" ──────────────────────────────────────────────────────
 btnAlterarFI.addEventListener("click", (e) => {
   e.preventDefault();
   if (classesData.length === 0) return;
   lerFIsDaTabela();
-  destacarClassesEspeciais();
+
+  errorMsgClasses.replaceChildren();
+  errorMsg = false;
 
   // Pulso verde nos inputs para confirmar
   const inputs = tbodyClasses.querySelectorAll("input[type='number']");
@@ -157,16 +161,23 @@ btnAlterarFI.addEventListener("click", (e) => {
     if (inp.value < 1) {
       inp.style.borderColor = "#8a1a1a";
       inp.style.backgroundColor = "#ffeaea";
+      errorMsg = true;
     } else {
       inp.style.borderColor = "#1a8a2e";
       inp.style.backgroundColor = "#eaffea";
       inp.style.transition = "all 0.3s";
-      setTimeout(() => {
-        inp.style.borderColor = "#223fa3";
-        inp.style.backgroundColor = "";
-      }, 1200);
     }
   });
+
+  console.log(errorMsg);
+  if (errorMsg == true) {
+    errorMsgClasses.innerHTML = `<p class="msg-erro">
+      <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i>
+      Todas as FI devem possuir um valor acima de 0! 
+    </p>`;
+  } else {
+    errorMsgClasses.replaceChildren();
+  }
 });
 
 // ─── Botão "Limpar" do modal de classes ──────────────────────────────────────
@@ -182,6 +193,9 @@ if (btnLimparClasses) {
     for (const k in dadosClasses) delete dadosClasses[k];
     document.getElementById("containerTabelaDistribuicao").innerHTML = "";
     setMostrarResultados(false);
+    if (errorMsg == false) {
+      errorMsgClasses.replaceChildren();
+    }
   });
 }
 
@@ -235,35 +249,35 @@ function lerFIsDaTabela() {
   });
 }
 
-function destacarClassesEspeciais() {
-  if (classesData.length === 0) return;
-  const rows = tbodyClasses.querySelectorAll("tr");
-  const maxFi = Math.max(...classesData.map((c) => c.fi));
-  const n = classesData.reduce((acc, c) => acc + c.fi, 0);
-  let fac = 0;
+// function destacarClassesEspeciais() {
+//   if (classesData.length === 0) return;
+//   const rows = tbodyClasses.querySelectorAll("tr");
+//   const maxFi = Math.max(...classesData.map((c) => c.fi));
+//   const n = classesData.reduce((acc, c) => acc + c.fi, 0);
+//   let fac = 0;
 
-  classesData.forEach((c, i) => {
-    const row = rows[i];
-    if (!row) return;
-    row.style.backgroundColor = "";
-    row.title = "";
-    fac += c.fi;
+//   classesData.forEach((c, i) => {
+//     const row = rows[i];
+//     if (!row) return;
+//     row.style.backgroundColor = "";
+//     row.title = "";
+//     fac += c.fi;
 
-    const isModal = c.fi === maxFi;
-    const isMediana = fac >= n / 2 && fac - c.fi < n / 2;
+//     const isModal = c.fi === maxFi;
+//     const isMediana = fac >= n / 2 && fac - c.fi < n / 2;
 
-    if (isModal && isMediana) {
-      row.style.backgroundColor = "#d4edda";
-      row.title = "Classe Modal + Mediana";
-    } else if (isModal) {
-      row.style.backgroundColor = "#fff3cd";
-      row.title = "Classe Modal";
-    } else if (isMediana) {
-      row.style.backgroundColor = "#cce5ff";
-      row.title = "Classe da Mediana";
-    }
-  });
-}
+//     if (isModal && isMediana) {
+//       row.style.backgroundColor = "#d4edda";
+//       row.title = "Classe Modal + Mediana";
+//     } else if (isModal) {
+//       row.style.backgroundColor = "#fff3cd";
+//       row.title = "Classe Modal";
+//     } else if (isMediana) {
+//       row.style.backgroundColor = "#cce5ff";
+//       row.title = "Classe da Mediana";
+//     }
+//   });
+// }
 
 function mostrarErroDados(msg) {
   let el = document.getElementById("msg-erro-classes");
@@ -466,7 +480,7 @@ function calcularClasses() {
     facAntM,
   );
 
-  destacarClassesEspeciais();
+  // destacarClassesEspeciais();
   setMostrarResultados(true);
 }
 
@@ -497,18 +511,52 @@ function gerarTabelaDistribuicao(
   const table = document.createElement("table");
   const thead = document.createElement("thead");
   const trHead = document.createElement("tr");
-  const wrapper = document.createElement("div");
-  trHead.style.cssText =
-    "background:linear-gradient(135deg,#0c1d8f,#223fa3);color:white;";
+  const h3 = document.createElement("h3");
+  h3.textContent = "Tabela de Distribuição";
+  const div = document.createElement("div");
+  div.className = "calculos-resultados";
+
+  // - Descrição Tabela
+  const div2 = document.createElement("div");
+  div2.style =
+    "margin-top: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: flex-end;";
+
+  const divModa = document.createElement("div");
+  divModa.style = "width: 20px; height: 20px; background-color: #fff3cd;";
+  const pMo = document.createElement("p");
+  pMo.style = "margin: 8px 15px 8px 8px;";
+  pMo.innerHTML = "Moda";
+  div2.appendChild(divModa);
+  div2.appendChild(pMo);
+
+  const divMediana = document.createElement("div");
+  divMediana.style = "width: 20px; height: 20px; background-color: #cce5ff;";
+  const pMe = document.createElement("p");
+  pMe.style = "margin: 8px 15px 8px 8px;";
+  pMe.innerHTML = "Mediana";
+  div2.appendChild(divMediana);
+  div2.appendChild(pMe);
+
+  const divModaMediana = document.createElement("div");
+  divModaMediana.style =
+    "width: 20px; height: 20px; background-color: #d4edda;";
+  const pMM = document.createElement("p");
+  pMM.style = "margin: 8px 15px 8px 8px;";
+  pMM.innerHTML = "Moda e Mediana";
+  div2.appendChild(divModaMediana);
+  div2.appendChild(pMM);
+
+  // - Criação da Tabela
+  trHead.style.cssText = "background:white;color:black;";
   const colunas = [
-    { label: "Classes", title: "Intervalo de classe [Li ⊢ Ls[" },
-    { label: "fi", title: "Frequência Individual Absoluta" },
+    { label: "Classes", title: "Intervalo de classe [Li - Ls]" },
+    { label: "FI", title: "Frequência Individual Absoluta" },
     { label: "FAC", title: "Frequência Acumulada Absoluta" },
-    { label: "fri (%)", title: "Frequência Relativa Individual" },
+    { label: "FRI (%)", title: "Frequência Relativa Individual" },
     { label: "FRAC (%)", title: "Frequência Relativa Acumulada" },
     { label: "PMi", title: "Ponto Médio do Intervalo" },
-    { label: "fi · PMi", title: "Produto usado na média" },
-    { label: "fi · (PMi − x̄)²", title: "Produto usado na variância" },
+    { label: "FI · PMi", title: "Produto usado na média" },
+    { label: "FI · (PMi − x̄)²", title: "Produto usado na variância" },
   ];
   colunas.forEach(({ label, title }) => {
     const th = document.createElement("th");
@@ -545,7 +593,7 @@ function gerarTabelaDistribuicao(
     if (isModal || isMediana) tr.style.fontWeight = "600";
 
     [
-      `[${fmt(c.li)} ⊢ ${fmt(c.ls)}[`,
+      `[${fmt(c.li)} - ${fmt(c.ls)}]`,
       c.fi,
       facAcum,
       fri.toFixed(2) + "%",
@@ -565,8 +613,7 @@ function gerarTabelaDistribuicao(
 
   // Linha de totais
   const trTot = document.createElement("tr");
-  trTot.style.cssText =
-    "background:linear-gradient(135deg,#0c1d8f,#223fa3);color:white;font-weight:bold;";
+  trTot.style.cssText = "background:white;color:black;font-weight:bold;";
   [
     "Σ Total",
     n,
@@ -585,6 +632,8 @@ function gerarTabelaDistribuicao(
   tbody.appendChild(trTot);
 
   table.appendChild(tbody);
-  wrapper.appendChild(table);
-  container.appendChild(wrapper);
+  div.appendChild(h3);
+  div.appendChild(table);
+  div.appendChild(div2);
+  container.appendChild(div);
 }

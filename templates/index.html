@@ -294,6 +294,7 @@
             </table>
             <button id="alterarFIClasses">Alterar FI</button>
             <button name="limpar" value="limpar" class="btn_limpar">Limpar</button>
+            <div id="errorMsgClasses"></div>
           </div>
           </form>
         </div>
@@ -519,21 +520,21 @@
             <button onclick="mostrarDNormal_Final()" id="btnNormalFinal" class="btn-mostrar-tipo-discreto">Final</button>
 
             </div>
-            <form >
+            <form id="formDistNormal">
               <div id="secaoDNormal_Amostral" style="gap: 1rem;" >
                   <div class="insercao-infos">
-                    <input type="text" name="valorANorm" placeholder="Valor do A" >
-                    <input type="text" name="valorBNorm" id="inputDuasVariaveisNorm" class="hidden" placeholder="Valor do B" >
+                    <input type="text" id="inputValorANorm" placeholder="Valor do A" >
+                    <input type="text" id="inputDuasVariaveisNorm" class="hidden" placeholder="Valor do B" >
                   </div>       
                   <div class="insercao-infos">
-                    <input type="text" name="mediaNorm" placeholder="Média Populacional" >
-                    <input type="text" name="desvioPadraoNorm" placeholder="Desvio Padrão Populacional" >
-                    <input type="text" name="tamanhoAmostraNorm" placeholder="Tamanho da Amostra" >
+                    <input type="text" id="mediaNorm" placeholder="Média Populacional" >
+                    <input type="text" id="desvioPadraoNorm" placeholder="Desvio Padrão Populacional" >
+                    <input type="text" id="tamanhoAmostraNorm" placeholder="Tamanho da Amostra" >
                   </div>
                   <div class="container-opcoes-tipo-intervalo">
                      <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormAmostral"
                         id="maiorQueNorm1"
                         value="maiorQueNorm1"
                         class="escolha-tipo-dado"
@@ -541,7 +542,7 @@
                       <label for="maiorQueNorm1" class="opcao-tipo-intervalo">></label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormAmostral"
                         id="maiorIgualNorm1"
                         value="maiorIgualNorm1"
                         class="escolha-tipo-dado"
@@ -549,7 +550,7 @@
                       <label for="maiorIgualNorm1" class="opcao-tipo-intervalo">≥</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormAmostral"
                         id="menorQueNorm1"
                         value="menorQueNorm1"
                         class="escolha-tipo-dado"
@@ -557,7 +558,7 @@
                       <label for="menorQueNorm1" class="opcao-tipo-intervalo"><</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormAmostral"
                         id="menorIgualNorm1"
                         value="menorIgualNorm1"
                         class="escolha-tipo-dado"
@@ -566,7 +567,7 @@
                         <br>
                      <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormAmostral"
                         id="menorQueMenorQueNorm1"
                         value="menorQueMenorQueNorm1"
                         class="escolha-tipo-dado"
@@ -574,7 +575,7 @@
                       <label for="menorQueMenorQueNorm1"class="opcao-tipo-intervalo">< <</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormAmostral"
                         id="menorIgualMenorQueNorm1"
                         value="menorIgualMenorQueNorm1"
                         class="escolha-tipo-dado"
@@ -582,7 +583,7 @@
                       <label for="menorIgualMenorQueNorm1" class="opcao-tipo-intervalo">≤ <</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormAmostral"
                         id="menorQueMenorIgualNorm1"
                         value="menorQueMenorIgualNorm1"
                         class="escolha-tipo-dado"
@@ -590,7 +591,7 @@
                       <label for="menorQueMenorIgualNorm1" class="opcao-tipo-intervalo">< ≤</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormAmostral"
                         id="menorIgualMenorIgualNorm1"
                         value="menorIgualMenorIgualNorm1"
                         class="escolha-tipo-dado"
@@ -599,7 +600,7 @@
                       <br>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormAmostral"
                         id="intervaloIgualNorm1"
                         value="intervaloIgualNorm1"
                         class="escolha-tipo-dado"
@@ -624,16 +625,16 @@
                           <div><strong>Desvio Padrão:</strong> </div>
                       </div> -->
                   </div>
-                  <form style="align-items: start;">
+                  <form  id="formDistNormalFinal">
                         <div class="insercao-infos">
-                          <input type="text" name="valorANorm" id="valorAMuda" placeholder="Valor do A" value="{% if valorANorm %} {{ valorANorm }}  {% endif %}">
-                          <input type="text" name="valorBNorm" id="inputDuasVariaveisNormF" class="hidden" placeholder="Valor do B" value="{% if valorBNorm %} {{ valorBNorm }}  {% endif %}">
+                          <input type="text" name="valorANorm" id="valorAMuda" placeholder="Valor do A">
+                          <input type="text" name="valorBNorm" id="inputDuasVariaveisNormF" class="hidden" placeholder="Valor do B">
                         </div>
                         
                         <div class="container-opcoes-tipo-intervalo">
                      <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormFinal"
                         id="maiorQueNormF"
                         value="maiorQueNormF"
                         class="escolha-tipo-dado"
@@ -641,7 +642,7 @@
                       <label for="maiorQueNormF" class="opcao-tipo-intervalo">></label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormFinal"
                         id="maiorIgualNormF"
                         value="maiorIgualNormF"
                         class="escolha-tipo-dado"
@@ -649,7 +650,7 @@
                       <label for="maiorIgualNormF" class="opcao-tipo-intervalo">≥</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormFinal"
                         id="menorQueNormF"
                         value="menorQueNormF"
                         class="escolha-tipo-dado"
@@ -657,7 +658,7 @@
                       <label for="menorQueNormF" class="opcao-tipo-intervalo"><</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormFinal"
                         id="menorIgualNormF"
                         value="menorIgualNormF"
                         class="escolha-tipo-dado"
@@ -666,7 +667,7 @@
                         <br>
                      <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormFinal"
                         id="menorQueMenorQueNormF"
                         value="menorQueMenorQueNormF"
                         class="escolha-tipo-dado"
@@ -674,7 +675,7 @@
                       <label for="menorQueMenorQueNormF"class="opcao-tipo-intervalo">< <</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormFinal"
                         id="menorIgualMenorQueNormF"
                         value="menorIgualMenorQueNormF"
                         class="escolha-tipo-dado"
@@ -682,7 +683,7 @@
                       <label for="menorIgualMenorQueNormF" class="opcao-tipo-intervalo">≤ <</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormFinal"
                         id="menorQueMenorIgualNormF"
                         value="menorQueMenorIgualNormF"
                         class="escolha-tipo-dado"
@@ -690,7 +691,7 @@
                       <label for="menorQueMenorIgualNormF" class="opcao-tipo-intervalo">< ≤</label>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormFinal"
                         id="menorIgualMenorIgualNormF"
                         value="menorIgualMenorIgualNormF"
                         class="escolha-tipo-dado"
@@ -699,7 +700,7 @@
                       <br>
                       <input
                         type="radio"
-                        name="intervalo"
+                        name="intervaloNormFinal"
                         id="intervaloIgualNormF"
                         value="intervaloIgualNormF"
                         class="escolha-tipo-dado"

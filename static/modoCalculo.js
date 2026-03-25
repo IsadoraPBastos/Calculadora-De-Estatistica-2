@@ -24,8 +24,12 @@ document
     setModoCalculo("Exponencial");
   });
 
-document.getElementById("btn-escolha-normal").addEventListener("click", () => {
-  setModoCalculo("Normal");
+document.getElementById("btnNormalAmostral").addEventListener("click", () => {
+  setModoCalculo("NormalAmostral");
+});
+
+document.getElementById("btnNormalFinal").addEventListener("click", () => {
+  setModoCalculo("NormalFinal");
 });
 
 document.getElementById("btn-escolha-poisson").addEventListener("click", () => {

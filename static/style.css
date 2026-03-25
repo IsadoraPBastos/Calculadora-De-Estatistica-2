@@ -53,6 +53,10 @@ hr {
   display: contents;
 }
 
+#formDistNormalFinal{
+  align-items: start;
+}
+
 .btn_calcular {
   padding: 10px;
   font-size: 15px;

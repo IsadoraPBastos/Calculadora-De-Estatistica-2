@@ -43,10 +43,15 @@ export function escolhaTipoIntervaloFunc() {
     selecionado = document.querySelector('input[name="intervaloBin"]:checked');
   } else if (modoCalculo == "Poisson") {
     selecionado = document.querySelector('input[name="intervaloPoi"]:checked');
+  } else if (modoCalculo == "NormalAmostral") {
+    selecionado = document.querySelector(
+      'input[name="intervaloNormAmostral"]:checked',
+    );
+  } else if (modoCalculo == "NormalFinal") {
+    selecionado = document.querySelector(
+      "input[name='intervaloNormFinal']:checked",
+    );
   }
-  // else if (modoCalculo == "Normal") {
-  //   selecionado = document.querySelector('input[name="intervaloNorm"]:checked');
-  // }
 
   return selecionado ? selecionado.value : null;
 }
