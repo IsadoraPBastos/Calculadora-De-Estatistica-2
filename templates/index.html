@@ -1116,28 +1116,28 @@
     <div>
       <h1 style="color:white;"><u>Estatísticas desses Dados</u></h1>
     </div>
-                                                                                                              
-    <!-- <h2 style="color:white;" id="titleStatisticsTable"></h2> ou Tabela de Classes 
+                   
+    <div id="frequencyTable">
+    <h2 style="color:white;" id="titleStatisticsTable"></h2> 
     <table style="color: black; background-color: white;">
       <thead>
         <tr>
-          <th id="titleClassesOuAmostra"></th>  Classes
+          <th id="frequencyTableTitle"></th> 
           <th>Frequência Individual Absoluta (FI)</th>
           <th>Frequência Acumulada Absoluta (FAC)</th>
           <th>Posições</th>
         </tr>
       </thead>
-      <tbody>
-        {% for amostra, fi in FequenciaIndividualAbsoluta.items() %}
-        <tr>
-          <td>{{ amostra }}</td>
+      <tbody id="frequencyTableValues">
+        <!-- <tr >
+           <td>{{ amostra }}</td>
           <td>{{ fi }}</td>
           <td>{{ FrequenciaAcumulada[amostra] }}</td>
           <td>{{ Posicoes[amostra] }}</td>
-        </tr>
-        {% endfor %}
+        </tr> -->
       </tbody>
-    </table> -->
+    </table>
+    </div>
 
     <!-- <p style="color:white;margin-top: 3px; margin-bottom: 40px;">Tamanho da amostra: {{ tamanhoDaAmostra }} dados<p> -->
       <h2 style="color:white;">Cálculos escolhidos</h2>

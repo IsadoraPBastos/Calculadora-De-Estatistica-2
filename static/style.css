@@ -22,6 +22,10 @@ th {
   text-align: center;
 }
 
+#frequencyTable {
+  display: none;
+}
+
 button {
   margin: 3%;
   padding: 5px;

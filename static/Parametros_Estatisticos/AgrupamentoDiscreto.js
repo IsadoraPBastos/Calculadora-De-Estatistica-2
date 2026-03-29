@@ -63,7 +63,8 @@ formDadosEmTabela.addEventListener("submit", (e) => {
     isNaN(valorAmo) ||
     isNaN(valorFreq) ||
     amostra.value === "" ||
-    freq.value === ""
+    freq.value === "" ||
+    freq.value <= 0
   )
     return;
   if (valorAmo in tabelaRecebida) {
@@ -160,6 +161,17 @@ function calcular() {
   } else if (moda.length > 3) {
     tipoModa = "Multimodal";
   }
+  let aux = 1;
+  let modaNums = "[";
+  moda.forEach((amostra) => {
+    if (aux == moda.length) {
+      modaNums += amostra;
+    } else {
+      modaNums += amostra + ", ";
+      aux++;
+    }
+  });
+  modaNums += "]";
 
   // Mediana
   let conjunto = [];
@@ -216,6 +228,61 @@ function calcular() {
       escolhaTipoDado = outroInput.value.trim();
     }
 
+    const titleStatisticsTable = document.getElementById(
+      "titleStatisticsTable",
+    );
+    titleStatisticsTable.innerHTML = "Tabela das Frequências";
+
+    const frequencyTableTitle = document.getElementById("frequencyTableTitle");
+    frequencyTableTitle.innerHTML = "Amostra";
+
+    let statistics = {};
+    let i = 1;
+    let j = 0;
+    let k = 1;
+    let posicoes = "";
+    //[ 2: 5, 6: 3, 7: 4 ]
+    for (const [amostra, freq] of Object.entries(FreqIndAbs)) {
+      if (k == 1) {
+        j = freq;
+        k += 1;
+      } else {
+        j += freq;
+      }
+      if (i == j) {
+        posicoes = "[" + i + "°]";
+      } else {
+        posicoes = "[" + i + "° - " + j + "°]";
+      }
+      statistics[amostra] = [freq, (amostra * freq).toFixed(2), posicoes];
+      i += freq;
+    }
+    console.log(statistics);
+
+    document.getElementById("frequencyTable").style = "display: inline;";
+
+    const frequencyTableValues = document.getElementById(
+      "frequencyTableValues",
+    );
+
+    for (const [amostra, info] of Object.entries(statistics)) {
+      const tr = document.createElement("tr");
+      const tdA = document.createElement("td");
+      tdA.innerHTML = amostra;
+      const tdFi = document.createElement("td");
+      tdFi.innerHTML = info[0];
+      const tdFAC = document.createElement("td");
+      tdFAC.innerHTML = info[1];
+      const tdP = document.createElement("td");
+      tdP.innerHTML = info[2];
+
+      tr.appendChild(tdA);
+      tr.appendChild(tdFi);
+      tr.appendChild(tdFAC);
+      tr.appendChild(tdP);
+      frequencyTableValues.appendChild(tr);
+    }
+
     const containerCalculosResultados = document.querySelector(
       ".container-calculos-resultados",
     );
@@ -240,7 +307,7 @@ function calcular() {
       }
       if (escolha === "moda") {
         h3.innerHTML = "Moda";
-        p.innerHTML = moda;
+        p.innerHTML = modaNums;
         p2.innerHTML = tipoModa;
       }
       if (escolha === "mediana") {
@@ -368,8 +435,3 @@ fecharModalDiscreto.addEventListener("click", (e) => {
   console.log("Entrou 2");
   document.getElementById("formDesordenadoPNormal").style.display = "none";
 });
-// const titleStatisticsTable = document.getElementById("titleStatisticsTable");
-// const titleClassesOuAmostra = document.getElementById("titleClassesOuAmostra")
-
-// titleStatisticsTable.value = "Tabela das Frequências";
-// titleClassesOuAmostra.value = "Amostra"

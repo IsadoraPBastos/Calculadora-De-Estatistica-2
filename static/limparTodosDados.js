@@ -26,6 +26,7 @@ export function limparTodosDados() {
 
 const btnLimpar = document.querySelector(".btn_limpar_tudo");
 btnLimpar.addEventListener("click", (e) => {
+  e.preventDefault();
   limparTodosDados();
   location.reload();
 });
