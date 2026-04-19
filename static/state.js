@@ -4,6 +4,7 @@ export let FreqIndAbs = {};
 export let tabelaDeDados = {};
 export let dadosClasses = {};
 export let distNormalAtiva = false;
+export let dadosDistNormF = false;
 export let distNormalDados = {};
 export let mostrarResultados = false;
 export let modoCalculo = null;
@@ -63,6 +64,17 @@ export function setDistNormalAtiva(valor) {
 export function setModoCalculo(valor) {
   modoCalculo = valor;
   console.log(modoCalculo);
+}
+
+export function setDadosDistNormF(valor) {
+  dadosDistNormF = valor;
+  console.log(dadosDistNormF);
+
+  if (dadosDistNormF == true) {
+    document.getElementById("btnNormalFinal").style.display = "flex";
+  } else {
+    document.getElementById("btnNormalFinal").style.display = "none";
+  }
 }
 
 if (distNormalAtiva == false) {

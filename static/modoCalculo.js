@@ -32,6 +32,16 @@ document.getElementById("btnNormalFinal").addEventListener("click", () => {
   setModoCalculo("NormalFinal");
 });
 
+document.getElementById("formClassesPNormal");
+formClassesPNormal.addEventListener("submit", () => {
+  setModoCalculo("NormalFinal");
+});
+
+document.getElementById("formDesordenadoPNormal");
+formDesordenadoPNormal.addEventListener("submit", () => {
+  setModoCalculo("NormalFinal");
+});
+
 document.getElementById("btn-escolha-poisson").addEventListener("click", () => {
   setModoCalculo("Poisson");
 });

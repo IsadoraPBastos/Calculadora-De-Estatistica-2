@@ -423,8 +423,11 @@ label[for="modaCzuber"].disabled {
 #btn-escolha-tabela.ativo,
 #btn-escolha-uniforme.ativo,
 #btn-escolha-exponencial.ativo,
+#btn-escolha-normal.ativo,
 #btn-escolha-poisson.ativo,
-#btn-escolha-binomial.ativo {
+#btn-escolha-binomial.ativo,
+#btnNormalAmostral.ativo,
+#btnNormalFinal.ativo {
   background-color: black;
   color: white;
   transition: 0.3s;

@@ -23,7 +23,7 @@
     <div class="container-cards">
       <!-- Parte dos cards-->
       <div class="container-card-discreto" >
-        <div onclick="abrirModalDiscreto()" class="card-discreto">
+        <div onclick="abrirModalDiscreto('discreto')" class="card-discreto">
           <div class="front-discreto"><b>Agrupamento Discreto 🔢</b></div>
           <div class="back-discreto"><h3 style="margin-top: 35px">Agrupamento Discreto</h3><h4 style="margin: 10px; margin-top: 30px;">Dados Desordenados</h4><p style="margin: 3px;"><u>Exemplo</u></p><p style="margin: 0px 30px">1 - 2 - 3 - 2 - 5 - 5 - 2 - 5 - 3 - 6 - 5 - 3 - 2 - 4 - 3</p>
             <h4 style="margin: 10px; margin-top: 30px;"><b>Dados em tabela</b></h4>
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="container-card-classes">
-        <div onclick="abrirModalClasses()" class="card-classes">
+        <div onclick="abrirModalClasses('classes')" class="card-classes">
           <div class="front-classes"><b>Agrupamento em Classes 🗂️</b></div>
           <div class="back-classes"><h3 style="margin-top: 35px">Agrupamento em Classes</h3><p><u>Exemplo</u> </p>
             <p style="margin: 0px 30px">
@@ -291,8 +291,10 @@
               <tbody id="tbodyClasses">        
               </tbody>
             </table>
-            <button id="alterarFIClasses">Alterar FI</button>
-            <button name="limpar" value="limpar" class="btn_limpar">Limpar</button>
+            <div>
+                <button type="button" id="alterarFIClasses">Alterar FI</button>
+              <button name="limpar" value="limpar" class="btn_limpar">Limpar</button>
+            </div>
             <div id="errorMsgClasses"></div>
           </div>
           </form>
@@ -517,10 +519,10 @@
           <div class="divisao-modal" id="secaoDNormal">
             <div class="secao-normal">
             <div class="normal-botoes">
-            <button onclick="abrirModalDiscreto(true)" value="1" id="btnNormalDiscreto" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento Discreto</button>
-            <button onclick="abrirModalClasses(true)"value="1" id="btnNormalClasses" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento em Classes</button>
+            <button onclick="abrirModalDiscreto('normal')" value="1" id="btnNormalDiscreto" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento Discreto</button>
+            <button onclick="abrirModalClasses('normal')"value="1" id="btnNormalClasses" name="reqDistNormal" class="btn-mostrar-tipo-discreto">Agrupamento em Classes</button>
             <button onclick="mostrarDNormal_Amostral()" id="btnNormalAmostral" class="btn-mostrar-tipo-discreto">Amostral</button>
-            <button onclick="mostrarDNormal_Final()" id="btnNormalFinal" class="btn-mostrar-tipo-discreto">Final</button>
+            <button onclick="mostrarDNormal_Final()" id="btnNormalFinal" class="btn-mostrar-tipo-discreto" style="display: none;">Final</button>
 
             </div>
             <form id="formDistNormal">
@@ -613,8 +615,6 @@
                   <button>Calcular</button>
                 </div>
               </form>
-             
-             <div class="mostrar-conta">
                  
               </div>
               <div id="secaoDNormal_Final" style="gap: 1rem;">
@@ -714,7 +714,7 @@
                         <button class="botao-calcular-normal">Calcular</button>
                     </form>                
                   </div>
-                <div class="mostrar-conta">            
+                <div class="mostrar-conta" id="mostrarContaNorm" style="margin: 0;">            
               </div>
           </div>
         </div>
@@ -1154,6 +1154,7 @@
   <script type="module" src="../static/main.js"></script>
   <script type="module" src="../static/modoCalculo.js"></script>
   <script type="module" src="../static/limparTodosDados.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.2.0/math.js"></script>;
   <script>
       // SISTEMA DE FOCO AUTOMÁTICO PARA TODOS OS INPUTS
 

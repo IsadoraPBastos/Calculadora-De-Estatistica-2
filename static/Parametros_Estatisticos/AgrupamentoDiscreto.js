@@ -7,8 +7,9 @@ import {
   escolhaTipoDadoFunc,
   setDistNormalAtiva,
   distNormalAtiva,
-  distNormalDados,
+  dadosClasses,
   modoCalculo,
+  setDadosDistNormF,
 } from "../state.js";
 
 // Dados Desordenados
@@ -355,10 +356,15 @@ function calcular() {
 
     setMostrarResultados(true);
   } else {
-    distNormalDados["Media"] = media;
-    distNormalDados["Moda"] = moda;
-    distNormalDados["Mediana"] = mediana.toFixed(2);
-    distNormalDados["DesvioPadrao"] = desvioPadrao.toFixed(2);
+    for (let key in dadosClasses) {
+      delete dadosClasses[key];
+    }
+    dadosClasses["Media"] = media;
+    dadosClasses["Mediana"] = mediana.toFixed(2);
+    dadosClasses["DesvioPadrao"] = desvioPadrao.toFixed(2);
+    dadosClasses["TamAmostra"] = somaFreq;
+    dadosClasses["Variancia"] = variancia.toFixed(2);
+    dadosClasses["CoefVariacao"] = coeficienteVar.toFixed(2);
   }
 }
 
@@ -386,44 +392,108 @@ formDesordenadoPNormal.addEventListener("submit", (e) => {
   e.preventDefault();
   if (distNormalAtiva == true) {
     calcular();
-    console.log(distNormalDados);
+    console.log(dadosClasses);
   }
 
-  setDistNormalAtiva(false);
-  document.getElementById("formDesordenadoPNormal").style.display = "none";
-  dados.length = 0;
-  mostrarDadosInseridosDesor.textContent = dados.join(" - ");
+  if (Object.keys(dadosClasses).length == 0) {
+    setDadosDistNormF(false);
+  } else {
+    setDadosDistNormF(true);
 
-  document.getElementById("container_modal_discreto").classList.remove("show");
-  document.getElementById("container_modal_vac").classList.add("show");
-  document.getElementById("secaoDNormal").style.display = "flex";
-  document.getElementById("secaoDNormal_Final").style.display = "flex";
+    const container = document.getElementById("containerTabelaDistribuicao");
+    container.innerHTML = "";
+    setDistNormalAtiva(false);
+    document.getElementById("formDesordenadoPNormal").style.display = "none";
+    dados.length = 0;
+    mostrarDadosInseridosDesor.textContent = dados.join(" - ");
 
-  if (Object.keys(distNormalDados).length > 0) {
-    dadosCalculadosNormal.replaceChildren();
+    document
+      .getElementById("container_modal_discreto")
+      .classList.remove("show");
+    document.getElementById("container_modal_vac").classList.add("show");
+    document.getElementById("secaoDNormal").style.display = "flex";
+    document.getElementById("secaoDNormal_Final").style.display = "flex";
 
-    const h3 = document.createElement("h3");
-    h3.textContent = "📊 Dados Calculados";
-    dadosCalculadosNormal.appendChild(h3);
+    function btnValueAClick(value) {
+      const inputValorANormFinal = document.getElementById(
+        "inputValorANormFinal",
+      );
+      inputValorANormFinal.value = value;
+    }
 
-    for (const [key, value] of Object.entries(distNormalDados)) {
-      const div = document.createElement("div");
+    function btnValueBClick(value) {
+      const inputDuasVariaveisNormF = document.getElementById(
+        "inputDuasVariaveisNormF",
+      );
+      inputDuasVariaveisNormF.value = value;
+    }
 
-      let text;
-      const strong = document.createElement("strong");
-      if (key == "Media") {
-        text = "Média";
-      } else if (key == "DesvioPadrao") {
-        text = "Desvio Padrão";
-      } else {
-        text = key;
+    if (Object.keys(dadosClasses).length > 0) {
+      dadosCalculadosNormal.replaceChildren();
+
+      const div2 = document.createElement("div");
+      div2.style =
+        "display: grid; grid-template-columns: repeat(1, 1fr); gap: 10px; justify-items: end;";
+
+      const h3 = document.createElement("h3");
+      h3.textContent = "📊 Dados Calculados";
+      dadosCalculadosNormal.appendChild(h3);
+
+      const p = document.createElement("p");
+      p.textContent = "Usar como valor de: ";
+      p.style = "margin: 0";
+      div2.appendChild(p);
+
+      for (const [key, value] of Object.entries(dadosClasses)) {
+        if (
+          key != "TamAmostra" &&
+          key != "Variancia" &&
+          key != "CoefVariacao"
+        ) {
+          const div = document.createElement("div");
+
+          let text;
+          const strong = document.createElement("strong");
+          if (key == "Media") {
+            text = "Média";
+          } else if (key == "ModaBruta") {
+            text = "Moda Bruta";
+          } else if (key == "ModaCzuber") {
+            text = "Moda Czuber";
+          } else if (key == "DesvioPadrao") {
+            text = "Desvio Padrão";
+          } else {
+            text = key;
+          }
+          strong.textContent = text + ": ";
+
+          div.appendChild(strong);
+          div.append(value);
+
+          const buttonA = document.createElement("button");
+          buttonA.className = "btnValueDistNorm";
+          buttonA.innerHTML = "A";
+
+          buttonA.addEventListener("click", () => {
+            btnValueAClick(value);
+          });
+
+          const buttonB = document.createElement("button");
+          buttonB.className = "btnValueBDistNorm";
+          buttonB.innerHTML = "B";
+
+          buttonB.addEventListener("click", () => {
+            btnValueBClick(value);
+          });
+
+          div.appendChild(buttonA);
+          div.appendChild(buttonB);
+
+          div2.appendChild(div);
+
+          dadosCalculadosNormal.appendChild(div2);
+        }
       }
-      strong.textContent = text + ": ";
-
-      div.appendChild(strong);
-      div.append(value);
-
-      dadosCalculadosNormal.appendChild(div);
     }
   }
 });

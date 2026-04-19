@@ -1,11 +1,10 @@
 # Calculadora-De-Estatistica
 
 ## Como rodar o site
+
 - pip install flask
 - pip install scipy
 - python app.py
-
-
 
 Calculadora para as aulas de estatistica
 
@@ -24,7 +23,10 @@ Calculadora para as aulas de estatistica
 - Quando a pessoa insere 0 ele não aparece
 - Alerta quando a pessoa não escolher intervalo
 
+- Resolver de só poder usar com o Live Server
+
 Opcional:
+
 - Fazer ele lembrar do intervalo que a pessoa escolheu depois de calcular tudo
 
 Chart js

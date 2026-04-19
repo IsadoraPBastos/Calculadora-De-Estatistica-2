@@ -5,6 +5,7 @@ import {
   setMostrarResultados,
   setDistNormalAtiva,
   distNormalAtiva,
+  setDadosDistNormF,
 } from "../state.js";
 
 // ─── Elementos do DOM ───────────────────────────────────────────────────────
@@ -350,11 +351,17 @@ function calcularClasses() {
   const cvPct = media !== 0 ? (desvioPadrao / media) * 100 : Infinity;
 
   // Guardar em dadosClasses (para Distribuição Normal)
+  for (let key in dadosClasses) {
+    delete dadosClasses[key];
+  }
   dadosClasses["Media"] = fmtD(media);
   dadosClasses["ModaBruta"] = fmtD(modaBruta);
   dadosClasses["ModaCzuber"] = fmtD(modaCzuber);
   dadosClasses["Mediana"] = fmtD(mediana);
   dadosClasses["DesvioPadrao"] = fmtD(desvioPadrao);
+  dadosClasses["TamAmostra"] = fmtD(n);
+  dadosClasses["Variancia"] = fmtD(variancia);
+  dadosClasses["CoefVariacao"] = fmtD(cvPct);
 
   // ─── Exibir cards de resultado ─────────────────────────────────────────────
   const escolhasCalculo = escolhaCalculosFunc();
@@ -484,6 +491,7 @@ function calcularClasses() {
   if (distNormalAtiva == true) {
     setMostrarResultados(false);
   } else {
+    setDadosDistNormF(false);
     setMostrarResultados(true);
   }
 }
@@ -660,89 +668,101 @@ formClassesPNormal.addEventListener("submit", (e) => {
     console.log(dadosClasses);
   }
 
-  const container = document.getElementById("containerTabelaDistribuicao");
-  container.innerHTML = "";
+  if (Object.keys(dadosClasses).length == 0) {
+    setDadosDistNormF(false);
+  } else {
+    setDadosDistNormF(true);
 
-  setDistNormalAtiva(false);
-  document.getElementById("formClassesPNormal").style.display = "none";
-  document.getElementById("container_modal_classes").classList.remove("show");
-  document.getElementById("container_modal_vac").classList.add("show");
-  document.getElementById("secaoDNormal").style.display = "flex";
-  document.getElementById("secaoDNormal_Final").style.display = "flex";
+    const container = document.getElementById("containerTabelaDistribuicao");
+    container.innerHTML = "";
 
-  function btnValueAClick(value) {
-    const inputValorANormFinal = document.getElementById(
-      "inputValorANormFinal",
-    );
-    inputValorANormFinal.value = value;
-  }
+    setDistNormalAtiva(false);
+    document.getElementById("formClassesPNormal").style.display = "none";
+    document.getElementById("container_modal_classes").classList.remove("show");
+    document.getElementById("container_modal_vac").classList.add("show");
+    document.getElementById("secaoDNormal").style.display = "flex";
+    document.getElementById("secaoDNormal_Final").style.display = "flex";
 
-  function btnValueBClick(value) {
-    const inputDuasVariaveisNormF = document.getElementById(
-      "inputDuasVariaveisNormF",
-    );
-    inputDuasVariaveisNormF.value = value;
-  }
+    function btnValueAClick(value) {
+      const inputValorANormFinal = document.getElementById(
+        "inputValorANormFinal",
+      );
+      inputValorANormFinal.value = value;
+    }
 
-  if (Object.keys(dadosClasses).length > 0) {
-    dadosCalculadosNormal.replaceChildren();
+    function btnValueBClick(value) {
+      const inputDuasVariaveisNormF = document.getElementById(
+        "inputDuasVariaveisNormF",
+      );
+      inputDuasVariaveisNormF.value = value;
+    }
 
-    const div2 = document.createElement("div");
-    div2.style =
-      "display: grid; grid-template-columns: repeat(1, 1fr); gap: 10px; justify-items: end;";
+    if (Object.keys(dadosClasses).length > 0) {
+      dadosCalculadosNormal.replaceChildren();
 
-    const h3 = document.createElement("h3");
-    h3.textContent = "📊 Dados Calculados";
-    dadosCalculadosNormal.appendChild(h3);
+      const div2 = document.createElement("div");
+      div2.style =
+        "display: grid; grid-template-columns: repeat(1, 1fr); gap: 10px; justify-items: end;";
 
-    const p = document.createElement("p");
-    p.textContent = "Usar como valor de: ";
-    p.style = "margin: 0";
-    div2.appendChild(p);
+      const h3 = document.createElement("h3");
+      h3.textContent = "📊 Dados Calculados";
+      dadosCalculadosNormal.appendChild(h3);
 
-    for (const [key, value] of Object.entries(dadosClasses)) {
-      const div = document.createElement("div");
+      const p = document.createElement("p");
+      p.textContent = "Usar como valor de: ";
+      p.style = "margin: 0";
+      div2.appendChild(p);
 
-      let text;
-      const strong = document.createElement("strong");
-      if (key == "Media") {
-        text = "Média";
-      } else if (key == "ModaBruta") {
-        text = "Moda Bruta";
-      } else if (key == "ModaCzuber") {
-        text = "Moda Czuber";
-      } else if (key == "DesvioPadrao") {
-        text = "Desvio Padrão";
-      } else {
-        text = key;
+      for (const [key, value] of Object.entries(dadosClasses)) {
+        if (
+          key != "TamAmostra" &&
+          key != "Variancia" &&
+          key != "CoefVariacao"
+        ) {
+          const div = document.createElement("div");
+
+          let text;
+          const strong = document.createElement("strong");
+          if (key == "Media") {
+            text = "Média";
+          } else if (key == "ModaBruta") {
+            text = "Moda Bruta";
+          } else if (key == "ModaCzuber") {
+            text = "Moda Czuber";
+          } else if (key == "DesvioPadrao") {
+            text = "Desvio Padrão";
+          } else {
+            text = key;
+          }
+          strong.textContent = text + ": ";
+
+          div.appendChild(strong);
+          div.append(value);
+
+          const buttonA = document.createElement("button");
+          buttonA.className = "btnValueDistNorm";
+          buttonA.innerHTML = "A";
+
+          buttonA.addEventListener("click", () => {
+            btnValueAClick(value);
+          });
+
+          const buttonB = document.createElement("button");
+          buttonB.className = "btnValueBDistNorm";
+          buttonB.innerHTML = "B";
+
+          buttonB.addEventListener("click", () => {
+            btnValueBClick(value);
+          });
+
+          div.appendChild(buttonA);
+          div.appendChild(buttonB);
+
+          div2.appendChild(div);
+
+          dadosCalculadosNormal.appendChild(div2);
+        }
       }
-      strong.textContent = text + ": ";
-
-      div.appendChild(strong);
-      div.append(value);
-
-      const buttonA = document.createElement("button");
-      buttonA.className = "btnValueDistNorm";
-      buttonA.innerHTML = "A";
-
-      buttonA.addEventListener("click", () => {
-        btnValueAClick(value);
-      });
-
-      const buttonB = document.createElement("button");
-      buttonB.className = "btnValueBDistNorm";
-      buttonB.innerHTML = "B";
-
-      buttonB.addEventListener("click", () => {
-        btnValueBClick(value);
-      });
-
-      div.appendChild(buttonA);
-      div.appendChild(buttonB);
-
-      div2.appendChild(div);
-
-      dadosCalculadosNormal.appendChild(div2);
     }
   }
 });

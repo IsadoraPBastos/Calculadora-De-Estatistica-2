@@ -4,10 +4,13 @@ import {
   FreqIndAbs,
   tabelaDeDados,
   setMostrarResultados,
+  setDadosDistNormF,
+  dadosClasses,
 } from "./state.js";
 
 export function limparTodosDados() {
   setMostrarResultados(false);
+  setDadosDistNormF(false);
 
   // Listas
   dados.length = 0;
@@ -21,6 +24,9 @@ export function limparTodosDados() {
   }
   for (let key in tabelaDeDados) {
     delete tabelaDeDados[key];
+  }
+  for (let key in dadosClasses) {
+    delete dadosClasses[key];
   }
 }
 

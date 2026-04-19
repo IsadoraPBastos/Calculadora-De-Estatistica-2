@@ -111,16 +111,20 @@ function gerarBotoesCalculo(tipoModal) {
 gerarBotoesCalculo("discreto");
 
 // Funções para abrir e fechar modais
-function abrirModalDiscreto(normal) {
+function abrirModalDiscreto(valor) {
   document.getElementById("container_modal_discreto").classList.add("show");
   document.querySelector(".botoes-calcular-limpar").classList.add("descer");
   document.querySelector(".container-opcoes-tipo-dado").classList.add("descer");
   document.getElementById("container_modal_vac").classList.remove("show");
+  document.getElementById("btnNormalAmostral").classList.remove("ativo");
 
-  gerarBotoesCalculo("discreto");
-
-  if (normal == true) {
+  if (valor == "discreto") {
+    gerarBotoesCalculo("discreto");
+  } else {
     mostrarDadosDesordenados();
+    gerarBotoesCalculo("probabilidade");
+    document.getElementById("btnNormalFinal").classList.add("ativo");
+    document.getElementById("secaoDNormal_Amostral").style.display = "none";
   }
 }
 
@@ -132,12 +136,19 @@ function fecharModalDiscreto() {
     .classList.remove("descer");
 }
 
-function abrirModalClasses() {
+function abrirModalClasses(valor) {
   document.getElementById("container_modal_classes").classList.add("show");
   document.querySelector(".botoes-calcular-limpar").classList.add("descer");
   document.querySelector(".container-opcoes-tipo-dado").classList.add("descer");
+  document.getElementById("btnNormalAmostral").classList.remove("ativo");
 
-  gerarBotoesCalculo("classes");
+  if (valor == "classes") {
+    gerarBotoesCalculo("classes");
+  } else {
+    gerarBotoesCalculo("probabilidade");
+    document.getElementById("btnNormalFinal").classList.add("ativo");
+    document.getElementById("secaoDNormal_Amostral").style.display = "none";
+  }
 }
 
 function fecharModalClasses() {
@@ -291,14 +302,24 @@ function mostrarDNormal_Amostral() {
   secaoDNormal_Final.style.display = "none";
   if (secaoDNormal_Amostral.style.display == "flex") {
     secaoDNormal_Amostral.style.display = "none";
+    document.getElementById("btnNormalAmostral").classList.remove("ativo");
   } else {
     secaoDNormal_Amostral.style.display = "flex";
+    document.getElementById("btnNormalAmostral").classList.add("ativo");
+    document.getElementById("btnNormalFinal").classList.remove("ativo");
   }
 }
 
 function mostrarDNormal_Final() {
   secaoDNormal_Amostral.style.display = "none";
-  secaoDNormal_Final.style.display = "flex";
+  if (secaoDNormal_Final.style.display == "flex") {
+    secaoDNormal_Final.style.display = "none";
+    document.getElementById("btnNormalFinal").classList.remove("ativo");
+  } else {
+    secaoDNormal_Final.style.display = "flex";
+    document.getElementById("btnNormalFinal").classList.add("ativo");
+    document.getElementById("btnNormalAmostral").classList.remove("ativo");
+  }
 }
 
 // Cards
