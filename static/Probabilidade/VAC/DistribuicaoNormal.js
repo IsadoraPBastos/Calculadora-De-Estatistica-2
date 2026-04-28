@@ -9,6 +9,8 @@ import {
   modoCalculo,
 } from "../../state.js";
 
+import { destroyChart } from "../../createCharts.js";
+
 const btnNormalDiscreto = document.getElementById("btnNormalDiscreto");
 const btnNormalClasses = document.getElementById("btnNormalClasses");
 const btnNormalFinal = document.getElementById("btnNormalFinal");
@@ -376,11 +378,18 @@ btnCalcular.addEventListener("click", (e) => {
   e.preventDefault();
   const tipoIntervalo = escolhaTipoIntervaloFunc();
   let media, desvio, n;
+  let escolhasCalculo = escolhaCalculosFunc();
+  let escolhaTipoDado = escolhaTipoDadoFunc();
 
   if (modoCalculo == "NormalFinal") {
     const valorAF = parseFloat(inputValorANormFinal.value.trim(), 10);
     const valorBF = parseFloat(inputDuasVariaveisNormF.value.trim(), 10);
-    if (!isNaN(valorAF) && tipoIntervalo != "") {
+    if (
+      !isNaN(valorAF) &&
+      tipoIntervalo != "" &&
+      escolhasCalculo.length != 0 &&
+      escolhaTipoDado != null
+    ) {
       setMostrarResultados(false);
       let verificar = validar(valorAF, valorBF);
       if (verificar == true) {
@@ -402,11 +411,20 @@ btnCalcular.addEventListener("click", (e) => {
           n,
         );
       }
+    } else {
+      destroyChart();
+      document.getElementById("chartsTitle").innerHTML = "";
+      setMostrarResultados(false);
     }
   } else if (modoCalculo == "NormalAmostral") {
     const valorAA = parseFloat(inputValorANorm.value.trim(), 10);
     const valorBA = parseFloat(inputDuasVariaveisNorm.value.trim(), 10);
-    if (!isNaN(valorAA) && tipoIntervalo != "") {
+    if (
+      !isNaN(valorAA) &&
+      tipoIntervalo != "" &&
+      escolhasCalculo.length != 0 &&
+      escolhaTipoDado != null
+    ) {
       setMostrarResultados(false);
       let verificar = validar(valorAA, valorBA);
       if (verificar == true) {
@@ -422,6 +440,10 @@ btnCalcular.addEventListener("click", (e) => {
           n,
         );
       }
+    } else {
+      destroyChart();
+      document.getElementById("chartsTitle").innerHTML = "";
+      setMostrarResultados(false);
     }
   }
 });

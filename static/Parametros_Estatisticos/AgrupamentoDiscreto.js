@@ -12,6 +12,8 @@ import {
   setDadosDistNormF,
 } from "../state.js";
 
+import { createChart, destroyChart } from "../createCharts.js";
+
 // Dados Desordenados
 const formDadosDesordenados = document.getElementById("formDadosDesordenados");
 const dado = document.getElementById("inputAdicionarDesordenados");
@@ -65,8 +67,8 @@ formDadosEmTabela.addEventListener("submit", (e) => {
     isNaN(valorAmo) ||
     isNaN(valorFreq) ||
     amostra.value === "" ||
-    freq.value === "" ||
-    freq.value <= 0
+    valorFreq === "" ||
+    valorFreq <= 0
   ) {
     msgErro.innerHTML = `<i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i>
     "Valor da amostra está incorreto ou frequência está abaixo de 0!"`;
@@ -118,6 +120,7 @@ formDadosEmTabela.addEventListener("submit", (e) => {
 // Cálculos
 let media, mediana, moda, tipoModa, variancia, desvioPadrao, coeficienteVar;
 let maxFreq, somaFreq;
+let statistics = {};
 
 const btnCalcular = document.getElementById("btnCalcular");
 
@@ -127,11 +130,12 @@ function calcular() {
   }
 
   if (dados.length != 0) {
+    console.log(dados.sort((a, b) => a - b));
     for (let key in tabelaRecebida) {
       delete tabelaRecebida[key];
     }
     for (const num of dados.sort((a, b) => a - b)) {
-      FreqIndAbs[num] = (FreqIndAbs[num] || 0) + 1;
+      FreqIndAbs[Number(num)] = (FreqIndAbs[num] || 0) + 1;
     }
     somaFreq = dados.length;
   }
@@ -189,10 +193,13 @@ function calcular() {
     conjunto = [...dados].sort((a, b) => a - b);
   } else {
     for (let valor in FreqIndAbs) {
+      const num = Number(valor);
+
       for (let i = 0; i < FreqIndAbs[valor]; i++) {
-        conjunto.push(Number(valor));
+        conjunto.push(num);
       }
     }
+    conjunto = conjunto.map(Number);
     conjunto.sort((a, b) => a - b);
   }
 
@@ -217,6 +224,8 @@ function calcular() {
     desvioPadrao = 0;
   }
 
+  console.log(conjunto);
+
   // Coeficiente de Variação
   if (desvioPadrao != 0) {
     if (media != 0) {
@@ -226,6 +235,31 @@ function calcular() {
     }
   } else {
     coeficienteVar = 0 + "%";
+  }
+
+  const amostraFreqOrdenado = Object.entries(FreqIndAbs)
+    .map(([k, v]) => [Number(k), v])
+    .sort((a, b) => a[0] - b[0]);
+
+  let i = 1;
+  let j = 0;
+  let k = 1;
+  let posicoes = "";
+  for (const [amostra, freq] of amostraFreqOrdenado) {
+    if (k == 1) {
+      j = freq;
+      k += 1;
+    } else {
+      j += freq;
+    }
+    if (i == j) {
+      posicoes = "[" + i + "°]";
+    } else {
+      posicoes = "[" + i + "° - " + j + "°]";
+    }
+
+    statistics[amostra] = [freq, (amostra * freq).toFixed(2), posicoes];
+    i += freq;
   }
 
   if (distNormalAtiva == false) {
@@ -246,36 +280,23 @@ function calcular() {
     const frequencyTableTitle = document.getElementById("frequencyTableTitle");
     frequencyTableTitle.innerHTML = "Amostra";
 
-    let statistics = {};
-    let i = 1;
-    let j = 0;
-    let k = 1;
-    let posicoes = "";
-    for (const [amostra, freq] of Object.entries(FreqIndAbs)) {
-      if (k == 1) {
-        j = freq;
-        k += 1;
-      } else {
-        j += freq;
-      }
-      if (i == j) {
-        posicoes = "[" + i + "°]";
-      } else {
-        posicoes = "[" + i + "° - " + j + "°]";
-      }
-      statistics[amostra] = [freq, (amostra * freq).toFixed(2), posicoes];
-      i += freq;
-    }
+    console.log(statistics);
+    console.log("aaaaaaaaaaa  ");
     console.log(statistics);
 
     document.getElementById("frequencyTable").style = "display: inline;";
 
+    console.log(conjunto);
     const frequencyTableValues = document.getElementById(
       "frequencyTableValues",
     );
     frequencyTableValues.replaceChildren();
 
-    for (const [amostra, info] of Object.entries(statistics)) {
+    const entriesOrdenadas = Object.entries(statistics)
+      .map(([k, v]) => [Number(k), v])
+      .sort((a, b) => a[0] - b[0]);
+
+    for (const [amostra, info] of entriesOrdenadas) {
       const tr = document.createElement("tr");
       const tdA = document.createElement("td");
       tdA.innerHTML = amostra;
@@ -363,6 +384,18 @@ function calcular() {
       containerCalculosResultados.appendChild(div);
     }
 
+    document.getElementById("chartsTitle").innerHTML =
+      "Gráfico das Frequências";
+
+    let label = [],
+      data = [];
+    for (const [amostra, info] of entriesOrdenadas) {
+      label.push(amostra);
+      data.push(info[0]);
+    }
+
+    createChart("bar", label, "Frequência", data);
+
     setMostrarResultados(true);
   } else {
     for (let key in dadosClasses) {
@@ -380,9 +413,23 @@ function calcular() {
 btnCalcular.addEventListener("click", () => {
   if (modoCalculo == "Discreto") {
     if (dados.length > 1 || Object.keys(tabelaRecebida).length > 1) {
-      document.getElementById("msg-erro-zero-division").style.display = "none";
-      calcular();
+      let escolhasCalculo = escolhaCalculosFunc();
+      let escolhaTipoDado = escolhaTipoDadoFunc();
+      if (escolhasCalculo.length != 0 && escolhaTipoDado != null) {
+        document.getElementById("msg-erro-zero-division").style.display =
+          "none";
+        calcular();
+      } else {
+        destroyChart();
+        document.getElementById("chartsTitle").innerHTML = "";
+        setMostrarResultados(false);
+        document.getElementById("msg-erro-zero-division").style.display =
+          "block";
+      }
     } else {
+      destroyChart();
+      document.getElementById("chartsTitle").innerHTML = "";
+      setMostrarResultados(false);
       document.getElementById("msg-erro-zero-division").style.display = "block";
     }
   }
@@ -503,6 +550,20 @@ formDesordenadoPNormal.addEventListener("submit", (e) => {
           dadosCalculadosNormal.appendChild(div2);
         }
       }
+
+      console.log(statistics);
+      const entriesOrdenadas = Object.entries(statistics)
+        .map(([k, v]) => [Number(k), v])
+        .sort((a, b) => a[0] - b[0]);
+
+      let label = [],
+        data = [];
+      for (const [amostra, info] of entriesOrdenadas) {
+        label.push(amostra);
+        data.push(info[0]);
+      }
+
+      createChart("bar", label, "Frequência", data);
     }
   }
 });

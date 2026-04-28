@@ -409,7 +409,7 @@
                       <label for="intervaloIgualUni" class="opcao-tipo-intervalo">=</label>
                     </div>
 
-                  <button>Calcular</button>
+                  <button class="btn-calcular-prob">Calcular</button>
               </form>
               <!-- {% if erroInserirTodosDados %}
                     <div class="msg-erro" id="msg-erro-zero-division">
@@ -506,7 +506,7 @@
                       />
                       <label for="intervaloIgualExpo" class="opcao-tipo-intervalo">=</label>
                     </div>
-                  <button>Calcular</button>
+                  <button class="btn-calcular-prob">Calcular</button>
               </form>
               <!-- {% if erroInserirTodosDados %}
                     <div class="msg-erro" id="msg-erro-zero-division">
@@ -614,7 +614,7 @@
                       />
                       <label for="intervaloIgualNorm1" class="opcao-tipo-intervalo">=</label>
                     </div>
-                  <button>Calcular</button>
+                  <button class="btn-calcular-prob">Calcular</button>
                 </div>
               </form>
                  
@@ -823,7 +823,7 @@
                       />
                       <label for="intervaloIgualBin" class="opcao-tipo-intervalo">=</label>
                     </div>
-                      <button>Calcular</button>
+                      <button class="btn-calcular-prob">Calcular</button>
                   </form>
                   <!-- {% if erroInserirTodosDados %}
                     <div class="msg-erro" id="msg-erro-zero-division">
@@ -922,7 +922,7 @@
                       />
                       <label for="intervaloIgualPoi" class="opcao-tipo-intervalo">=</label>
                     </div>
-                      <button>Calcular</button>
+                      <button class="btn-calcular-prob">Calcular</button>
                   </form>
                   <!-- {% if erroInserirTodosDados %}
                     <div class="msg-erro" id="msg-erro-zero-division">
@@ -1149,7 +1149,13 @@
     
   </div></div>
   <div id="containerTabelaDistribuicao" style="width: 100%; justify-content: center; display: flex; margin-top: 30px;"></div>
-    <div style="padding: 50px;"></div>
+  <div>
+    <h2 style="color:white;" id="chartsTitle"></h2>
+<div style="width: 70%; margin: 0 auto; position: relative; min-height: 400px;">
+  <canvas id="myChart" style="margin: 0 auto; width: 80%;"></canvas>
+</div>
+</div>
+  <div style="padding: 50px;"></div>
   </body>
   
   <script src="../static/script.js"></script>
@@ -1157,6 +1163,7 @@
   <script type="module" src="../static/modoCalculo.js"></script>
   <script type="module" src="../static/limparTodosDados.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.2.0/math.js"></script>;
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
       // SISTEMA DE FOCO AUTOMÁTICO PARA TODOS OS INPUTS
 

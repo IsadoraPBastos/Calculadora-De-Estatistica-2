@@ -133,6 +133,10 @@ hr {
   margin-right: 1.5%;
 }
 
+.btn-calcular-prob{
+  height: 50px;
+}
+
 /* Tipo de dados botão*/
 .container-opcoes-tipo-dado input[type="radio"],
 .container-opcoes-tipo-intervalo input[type="radio"] {

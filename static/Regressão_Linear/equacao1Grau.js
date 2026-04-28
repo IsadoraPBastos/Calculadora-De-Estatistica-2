@@ -69,7 +69,13 @@ const btnCalcular = document.getElementById("btnCalcular");
 
 btnCalcular.addEventListener("click", () => {
   if (modoCalculo == "Equacao1Grau") {
-    if (Object.keys(tabelaDeDados).length > 0) {
+    let escolhasCalculo = escolhaCalculosFunc();
+    let escolhaTipoDado = escolhaTipoDadoFunc();
+    if (
+      Object.keys(tabelaDeDados).length > 0 &&
+      escolhasCalculo.length != 0 &&
+      escolhaTipoDado != null
+    ) {
       const pares = Object.entries(tabelaDeDados)
         .map(([x, y]) => [Number(x), y])
         .sort((a, b) => a[0] - b[0]);
@@ -180,6 +186,9 @@ btnCalcular.addEventListener("click", () => {
       console.log("Equação:", equacaoReta);
       console.log("Domínio:", dominio);
       console.log("Coef Determinação:", coefiDeterminacao.toFixed(2) + "%");
+    } else {
+      console.log("Entreii");
+      setMostrarResultados(false);
     }
   }
 });

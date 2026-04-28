@@ -8,6 +8,8 @@ import {
   setDadosDistNormF,
 } from "../state.js";
 
+import { createChart, destroyChart } from "../createCharts.js";
+
 // ─── Elementos do DOM ───────────────────────────────────────────────────────
 const btnAdicionarClasses = document.getElementById("btnAdicionarClasses");
 const inputLiClasses = document.getElementById("inputLiClasses");
@@ -245,6 +247,8 @@ btnCalcular.addEventListener("click", () => {
     setMostrarResultados(false);
     const container = document.getElementById("containerTabelaDistribuicao");
     container.innerHTML = "";
+    destroyChart();
+    document.getElementById("chartsTitle").innerHTML = "";
   }
 });
 
@@ -309,6 +313,9 @@ function mostrarErroDados(msg) {
 function calcularClasses() {
   const h = amplitudeGlobal || classesData[0].ls - classesData[0].li;
   const n = classesData.reduce((acc, c) => acc + c.fi, 0);
+
+  console.log("Classes Data");
+  console.log(classesData);
 
   // Σ(fi · PMi)
   const somaFiPmi = classesData.reduce((acc, c) => acc + c.fi * c.pmi, 0);
@@ -494,6 +501,17 @@ function calcularClasses() {
     cModal,
     facAntM,
   );
+
+  document.getElementById("chartsTitle").innerHTML = "Gráfico das Frequências";
+
+  let label = [],
+    data = [];
+  classesData.forEach((c, i) => {
+    label.push("[" + c.li + " - " + c.ls + "]");
+    data.push(c.fi);
+  });
+
+  createChart("bar", label, "Frequência", data);
 
   // destacarClassesEspeciais();
   if (distNormalAtiva == true) {

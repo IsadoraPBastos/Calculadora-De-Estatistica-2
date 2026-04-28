@@ -318,19 +318,27 @@ btnCalcular.addEventListener("click", (e) => {
     const valorD = parseFloat(inputValorDUnif.value.trim());
     const tipoIntervalo = escolhaTipoIntervaloFunc();
     console.log(tipoIntervalo);
+    let escolhasCalculo = escolhaCalculosFunc();
+    let escolhaTipoDado = escolhaTipoDadoFunc();
 
     if (
       !Number.isNaN(a) &&
       !Number.isNaN(b) &&
       !Number.isNaN(valorC) &&
-      tipoIntervalo != ""
+      tipoIntervalo != "" &&
+      escolhasCalculo.length != 0 &&
+      escolhaTipoDado != null
     ) {
       let verficar = validar();
       console.log(verficar);
       if (verficar == true) {
         setMostrarResultados(false);
         renderizarResultado(a, b, valorC, valorD, tipoIntervalo);
+      } else {
+        setMostrarResultados(false);
       }
+    } else {
+      setMostrarResultados(false);
     }
   }
 });

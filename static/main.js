@@ -7,6 +7,7 @@ import "./Probabilidade/VAD/DistribuicaoBinomial.js";
 import "./Probabilidade/VAD/DistribuicaoPoisson.js";
 import "./Regressão_Linear/equacao1Grau.js";
 import "./modoCalculo.js";
+import "./createCharts.js";
 
 import { limparTodosDados } from "./limparTodosDados.js";
 limparTodosDados();
