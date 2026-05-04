@@ -699,6 +699,9 @@ formClassesPNormal.addEventListener("submit", (e) => {
   } else {
     setDadosDistNormF(true);
 
+    destroyChart();
+    document.getElementById("chartsTitle").innerHTML = "";
+
     const container = document.getElementById("containerTabelaDistribuicao");
     container.innerHTML = "";
 

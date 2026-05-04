@@ -25,6 +25,8 @@ const limpar_desor = document.getElementById("limpar_desor");
 formDadosDesordenados.addEventListener("submit", (e) => {
   e.preventDefault();
   setMostrarResultados(false);
+  destroyChart();
+  document.getElementById("chartsTitle").innerHTML = "";
 
   for (let key in tabelaRecebida) {
     delete tabelaRecebida[key];
@@ -55,6 +57,8 @@ const tbodyTabela = document.getElementById("tbodyTabela");
 formDadosEmTabela.addEventListener("submit", (e) => {
   e.preventDefault();
   setMostrarResultados(false);
+  destroyChart();
+  document.getElementById("chartsTitle").innerHTML = "";
 
   dados.length = 0;
   dado.value = "";
@@ -140,6 +144,10 @@ function calcular() {
     somaFreq = dados.length;
   }
 
+  for (let key in statistics) {
+    delete statistics[key];
+  }
+
   if (Object.keys(tabelaRecebida).length != 0) {
     dados.length = 0;
     Object.assign(FreqIndAbs, tabelaRecebida);
@@ -204,10 +212,12 @@ function calcular() {
   }
 
   if (conjunto.length % 2 === 1) {
-    mediana = conjunto[Math.floor(conjunto.length / 2)];
+    mediana = conjunto[Math.floor(conjunto.length / 2)].toFixed(2);
   } else {
-    mediana =
-      (conjunto[conjunto.length / 2 - 1] + conjunto[conjunto.length / 2]) / 2;
+    mediana = (
+      (conjunto[conjunto.length / 2 - 1] + conjunto[conjunto.length / 2]) /
+      2
+    ).toFixed(2);
   }
 
   // Variância
@@ -402,7 +412,7 @@ function calcular() {
       delete dadosClasses[key];
     }
     dadosClasses["Media"] = media;
-    dadosClasses["Mediana"] = mediana.toFixed(2);
+    dadosClasses["Mediana"] = mediana;
     dadosClasses["DesvioPadrao"] = desvioPadrao.toFixed(2);
     dadosClasses["TamAmostra"] = somaFreq;
     dadosClasses["Variancia"] = variancia.toFixed(2);

@@ -8,9 +8,13 @@ import {
   dadosClasses,
 } from "./state.js";
 
+import { destroyChart } from "../static/createCharts.js";
+
 export function limparTodosDados() {
   setMostrarResultados(false);
   setDadosDistNormF(false);
+
+  destroyChart();
 
   // Listas
   dados.length = 0;
