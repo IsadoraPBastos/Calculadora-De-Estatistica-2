@@ -31,7 +31,7 @@
             <table>
               <thead>
                 <tr>
-                  <th>Amostra</th>
+                  <th>Dado</th>
                   <th>Freq. Ind.</th>
                 </tr>
               </thead>
@@ -176,12 +176,12 @@
 
           <!-- Parte de inserção de dados - Desordenados -->
           <div class="divisao-modal-desor-class-eq1" id="secaoDadosDesordenados">
-            <div style="border-right: 2px dashed; padding: 5% 0%; width: 50%;">
+            <div class="div-text-amostra">
         <form method="POST" id="formDadosDesordenados">
           <div style="margin: 10px;">
             <label for="dado"
-              >Amostra:
-              <input type="number" id="inputAdicionarDesordenados" step="any" placeholder="Amostra" required
+              >Dado:
+              <input type="number" id="inputAdicionarDesordenados" step="any" placeholder="Dado" required
             /></label>
             </div>
           
@@ -203,8 +203,8 @@
         <form method="POST" id="formDadosEmTabela">
           <div style="margin: 10px;">
             <label for="amostra"
-              >Amostra:
-              <input type="number" id="inputAmostraTabela" step="any" placeholder="Amostra" required
+              >Dado:
+              <input type="number" id="inputAmostraTabela" step="any" placeholder="Dado" required
             /></label>
           </div>
           <div style="margin: 10px;">
@@ -220,7 +220,7 @@
         <table style="width: 60%;">
           <thead>
             <tr>
-              <th>Amostra</th>
+              <th>Dado</th>
               <th>Frequência Individual Absoluta (FI)</th>
             </tr>
           </thead>
@@ -739,9 +739,9 @@
             <form id="formDistBinomial">
                     <div class="insercao-infos">
                       <input type="text" id="inputVTotal" name="vTotal" placeholder="Total" >
-                      <input type="text" id="inputProbabSucesso" name="probabSucesso" placeholder="Prob de Sucesso">
+                      <input type="text" id="inputProbabSucesso" name="probabSucesso" placeholder="Prob de Sucesso (Relativa)">
                       <p>Ou</p>
-                      <input type="text" id="inputProbabInsucesso" name="probabInsucesso" placeholder="Prob de Insucesso" >
+                      <input type="text" id="inputProbabInsucesso" name="probabInsucesso" placeholder="Prob de Insucesso (Relativa)" >
                     </div>
                     <div class="insercao-infos">
                       <input type="text" id="inputValorABino" name="valorA" placeholder="Valor do A">
@@ -992,6 +992,7 @@
             <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i> Digite uma Frequência Individual maior que 0!
           </div>
           {% endif %} -->
+          <div id="msg-erro-eq1grau"></div>
     </div>
     </div>
 

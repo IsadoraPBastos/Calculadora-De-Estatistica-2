@@ -338,11 +338,13 @@ function calcular() {
       const p = document.createElement("p");
       const p2 = document.createElement("p");
       if (escolha === "media") {
-        h3.innerHTML = "Média";
+        h3.innerHTML = "Média (μ)";
         if (escolhaTipoDado == "R$") {
-          media = "R$ " + media;
+          media = "μ = R$ " + media;
         } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
-          media = media + " " + escolhaTipoDado;
+          media = "μ = " + media + " " + escolhaTipoDado;
+        } else if (escolhaTipoDado == "semMedida") {
+          media = "μ = " + media;
         }
         p.innerHTML = media;
       }
@@ -361,30 +363,32 @@ function calcular() {
         p.innerHTML = mediana;
       }
       if (escolha === "variancia") {
-        h3.innerHTML = "Variância";
+        h3.innerHTML = "Variância (σ²)";
         if (escolhaTipoDado == "R$") {
-          variancia = "R$ " + variancia.toFixed(2);
+          variancia = "σ² = R$ " + variancia.toFixed(2);
         } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
-          variancia = variancia.toFixed(2) + " " + escolhaTipoDado + "²";
+          variancia =
+            "σ² = " + variancia.toFixed(2) + " " + escolhaTipoDado + "²";
         } else if (escolhaTipoDado == "semMedida") {
-          variancia = variancia.toFixed(2);
+          variancia = "σ² = " + variancia.toFixed(2);
         }
         p.innerHTML = variancia;
       }
       if (escolha === "desvioPadrao") {
-        h3.innerHTML = "Desvio Padrão";
+        h3.innerHTML = "Desvio Padrão (σ)";
         if (escolhaTipoDado == "R$") {
-          desvioPadrao = "R$ " + desvioPadrao.toFixed(2);
+          desvioPadrao = "σ = √σ² = R$ " + desvioPadrao.toFixed(2);
         } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
-          desvioPadrao = desvioPadrao.toFixed(2) + " " + escolhaTipoDado;
+          desvioPadrao =
+            "σ = √σ² = " + desvioPadrao.toFixed(2) + " " + escolhaTipoDado;
         } else if (escolhaTipoDado == "semMedida") {
-          desvioPadrao = desvioPadrao.toFixed(2);
+          desvioPadrao = "σ = √σ² = " + desvioPadrao.toFixed(2);
         }
         p.innerHTML = desvioPadrao;
       }
       if (escolha === "coeficienteVariacao") {
         h3.innerHTML = "Coeficiente de Variação";
-        p.innerHTML = coeficienteVar.toFixed(2) + "%";
+        p.innerHTML = "CV = 100 · σ/μ = " + coeficienteVar.toFixed(2) + "%";
       }
       div.appendChild(h3);
       div.appendChild(p);

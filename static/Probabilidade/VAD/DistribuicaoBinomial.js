@@ -327,7 +327,7 @@ function validar() {
   } else if (isNaN(p) || p <= 0 || p > 1) {
     mostrarConta.innerHTML = `<div class="msg-erro">
       <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i>
-      Informe uma probabilidade de sucesso válida (entre 0 e 1)!
+      O programa usa a probabilidade relativa! Informe uma probabilidade de sucesso válida (entre 0 e 1)!
     </div>`;
     return false;
   } else if (isNaN(valorA) || valorA < 0 || valorA > n) {

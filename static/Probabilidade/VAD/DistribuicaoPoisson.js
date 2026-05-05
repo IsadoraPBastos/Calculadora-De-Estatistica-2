@@ -152,26 +152,26 @@ function renderizarResultados(lambda, tipoIntervalo, valorA, valorB) {
     if (escolha === "media") {
       // cards das medidas resumo
       if (escolhaTipoDado == "R$") {
-        criarCard("Média (μ)", `μ = n · p = R$ ${fmt(media, 4)}`);
+        criarCard("Média (μ)", `μ = R$ ${fmt(media, 4)}`);
       } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
         criarCard(
           "Média (μ)",
-          `μ = n · p = ${fmt(media, 4)} ${escolhaTipoDado}`,
+          `μ = ${fmt(media, 4)} ${escolhaTipoDado}`,
         );
       } else {
-        criarCard("Média (μ)", `μ = n · p = ${fmt(media, 4)}`);
+        criarCard("Média (μ)", `μ = ${fmt(media, 4)}`);
       }
     }
     if (escolha === "variancia") {
       if (escolhaTipoDado == "R$") {
-        criarCard("Variância (σ²)", `σ² = n · p · q = R$ ${fmt(variancia, 4)}`);
+        criarCard("Variância (σ²)", `σ² = R$ ${fmt(variancia, 4)}`);
       } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
         criarCard(
           "Variância (σ²)",
-          `σ² = n · p · q = ${fmt(variancia, 4)} ${escolhaTipoDado}²`,
+          `σ² = ${fmt(variancia, 4)} ${escolhaTipoDado}²`,
         );
       } else {
-        criarCard("Variância (σ²)", `σ² = n · p · q = ${fmt(variancia, 4)}`);
+        criarCard("Variância (σ²)", `σ² = ${fmt(variancia, 4)}`);
       }
     }
     if (escolha === "desvioPadrao") {

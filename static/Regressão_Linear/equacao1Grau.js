@@ -16,16 +16,27 @@ formEqu1Grau.addEventListener("submit", (e) => {
   let valorX = +inputValorX.value.trim();
   let valorY = +inputValorY.value.trim();
 
+  let msgErroEq1grau = document.getElementById("msg-erro-eq1grau");
+
   if (
     isNaN(valorX) ||
     isNaN(valorY) ||
     inputValorX.value === "" ||
     inputValorY.value === ""
-  )
+  ) {
+    msgErroEq1grau.innerHTML = `<div id="msg-erro" style="display: block">
+      <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i>
+      Os valores digitados são inválidos! 
+    </div>`;
     return;
-  if (valorX in tabelaDeDados) {
-    // Fazer uma mensagem de erro
+  } else if (valorX in tabelaDeDados) {
+    msgErroEq1grau.innerHTML = `<div id="msg-erro" style="display: block">
+      <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i>
+      Valor X digitado já foi inserido na tabela!
+    </div>`;
     return;
+  } else {
+    msgErroEq1grau.innerHTML = "";
   }
   tabelaDeDados[valorX] = valorY;
   console.log(tabelaDeDados);
@@ -76,6 +87,12 @@ btnCalcular.addEventListener("click", () => {
       escolhasCalculo.length != 0 &&
       escolhaTipoDado != null
     ) {
+      const containerTabelaDistribuicao = document.getElementById(
+        "containerTabelaDistribuicao",
+      );
+
+      containerTabelaDistribuicao.replaceChildren();
+
       const pares = Object.entries(tabelaDeDados)
         .map(([x, y]) => [Number(x), y])
         .sort((a, b) => a[0] - b[0]);

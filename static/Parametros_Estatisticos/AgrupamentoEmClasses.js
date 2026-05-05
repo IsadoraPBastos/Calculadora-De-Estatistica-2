@@ -395,7 +395,7 @@ function calcularClasses() {
 
   const resultMap = {
     media: {
-      label: "Média",
+      label: "Média (μ)",
       valor: media,
       tipo: tipoDado,
       pot: 1,
@@ -423,14 +423,14 @@ function calcularClasses() {
       detail: `L_Me + h·(n/2−FAC_ant)/fi_Me | L_Me=${fmt(classesData[medianaIdx]?.li)} | FAC_ant=${facAntM}`,
     },
     variancia: {
-      label: "Variância",
+      label: "Variância (σ²)",
       valor: variancia,
       tipo: tipoDado,
       pot: 2,
       detail: `s² = Σfi(PMi−x̄)²/(n−1) = ${fmtD(somaFiDevQ)}/${n - 1}`,
     },
     desvioPadrao: {
-      label: "Desvio Padrão",
+      label: "Desvio Padrão (σ)",
       valor: desvioPadrao,
       tipo: tipoDado,
       pot: 1,
