@@ -39,7 +39,6 @@ formEqu1Grau.addEventListener("submit", (e) => {
     msgErroEq1grau.innerHTML = "";
   }
   tabelaDeDados[valorX] = valorY;
-  console.log(tabelaDeDados);
 
   inputValorX.value = "";
   inputValorY.value = "";
@@ -158,7 +157,6 @@ btnCalcular.addEventListener("click", () => {
       dominio = `(${xMin}, ${xMax})`;
 
       let escolhasCalculo = escolhaCalculosFunc();
-      console.log("Escolhas de calculo: " + escolhasCalculo);
 
       let escolhaTipoDado = escolhaTipoDadoFunc();
       if (escolhaTipoDado == "outro") {
@@ -199,12 +197,7 @@ btnCalcular.addEventListener("click", () => {
       }
 
       setMostrarResultados(true);
-
-      console.log("Equação:", equacaoReta);
-      console.log("Domínio:", dominio);
-      console.log("Coef Determinação:", coefiDeterminacao.toFixed(2) + "%");
     } else {
-      console.log("Entreii");
       setMostrarResultados(false);
     }
   }

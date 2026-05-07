@@ -3,9 +3,12 @@ import {
   tabelaRecebida,
   FreqIndAbs,
   tabelaDeDados,
+  dadosClasses,
+  distNormalDados,
   setMostrarResultados,
   setDadosDistNormF,
-  dadosClasses,
+  setDistNormalAtiva,
+  setModoCalculo,
 } from "./state.js";
 
 import { destroyChart } from "../static/createCharts.js";
@@ -13,6 +16,8 @@ import { destroyChart } from "../static/createCharts.js";
 export function limparTodosDados() {
   setMostrarResultados(false);
   setDadosDistNormF(false);
+  setDistNormalAtiva(false);
+  setModoCalculo(null);
 
   destroyChart();
 
@@ -31,6 +36,9 @@ export function limparTodosDados() {
   }
   for (let key in dadosClasses) {
     delete dadosClasses[key];
+  }
+  for (let key in distNormalDados) {
+    delete distNormalDados[key];
   }
 }
 

@@ -80,9 +80,7 @@ const intervaloDuplo = [
 ];
 
 function validar(valorA, valorB) {
-  console.log(valorA);
   const tipoIntervalo = escolhaTipoIntervaloFunc();
-  console.log(tipoIntervalo);
 
   mostrarConta.style.border = "";
 
@@ -170,7 +168,6 @@ function validar(valorA, valorB) {
   } else {
     let escolhaTipoIntervalo = escolhaTipoIntervaloFunc();
     const p = document.createElement("p");
-    console.log(escolhaTipoIntervalo);
     mostrarConta.replaceChildren();
     if (
       escolhaTipoIntervalo == "maiorQueNormF" ||
@@ -224,11 +221,6 @@ function renderizarResultadosFinal(
     return (1 + math.erf(z / Math.sqrt(2))) / 2;
   }
 
-  console.log(dadosClasses);
-  console.log(tipoIntervalo);
-  console.log(valorAF);
-  console.log(valorBF);
-
   if (intervaloDuplo.includes(tipoIntervalo)) {
     if (valorAF >= valorBF) {
       prob = calcularCdf(valorAF) - calcularCdf(valorBF);
@@ -258,8 +250,6 @@ function renderizarResultadosFinal(
 
   prob = (prob * 100).toFixed(2);
 
-  console.log(prob);
-
   let variancia, coefVariacao;
   if (modoCalculo == "NormalFinal") {
     variancia = dadosClasses["Variancia"];
@@ -274,7 +264,6 @@ function renderizarResultadosFinal(
   containerRes.replaceChildren();
 
   let escolhasCalculo = escolhaCalculosFunc();
-  console.log(escolhasCalculo);
 
   let tipoDado = escolhaTipoDadoFunc();
   if (tipoDado == "outro") {

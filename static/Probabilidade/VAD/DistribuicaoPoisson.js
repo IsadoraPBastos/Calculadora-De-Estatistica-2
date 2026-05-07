@@ -17,7 +17,7 @@ function probPoisson(lambda, k) {
   return (Math.pow(Math.E, -lambda) * Math.pow(lambda, k)) / fatorial(k);
 }
 
-/**fatorial simples */
+/** Fatorial simples */
 function fatorial(n) {
   if (n <= 1) return 1;
   let r = 1;
@@ -25,15 +25,15 @@ function fatorial(n) {
   return r;
 }
 
-/** formata número com até `dec´ casas decimais */
+/** Formata número com até `dec´ casas decimais */
 
 function fmt(v, dec = 6) {
   if (v === null || isNaN(v)) return "-";
   return parseFloat(v.toFixed(dec)).toString();
 }
 
-//-----intervalos-----
-/**mesmo esquema do binomial*/
+//----- Intervalos -----
+/** Mesmo esquema do binomial */
 function calcularIntervalo(lambda, valorA, valorB, tipoIntervalo) {
   let label = "";
   let valor = 0;
@@ -45,7 +45,7 @@ function calcularIntervalo(lambda, valorA, valorB, tipoIntervalo) {
   }
 
   switch (tipoIntervalo) {
-    //intervalo simples
+    // Intervalo simples
     case "maiorQuePoi": //P(X > a) = 1 − P(X ≤ a)
       label = `P(X > ${valorA})`;
       valor = 1 - acumAte(valorA);
@@ -71,7 +71,7 @@ function calcularIntervalo(lambda, valorA, valorB, tipoIntervalo) {
       valor = probPoisson(lambda, valorA);
       break;
 
-    //intervalos duplos
+    // Intervalos duplos
 
     case "menorQueMenorQuePoi": // P(a < X < b)
       label = `P(${valorA} < X < ${valorB})`;
@@ -100,14 +100,14 @@ function calcularIntervalo(lambda, valorA, valorB, tipoIntervalo) {
   return { label, valor };
 }
 
-//--- renderização de resultado ---
+//--- Renderização de resultado ---
 function renderizarResultados(lambda, tipoIntervalo, valorA, valorB) {
   const media = lambda;
   const variancia = lambda;
   const dp = Math.sqrt(lambda);
   const cv = media !== 0 ? (100 * dp) / media : 0;
 
-  //prob. de intervalo escolhido
+  // Prob. de intervalo escolhido
   const { label: labelIntervalo, valor: probIntervalo } = calcularIntervalo(
     lambda,
     valorA,
@@ -128,7 +128,7 @@ function renderizarResultados(lambda, tipoIntervalo, valorA, valorB) {
     escolhaTipoDado = outroInput.value.trim();
   }
 
-  //funcao auxiliar pra criar card padrão
+  // Função auxiliar pra criar card padrão
   function criarCard(titulo, ...valores) {
     const div = document.createElement("div");
     div.className = "calculos-resultados";
@@ -146,18 +146,15 @@ function renderizarResultados(lambda, tipoIntervalo, valorA, valorB) {
     containerCalculosResultados.appendChild(div);
   }
 
-  //cards medidas blablabla
+  // Cards medidas
   for (const escolha of escolhasCalculo) {
     if (escolha === "todos") continue;
     if (escolha === "media") {
-      // cards das medidas resumo
+      // Cards das medidas resumo
       if (escolhaTipoDado == "R$") {
         criarCard("Média (μ)", `μ = R$ ${fmt(media, 4)}`);
       } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
-        criarCard(
-          "Média (μ)",
-          `μ = ${fmt(media, 4)} ${escolhaTipoDado}`,
-        );
+        criarCard("Média (μ)", `μ = ${fmt(media, 4)} ${escolhaTipoDado}`);
       } else {
         criarCard("Média (μ)", `μ = ${fmt(media, 4)}`);
       }
@@ -190,7 +187,7 @@ function renderizarResultados(lambda, tipoIntervalo, valorA, valorB) {
       criarCard("Coeficiente de Variação", `CV = 100 · σ/μ = ${fmt(cv, 2)}%`);
     }
     if (escolha === "probabilidade") {
-      // card do intervalo calculado
+      // Card do intervalo calculado
       if (labelIntervalo) {
         criarCard(
           "Probabilidade",
@@ -209,8 +206,8 @@ function renderizarResultados(lambda, tipoIntervalo, valorA, valorB) {
 
     containerTabelaDistribuicao.replaceChildren();
 
-    //card tabela completa
-    //Exibe k = 0 até o menor k onde P acumulada > 0.9999
+    // Card tabela completa
+    // Exibe k = 0 até o menor k onde P acumulada > 0.9999
     const divTabela = document.createElement("div");
     divTabela.className = "calculos-resultados";
     divTabela.style.padding = "0 50px 30px";
@@ -239,12 +236,12 @@ function renderizarResultados(lambda, tipoIntervalo, valorA, valorB) {
     let acumInf = 0;
     let k = 0;
 
-    //gera linhas até a probabilidade acumulada cobrir 99.99%
+    // Gera linhas até a probabilidade acumulada cobrir 99.99%
     while (acumInf < 0.9999) {
       const pk = probPoisson(lambda, k);
       acumInf += pk;
 
-      //acumulada superior: 1 − P(X ≤ k−1)
+      // Acumulada superior: 1 − P(X ≤ k−1)
       const acumSup = k === 0 ? 1 : 1 - (acumInf - pk);
       const tr = document.createElement("tr");
       for (const valor of [
@@ -288,7 +285,7 @@ function validar() {
   const tipoIntervalo = escolhaTipoIntervaloFunc();
 
   mostrarConta.style.border = "";
-  //validation
+  // Validação
   if (isNaN(lambda) || lambda <= 0) {
     mostrarConta.innerHTML = `<p class="msg-erro">
       <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i>
@@ -342,7 +339,6 @@ function validar() {
   } else {
     let escolhaTipoIntervalo = escolhaTipoIntervaloFunc();
     const p = document.createElement("p");
-    console.log(escolhaTipoIntervalo);
     mostrarConta.replaceChildren();
     if (escolhaTipoIntervalo == "maiorQuePoi") {
       p.innerHTML = "X > " + valorA;
@@ -367,7 +363,6 @@ formDistPoisson.addEventListener("submit", (e) => {
   e.preventDefault();
   containerTabelaDistribuicao.replaceChildren();
   if (modoCalculo == "Poisson") {
-    console.log("Poisson 1");
     validar();
   }
 });
@@ -376,7 +371,6 @@ const btnCalcular = document.getElementById("btnCalcular");
 btnCalcular.addEventListener("click", (e) => {
   e.preventDefault();
   if (modoCalculo == "Poisson") {
-    console.log("Poisson 2");
     const lambda = parseFloat(inputVMedia.value.trim());
     const valorA = parseInt(inputValorA.value.trim(), 10);
     const valorB = parseInt(inputValorB.value.trim(), 10);

@@ -173,7 +173,6 @@ btnAlterarFI.addEventListener("click", (e) => {
     }
   });
 
-  console.log(errorMsg);
   if (errorMsg == true) {
     errorMsgClasses.innerHTML = `<p class="msg-erro">
       <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i>
@@ -240,7 +239,6 @@ btnCalcular.addEventListener("click", () => {
   }
 
   let verficar = validar();
-  console.log(verficar);
   if (verficar == "") {
     calcularClasses();
   } else {
@@ -263,36 +261,6 @@ function lerFIsDaTabela() {
   });
 }
 
-// function destacarClassesEspeciais() {
-//   if (classesData.length === 0) return;
-//   const rows = tbodyClasses.querySelectorAll("tr");
-//   const maxFi = Math.max(...classesData.map((c) => c.fi));
-//   const n = classesData.reduce((acc, c) => acc + c.fi, 0);
-//   let fac = 0;
-
-//   classesData.forEach((c, i) => {
-//     const row = rows[i];
-//     if (!row) return;
-//     row.style.backgroundColor = "";
-//     row.title = "";
-//     fac += c.fi;
-
-//     const isModal = c.fi === maxFi;
-//     const isMediana = fac >= n / 2 && fac - c.fi < n / 2;
-
-//     if (isModal && isMediana) {
-//       row.style.backgroundColor = "#d4edda";
-//       row.title = "Classe Modal + Mediana";
-//     } else if (isModal) {
-//       row.style.backgroundColor = "#fff3cd";
-//       row.title = "Classe Modal";
-//     } else if (isMediana) {
-//       row.style.backgroundColor = "#cce5ff";
-//       row.title = "Classe da Mediana";
-//     }
-//   });
-// }
-
 function mostrarErroDados(msg) {
   let el = document.getElementById("msg-erro-classes");
   if (!el) {
@@ -313,9 +281,6 @@ function mostrarErroDados(msg) {
 function calcularClasses() {
   const h = amplitudeGlobal || classesData[0].ls - classesData[0].li;
   const n = classesData.reduce((acc, c) => acc + c.fi, 0);
-
-  console.log("Classes Data");
-  console.log(classesData);
 
   // Σ(fi · PMi)
   const somaFiPmi = classesData.reduce((acc, c) => acc + c.fi * c.pmi, 0);
@@ -691,7 +656,6 @@ formClassesPNormal.addEventListener("submit", (e) => {
   setMostrarResultados(false);
   if (distNormalAtiva == true) {
     calcularClasses();
-    console.log(dadosClasses);
   }
 
   if (Object.keys(dadosClasses).length == 0) {
@@ -802,6 +766,5 @@ const fecharModalClasses = document.querySelector(
 fecharModalClasses.addEventListener("click", (e) => {
   e.preventDefault();
   setDistNormalAtiva(false);
-  console.log("Entrou");
   document.getElementById("formClassesPNormal").style.display = "none";
 });

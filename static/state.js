@@ -63,12 +63,10 @@ export function setDistNormalAtiva(valor) {
 
 export function setModoCalculo(valor) {
   modoCalculo = valor;
-  console.log(modoCalculo);
 }
 
 export function setDadosDistNormF(valor) {
   dadosDistNormF = valor;
-  console.log(dadosDistNormF);
 
   if (dadosDistNormF == true) {
     document.getElementById("btnNormalFinal").style.display = "flex";

@@ -13,7 +13,7 @@ const inputValorCUnif = document.getElementById("inputValorCUnif");
 const inputValorDUnif = document.getElementById("inputDuasVariaveisUni");
 const mostrarConta = document.getElementById("mostrarContaUni");
 
-//formatação blablabla
+// Formatação
 function fmt(v, dec = 6) {
   if (v === null || isNaN(v)) return "-";
   return parseFloat(v.toFixed(dec)).toString();
@@ -24,15 +24,11 @@ function calcularIntervalo(a, b, valorC, valorD, tipoIntervalo) {
   let valor = 0;
   const amplitude = b - a;
 
-  console.log(tipoIntervalo);
-
   switch (tipoIntervalo) {
-    //intervalo simplse
-    //Intervalos simples com valorC
+    // Intervalos simples com valorC
     case "maiorQueUni": //P(X > c)
       label = `P(X > ${valorC})`;
       valor = (b - valorC) / amplitude;
-      console.log(tipoIntervalo);
       break;
 
     case "maiorIgualUni": //P(X ≥ c) = P(X > c) na contínua
@@ -55,7 +51,7 @@ function calcularIntervalo(a, b, valorC, valorD, tipoIntervalo) {
       valor = 0;
       break;
 
-    //intervalos duplos
+    // Intervalos duplos
     case "menorQueMenorQueUni": // P(c < X < d)
       label = `P(${valorC} < X < ${valorD})`;
       valor = (valorD - valorC) / amplitude;
@@ -81,7 +77,7 @@ function calcularIntervalo(a, b, valorC, valorD, tipoIntervalo) {
       valor = null;
   }
 
-  //garante que o valor seja entere 0 e 1
+  // Garante que o valor seja entre 0 e 1
   if (valor !== null) valor = Math.min(1, Math.max(0, valor));
 
   return { label, valor };
@@ -94,7 +90,7 @@ function validar() {
   const valorD = parseFloat(inputValorDUnif.value.trim());
   const tipoIntervalo = escolhaTipoIntervaloFunc();
 
-  // validation
+  // Validação
   if (isNaN(a) || isNaN(b)) {
     mostrarConta.innerHTML = `<p class="msg-erro">
       <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i>
@@ -186,14 +182,14 @@ function validar() {
   }
 }
 
-//renderizar resultado
+// Renderizar resultado
 function renderizarResultado(a, b, valorC, valorD, tipoIntervalo) {
   const media = (a + b) / 2;
   const variancia = Math.pow(b - a, 2) / 12;
   const dp = Math.sqrt(variancia);
   const cv = media !== 0 ? (100 * dp) / media : 0;
 
-  //prob. intervalo escolhido
+  // Prob. intervalo escolhido
   const { label: labelIntervalo, valor: probIntervalo } = calcularIntervalo(
     a,
     b,
@@ -317,7 +313,6 @@ btnCalcular.addEventListener("click", (e) => {
     const valorC = parseFloat(inputValorCUnif.value.trim());
     const valorD = parseFloat(inputValorDUnif.value.trim());
     const tipoIntervalo = escolhaTipoIntervaloFunc();
-    console.log(tipoIntervalo);
     let escolhasCalculo = escolhaCalculosFunc();
     let escolhaTipoDado = escolhaTipoDadoFunc();
 
@@ -330,7 +325,6 @@ btnCalcular.addEventListener("click", (e) => {
       escolhaTipoDado != null
     ) {
       let verficar = validar();
-      console.log(verficar);
       if (verficar == true) {
         setMostrarResultados(false);
         renderizarResultado(a, b, valorC, valorD, tipoIntervalo);

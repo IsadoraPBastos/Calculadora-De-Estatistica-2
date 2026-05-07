@@ -14,7 +14,7 @@ const inputValorA = document.getElementById("inputValorABino");
 const inputValorB = document.getElementById("inputDuasVariaveisBin");
 const mostrarConta = document.getElementById("mostrarContaBino");
 
-/** fatorial para precisão com n grande*/
+/** Fatorial para precisão com n grande*/
 function fatorial(n) {
   if (n <= 1) return 1n;
   let r = 1n;
@@ -22,7 +22,7 @@ function fatorial(n) {
   return r;
 }
 
-/**combinação C(n, k) */
+/** Combinação C(n, k) */
 function combinacao(n, k) {
   if (k < 0 || k > n) return 0;
   return Number(fatorial(n) / (fatorial(k) * fatorial(n - k)));
@@ -41,21 +41,21 @@ function fmt(v, dec = 6) {
 }
 
 // ----- Intervalos -----------
-/** calcula P conforme o tipo de intervalo selecionado
- * retorna {label, valor} onde label é a expressão exibida e valor é o número
+/** Calcula P conforme o tipo de intervalo selecionado
+ * Retorna {label, valor} onde label é a expressão exibida e valor é o número
  */
 function calcularIntervalo(n, p, valorA, valorB, tipoIntervalo) {
   const q = 1 - p;
   let label = "";
   let valor = 0;
-  // soma acumulada auxiliar
+  // Soma acumulada auxiliar
   function acumAte(k) {
     let soma = 0;
     for (let i = 0; i <= k; i++) soma += probBinomial(n, i, p);
     return soma;
   }
   switch (tipoIntervalo) {
-    // intervalo simples com valorA
+    // Intervalo simples com valorA
     case "maiorQueBin": //P(X > a)  =  1 − P(X ≤ a)
       label = `P(X > ${valorA})`;
       valor = 1 - acumAte(valorA);
@@ -80,7 +80,7 @@ function calcularIntervalo(n, p, valorA, valorB, tipoIntervalo) {
       label = `P(X = ${valorA})`;
       valor = probBinomial(n, valorA, p);
       break;
-    // intervalos duplos valorA e valorB
+    // Intervalos duplos valorA e valorB
     case "menorQueMenorQueBin": //P(a < X < b)
       label = `P(${valorA} < X < ${valorB})`;
       valor = acumAte(valorB - 1) - acumAte(valorA);
@@ -117,7 +117,7 @@ function renderizarResultados(n, p, tipoIntervalo, valorA, valorB) {
   const dp = Math.sqrt(variancia);
   const cv = media !== 0 ? (100 * dp) / media : 0;
 
-  // probabilidade de intervalo escolhido
+  // Probabilidade de intervalo escolhido
   const { label: labelIntervalo, valor: probIntervalo } = calcularIntervalo(
     n,
     p,
@@ -138,9 +138,8 @@ function renderizarResultados(n, p, tipoIntervalo, valorA, valorB) {
     const outroInput = document.getElementById("tipo_custom");
     escolhaTipoDado = outroInput.value.trim();
   }
-  console.log(escolhaTipoDado);
 
-  // função auxiliar para criar cada card igual ao padrão
+  // Função auxiliar para criar cada card igual ao padrão
   function criarCard(titulo, ...valores) {
     const div = document.createElement("div");
     div.className = "calculos-resultados";
@@ -161,19 +160,15 @@ function renderizarResultados(n, p, tipoIntervalo, valorA, valorB) {
   for (const escolha of escolhasCalculo) {
     if (escolha === "todos") continue;
     if (escolha === "media") {
-      console.log("media");
-      // cards das medidas resumo
+      // Cards das medidas resumo
       if (escolhaTipoDado == "R$") {
-        console.log("media222");
         criarCard("Média (μ)", `μ = n · p = R$ ${fmt(media, 4)}`);
       } else if (escolhaTipoDado != "R$" && escolhaTipoDado != "semMedida") {
-        console.log("media33333");
         criarCard(
           "Média (μ)",
           `μ = n · p = ${fmt(media, 4)} ${escolhaTipoDado}`,
         );
       } else {
-        console.log("media5555");
         criarCard("Média (μ)", `μ = n · p = ${fmt(media, 4)}`);
       }
     }
@@ -205,7 +200,7 @@ function renderizarResultados(n, p, tipoIntervalo, valorA, valorB) {
       criarCard("Coeficiente de Variação", `CV = 100 · σ/μ = ${fmt(cv, 2)}%`);
     }
     if (escolha === "probabilidade") {
-      // card do intervalo calculado
+      // Card do intervalo calculado
       if (labelIntervalo) {
         criarCard(
           "Probabilidade",
@@ -217,7 +212,6 @@ function renderizarResultados(n, p, tipoIntervalo, valorA, valorB) {
   }
 
   if (escolhasCalculo.length > 0 && escolhaTipoDado) {
-    console.log("hjifah2323shiad");
     setMostrarResultados(true);
     const containerTabelaDistribuicao = document.getElementById(
       "containerTabelaDistribuicao",
@@ -225,7 +219,7 @@ function renderizarResultados(n, p, tipoIntervalo, valorA, valorB) {
 
     containerTabelaDistribuicao.replaceChildren();
 
-    //card da tabela completa
+    // Card da tabela completa
     const divTabela = document.createElement("div");
     divTabela.className = "calculos-resultados";
     divTabela.style.padding = "0 50px 30px";
@@ -288,7 +282,6 @@ function renderizarResultados(n, p, tipoIntervalo, valorA, valorB) {
     divTabela.appendChild(table);
     containerTabelaDistribuicao.appendChild(divTabela);
   } else {
-    console.log("hjifahshiad");
     const containerTabelaDistribuicao = document.getElementById(
       "containerTabelaDistribuicao",
     );
@@ -317,7 +310,7 @@ function validar() {
 
   mostrarConta.style.border = "";
 
-  // validações
+  // Validações
   if (isNaN(n) || !Number.isInteger(n)) {
     mostrarConta.innerHTML = `<div class="msg-erro">
       <i class="fa-solid fa-triangle-exclamation fa-beat-fade"></i>
@@ -401,7 +394,6 @@ function validar() {
     } else if (isNaN(qDigitado)) {
       inputProbabInsucesso.value = 1 - pS;
     }
-    console.log(p);
     mostrarConta.style.border = "2px dashed black";
     mostrarConta.appendChild(p);
     return true;
@@ -412,7 +404,6 @@ formDistBinomial.addEventListener("submit", (e) => {
   e.preventDefault();
   containerTabelaDistribuicao.replaceChildren();
   if (modoCalculo == "Binomial") {
-    console.log("Binomial 1");
     validar();
   }
 });
@@ -422,7 +413,6 @@ btnCalcular.addEventListener("click", (e) => {
   e.preventDefault();
 
   if (modoCalculo == "Binomial") {
-    console.log("Binomial 2");
     const n = parseInt(inputVTotal.value.trim(), 10);
     let p = parseFloat(inputProbabSucesso.value.trim());
     const qDigitado = parseFloat(inputProbabInsucesso.value.trim());
@@ -438,7 +428,6 @@ btnCalcular.addEventListener("click", (e) => {
       tipoIntervalo != ""
     ) {
       let verficar = validar();
-      console.log(verficar);
       if (verficar == true) {
         setMostrarResultados(false);
         renderizarResultados(n, p, tipoIntervalo, valorA, valorB);

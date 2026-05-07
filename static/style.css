@@ -6,7 +6,9 @@ body {
   height: 100vh;
   width: 100%;
   background-color: #edeef6;
-  /*overflow: hidden;*/
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
 }
 
 table {
@@ -120,7 +122,6 @@ hr {
 
 .botoes-calcular-limpar {
   display: grid;
-  /*grid-template-columns: 1fr 1fr; */
   width: 30%;
   margin: auto;
 }
@@ -244,6 +245,7 @@ label[for="modaCzuber"].disabled {
   background-color: #e5e2e2;
   border: 3px solid #0e2d97;
 }
+
 /* Cards */
 .card-discreto,
 .card-classes,
@@ -391,7 +393,7 @@ label[for="modaCzuber"].disabled {
   margin-top: 50px;
 }
 
-/* 🔹 Botões no topo */
+/* Botões no topo */
 .normal-botoes {
   display: flex;
   justify-content: center;
@@ -618,17 +620,6 @@ input::-webkit-inner-spin-button {
     transform: scale(6);
     opacity: 0;
   }
-}
-
-/* Garantir que o conteúdo fique por cima */
-body {
-  position: relative;
-  z-index: 1;
-}
-
-/* Ajustar cor de fundo do body para transparente */
-body {
-  background: transparent !important;
 }
 
 .hidden {

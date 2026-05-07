@@ -134,7 +134,6 @@ function calcular() {
   }
 
   if (dados.length != 0) {
-    console.log(dados.sort((a, b) => a - b));
     for (let key in tabelaRecebida) {
       delete tabelaRecebida[key];
     }
@@ -153,7 +152,6 @@ function calcular() {
     Object.assign(FreqIndAbs, tabelaRecebida);
     somaFreq = Object.values(FreqIndAbs).reduce((acc, valor) => acc + valor, 0);
   }
-  console.log(FreqIndAbs);
 
   let xifi = {};
   for (const [amostra, freq] of Object.entries(FreqIndAbs)) {
@@ -234,8 +232,6 @@ function calcular() {
     desvioPadrao = 0;
   }
 
-  console.log(conjunto);
-
   // Coeficiente de Variação
   if (desvioPadrao != 0) {
     if (media != 0) {
@@ -274,7 +270,6 @@ function calcular() {
 
   if (distNormalAtiva == false) {
     let escolhasCalculo = escolhaCalculosFunc();
-    console.log("Escolhas de calculo: " + escolhasCalculo);
 
     let escolhaTipoDado = escolhaTipoDadoFunc();
     if (escolhaTipoDado == "outro") {
@@ -290,13 +285,8 @@ function calcular() {
     const frequencyTableTitle = document.getElementById("frequencyTableTitle");
     frequencyTableTitle.innerHTML = "Amostra";
 
-    console.log(statistics);
-    console.log("aaaaaaaaaaa  ");
-    console.log(statistics);
-
     document.getElementById("frequencyTable").style = "display: inline;";
 
-    console.log(conjunto);
     const frequencyTableValues = document.getElementById(
       "frequencyTableValues",
     );
@@ -462,7 +452,6 @@ formDesordenadoPNormal.addEventListener("submit", (e) => {
   e.preventDefault();
   if (distNormalAtiva == true) {
     calcular();
-    console.log(dadosClasses);
   }
 
   if (Object.keys(dadosClasses).length == 0) {
@@ -565,7 +554,6 @@ formDesordenadoPNormal.addEventListener("submit", (e) => {
         }
       }
 
-      console.log(statistics);
       const entriesOrdenadas = Object.entries(statistics)
         .map(([k, v]) => [Number(k), v])
         .sort((a, b) => a[0] - b[0]);
@@ -586,6 +574,5 @@ const fecharModalDiscreto = document.querySelector(".botao-fechar-modal");
 fecharModalDiscreto.addEventListener("click", (e) => {
   e.preventDefault();
   setDistNormalAtiva(false);
-  console.log("Entrou 2");
   document.getElementById("formDesordenadoPNormal").style.display = "none";
 });

@@ -208,7 +208,6 @@ function fecharModalEq1() {
 }
 
 // Seleção dos botões dentro dos modais
-
 const secaoDadosDesordenado = document.getElementById("secaoDadosDesordenados");
 const secaoDadosEmTabela = document.getElementById("secaoDadosEmTabela");
 
@@ -467,4 +466,145 @@ document.addEventListener("DOMContentLoaded", () => {
   configurarIntervalo("secaoDExpo", "inputDuasVariaveisExpo");
   configurarIntervalo("secaoDNormal_Amostral", "inputDuasVariaveisNorm");
   configurarIntervalo("secaoDNormal_Final", "inputDuasVariaveisNormF");
+});
+
+// Botão de Calcular
+const btnCalcular = document.getElementById("btnCalcular");
+const msgErro = document.getElementById("msg-erro");
+const msgErroCalculos = document.getElementById("msg-erro-calculos");
+const msgErroOutroVazio = document.getElementById("msg-erro-outro-vazio");
+
+btnCalcular.addEventListener("click", function (event) {
+  event.preventDefault();
+  const tipoSelecionado = document.querySelector('input[name="tipo"]:checked');
+
+  const tipoSelecionadoCalculo = document.querySelector(
+    'input[name="escolha-calculo"]:checked',
+  );
+
+  if (!tipoSelecionado) {
+    event.preventDefault();
+    msgErro.style.display = "block";
+    msgErroOutroVazio.style.display = "none";
+    btnCalcular.classList.add("chacoalhar");
+  } else if (outroRadio.checked && outroInput.value.trim() === "") {
+    msgErro.style.display = "none";
+    msgErroOutroVazio.style.backgroundColor = "#c30d0d";
+    msgErroOutroVazio.style.display = "block";
+    msgErroOutroVazio.innerHTML =
+      "<i class='fa-solid fa-triangle-exclamation fa-beat-fade'></i> Digite alguma medida!";
+  } else {
+    msgErro.style.display = "none";
+    msgErroOutroVazio.style.display = "none";
+  }
+
+  if (!tipoSelecionadoCalculo) {
+    event.preventDefault();
+    msgErroCalculos.style.display = "block";
+    btnCalcular.classList.add("chacoalhar");
+  } else {
+    msgErroCalculos.style.display = "none";
+  }
+});
+
+// Funções do fundo de triângulos
+function createTriangles() {
+  const container = document.getElementById("trianglesBackground");
+  container.innerHTML = ""; // Limpar triângulos existentes
+
+  for (let i = 0; i < 15; i++) {
+    const triangle = document.createElement("div");
+    triangle.className = "triangle";
+    triangle.style.left = Math.random() * 100 + "%";
+    triangle.style.animationDelay = Math.random() * 15 + "s";
+    triangle.style.animationDuration = 10 + Math.random() * 10 + "s";
+    container.appendChild(triangle);
+  }
+}
+
+function pushTriangles(clickX, clickY) {
+  const elements = document.querySelectorAll(".triangle");
+  const pushRadius = 200; // Raio de influência do clique
+  const pushForce = 150; // Força do empurrão
+
+  elements.forEach((element) => {
+    const rect = element.getBoundingClientRect();
+    const elementX = rect.left + rect.width / 2;
+    const elementY = rect.top + rect.height / 2;
+
+    const distanceX = elementX - clickX;
+    const distanceY = elementY - clickY;
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+    if (distance < pushRadius && distance > 0) {
+      const force = Math.max(0.1, (pushRadius - distance) / pushRadius);
+      const pushX = (distanceX / distance) * pushForce * force;
+      const pushY = (distanceY / distance) * pushForce * force;
+
+      // Pausar animação original temporariamente
+      element.style.animationPlayState = "paused";
+
+      // Aplicar transformação de empurrão
+      const currentTransform = getComputedStyle(element).transform;
+      element.style.transform = `${currentTransform} translate(${pushX}px, ${pushY}px) scale(${0.4 + force * 0.6})`;
+      element.style.opacity = `${0.05 + force * 0.2}`;
+      element.style.filter = "drop-shadow(0 0 15px rgba(255, 255, 255, 0.3))";
+
+      // Remover o efeito após um tempo
+      setTimeout(() => {
+        element.style.animationPlayState = "running";
+        element.style.transform = "";
+        element.style.opacity = "";
+        element.style.filter = "";
+      }, 2000);
+    }
+  });
+}
+
+// Event listener para clique no fundo
+document.addEventListener("click", function (e) {
+  // Verificar se o clique foi em uma área vazia (fundo)
+  if (
+    e.target === document.body ||
+    e.target === document.documentElement ||
+    e.target.classList.contains("triangles-background") ||
+    (e.target.tagName === "DIV" &&
+      !e.target.closest(".modal") &&
+      !e.target.closest(".container-cards") &&
+      !e.target.closest(".container-opcoes-tipo-dado") &&
+      !e.target.closest(".container-escolha-calculo") &&
+      !e.target.closest(".botoes-calcular-limpar") &&
+      !e.target.closest(".container-estatisticas-dos-dados"))
+  ) {
+    const clickX = e.clientX;
+    const clickY = e.clientY;
+
+    // Efeito de empurrar triângulos
+    pushTriangles(clickX, clickY);
+
+    // Efeito de ondulação no clique
+    const ripple = document.createElement("div");
+    ripple.style.position = "fixed";
+    ripple.style.width = "15px";
+    ripple.style.height = "15px";
+    ripple.style.borderRadius = "50%";
+    ripple.style.background = "rgba(255, 255, 255, 0.2)";
+    ripple.style.left = clickX - 7.5 + "px";
+    ripple.style.top = clickY - 7.5 + "px";
+    ripple.style.animation = "ripple 0.8s ease-out forwards";
+    ripple.style.pointerEvents = "none";
+    ripple.style.boxShadow = "0 0 15px rgba(255, 255, 255, 0.1)";
+    ripple.style.zIndex = "-998";
+
+    document.body.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 800);
+  }
+});
+
+// Inicializar triângulos quando a página carregar
+document.addEventListener("DOMContentLoaded", function () {
+  createTriangles();
 });
