@@ -629,6 +629,28 @@ input::-webkit-inner-spin-button {
   display: block;
 }
 
+.div-tabela-amostra {
+  width: 50%;
+  padding: 0 2%;
+}
+
+.tabela-responsiva {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.box-dados-calculados {
+  background: #f0f0f0;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.container-secoes-normal {
+  display: flex;
+  gap: 1rem;
+}
+
 /* Medias */
 @media (max-width: 768px) {
   #secaoDadosDesordenados {
@@ -636,9 +658,146 @@ input::-webkit-inner-spin-button {
     align-items: center;
   }
 
+  .divisao-modal-desor-class-eq1 {
+    flex-direction: column;
+    white-space: normal;
+  }
+
   .div-text-amostra {
-    width: auto;
+    width: 100%;
+    border-right: none;
     border-bottom: 2px dashed;
-    border-right: 0px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .div-tabela-amostra {
+    width: 100%;
+    padding: 0;
+  }
+
+  #container_modal_vac .modal {
+    width: 95%;
+    padding: 20px 15px;
+    box-sizing: border-box;
+  }
+
+  #container_modal_vac h1 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .normal-botoes-topo,
+  .normal-botoes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  .btn-mostrar-tipo-discreto {
+    width: 100%;
+    margin: 0 !important;
+    padding: 12px 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  .insercao-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .insercao-infos input[type="text"],
+  .insercao-infos input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  .container-opcoes-tipo-intervalo {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr); /* Grade 3x3 */
+    gap: 8px;
+    width: 100%;
+    margin: 10px 0 20px 0;
+  }
+
+  .container-opcoes-tipo-intervalo br {
+    display: none; /* Esconde quebras de linha nativas */
+  }
+
+  .escolha-tipo-dado {
+    display: none; /* Esconde a bolinha padrão do rádio */
+  }
+
+  .opcao-tipo-intervalo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #0c1d8f;
+    color: #0c1d8f;
+    border-radius: 6px;
+    padding: 8px 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0;
+  }
+
+  .escolha-tipo-dado:checked + .opcao-tipo-intervalo {
+    background-color: #223fa3;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-calcular-prob,
+  .botao-calcular-normal {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-sizing: border-box;
+  }
+
+  .divisao-modal form {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .insercao-infos {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .insercao-infos input[type="text"],
+  .insercao-infos input[type="number"] {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  .container-secoes-normal {
+    flex-direction: column;
   }
 }
