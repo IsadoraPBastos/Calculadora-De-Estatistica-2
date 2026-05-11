@@ -19,13 +19,31 @@ function fmt(v, dec = 6) {
   return parseFloat(v.toFixed(dec)).toString();
 }
 
+function pdfUniforme(a,b,x){
+  if (x < a || x > b) return 0;
+  return 1 / (b - a);
+}
+
+function cdfUniforme(a,b,x){
+  if (x < a ) return 0;
+  if ( x > b) return 1;
+  return (x - a) / (b - a);
+}
+
+function survUniforme(a,b,x){
+  if (x < a ) return 1;
+  if (x > b) return 0;
+  return (b - x) / (b - a);
+}
+
 function calcularIntervalo(a, b, valorC, valorD, tipoIntervalo) {
   let label = "";
   let valor = 0;
   const amplitude = b - a;
 
   switch (tipoIntervalo) {
-    // Intervalos simples com valorC
+    //intervalo simplse
+    //Intervalos simples com valorC
     case "maiorQueUni": //P(X > c)
       label = `P(X > ${valorC})`;
       valor = (b - valorC) / amplitude;
@@ -328,6 +346,73 @@ btnCalcular.addEventListener("click", (e) => {
       if (verficar == true) {
         setMostrarResultados(false);
         renderizarResultado(a, b, valorC, valorD, tipoIntervalo);
+
+        if (escolhasCalculo.length > 0 && escolhaTipoDado) {
+          setMostrarResultados(true);
+
+          const containerTabelaDistribuicao = document.getElementById(
+            "containerTabelaDistribuicao",
+          );
+          containerTabelaDistribuicao.replaceChildren();
+
+          const divTabela = document.createElement("div");
+          divTabela.className = "calculos-resultados";
+          divTabela.style.padding = "0 50px 30px";
+
+          const h3Tabela = document.createElement("h3");
+          h3Tabela.innerHTML = "Distribuição Completa";
+          divTabela.appendChild(h3Tabela);
+
+          const pParams = document.createElement("p");
+          pParams.innerHTML = `A = ${fmt(a, 6)}, B = ${fmt(b, 6)}`;
+          divTabela.appendChild(pParams);
+
+          const table = document.createElement("table");
+          const thead = document.createElement("thead");
+          const trHead = document.createElement("tr");
+
+          for (const titulo of ["x", "f(x)", "P(X ≤ x)", "P(X > x)"]) {
+            const th = document.createElement("th");
+            th.innerHTML = titulo;
+            trHead.appendChild(th);
+          }
+          thead.appendChild(trHead);
+          table.appendChild(thead);
+
+          const tbody = document.createElement("tbody");
+
+          let passo = (b - a) / 10;
+
+          for (let x = Math.ceil(a); x <= Math.floor(b); x++) {
+            
+            let fx = pdfUniforme(a, b, x);
+            let acumInf = cdfUniforme(a, b, x);
+            let acumSup = survUniforme(a, b, x);
+
+            const tr = document.createElement("tr");
+            for (const valor of [
+              fmt(x, 4),
+              fmt(fx, 8),
+              fmt(acumInf, 8),
+              fmt(acumSup, 8),
+            ]) {
+              const td = document.createElement("td");
+              td.innerHTML = valor;
+              tr.appendChild(td);
+            }
+            tbody.appendChild(tr);
+          }
+
+          table.appendChild(tbody);
+          divTabela.appendChild(table);
+          containerTabelaDistribuicao.appendChild(divTabela);
+        } else {
+          const containerTabelaDistribuicao = document.getElementById(
+            "containerTabelaDistribuicao",
+          );
+          containerTabelaDistribuicao.replaceChildren();
+          setMostrarResultados(false);
+        }
       } else {
         setMostrarResultados(false);
       }
@@ -335,4 +420,5 @@ btnCalcular.addEventListener("click", (e) => {
       setMostrarResultados(false);
     }
   }
+  
 });

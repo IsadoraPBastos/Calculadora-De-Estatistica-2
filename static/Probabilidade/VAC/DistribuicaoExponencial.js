@@ -3,6 +3,7 @@ import {
   escolhaTipoDadoFunc,
   setMostrarResultados,
   escolhaTipoIntervaloFunc,
+  modoCalculo,
 } from "../../state.js";
 
 const formDistExponencial = document.getElementById("formDistExponencial");
@@ -118,6 +119,8 @@ formDistExponencial.addEventListener("submit", (e) => {
 
 const btnCalcular = document.getElementById("btnCalcular");
 btnCalcular.addEventListener("click", () => {
+  if (modoCalculo !== "Exponencial") return;
+
   let sigma = +inputDesvioPadraoExpo.value.trim();
   let valorA = +inputValorA.value.trim();
   let valorB = +inputValorB.value.trim();
